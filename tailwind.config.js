@@ -4,14 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand: {
+          main: "var(--brand-main)",
+          bg: "var(--brand-bg)",
+          accent: "var(--brand-accent)",
+        },
         p5: {
-          red: "var(--p5-red)",
-          black: "var(--p5-black)",
-          white: "var(--p5-white)",
+          red: "var(--brand-main)",
+          black: "var(--brand-bg)",
+          white: "var(--brand-accent)",
         },
       },
       boxShadow: {
-        p5: "-8px 8px 0 var(--p5-black)",
+        p5: "-8px 8px 0 var(--brand-bg)",
+        brandGlow: "0 0 24px color-mix(in srgb, var(--brand-main) 40%, transparent)",
       },
       fontFamily: {
         display: ["var(--font-bangers)", "cursive"],
@@ -20,6 +26,8 @@ export default {
       },
       clipPath: {
         jagged: "polygon(2% 0%, 100% 0%, 97% 18%, 100% 42%, 98% 100%, 0% 100%, 0% 8%)",
+        circular: "circle(50% at 50% 50%)",
+        oval: "ellipse(50% 42% at 50% 50%)",
       },
       skew: {
         10: "10deg",
@@ -51,6 +59,15 @@ export default {
           "0%, 100%": { opacity: "0.16" },
           "50%": { opacity: "0.3" },
         },
+        p3Ripple: {
+          "0%": { transform: "scale(0.96)", opacity: "0.15" },
+          "50%": { transform: "scale(1.02)", opacity: "0.38" },
+          "100%": { transform: "scale(1)", opacity: "0.2" },
+        },
+        p3Shine: {
+          "0%, 100%": { opacity: "0.45" },
+          "50%": { opacity: "0.9" },
+        },
       },
       animation: {
         burstIn: "burstIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
@@ -58,6 +75,8 @@ export default {
         "p5-jitter": "p5Jitter 0.28s steps(2, end) both",
         "p5-shard-sweep": "p5ShardSweep 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
         "p5-grain": "p5Grain 0.8s steps(2, end) infinite",
+        "p3-ripple": "p3Ripple 0.9s ease-in-out infinite",
+        "p3-shine": "p3Shine 2.4s ease-in-out infinite",
       },
     },
   },
@@ -66,6 +85,12 @@ export default {
       addUtilities({
         ".clip-jagged": {
           clipPath: "polygon(2% 0%, 100% 0%, 97% 18%, 100% 42%, 98% 100%, 0% 100%, 0% 8%)",
+        },
+        ".clip-oval": {
+          clipPath: "ellipse(50% 42% at 50% 50%)",
+        },
+        ".clip-circle": {
+          clipPath: "circle(50% at 50% 50%)",
         },
       });
     },

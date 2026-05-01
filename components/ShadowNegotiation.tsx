@@ -171,8 +171,8 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
                           '-skew-x-6 overflow-hidden'
                         )}
                         style={{
-                          borderColor: response.id === 'cool' ? '#D92323' : '#EBE6E6',
-                          background: selectedResponse === response.id ? `linear-gradient(90deg, ${response.color})` : undefined,
+                          borderColor: response.id === 'cool' ? 'var(--brand-main)' : 'var(--brand-accent, #EBE6E6)',
+                          background: selectedResponse === response.id ? 'linear-gradient(90deg, var(--brand-main), var(--brand-accent))' : undefined,
                         }}
                       >
                         <span className="relative z-10 flex items-center gap-2">

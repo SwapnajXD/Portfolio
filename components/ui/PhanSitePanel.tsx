@@ -78,7 +78,7 @@ export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanel
           className="absolute inset-0 -z-10"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(217,35,35,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, var(--brand-glow) 1px, transparent 1px)",
             backgroundSize: "12px 12px",
             backgroundPosition: "0 0",
             opacity: 0.5,

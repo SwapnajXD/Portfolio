@@ -14,7 +14,7 @@ export function P5Container({ className, children }: P5ContainerProps) {
         className,
       )}
     >
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(235,230,230,0.12),transparent_30%),linear-gradient(135deg,rgba(217,35,35,0.18)_0%,transparent_28%,transparent_72%,rgba(235,230,230,0.08)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(235,230,230,0.12),transparent_30%),linear-gradient(135deg,var(--brand-glow)_0%,transparent_28%,transparent_72%,rgba(235,230,230,0.08)_100%)]" />
       {children}
     </section>
   );

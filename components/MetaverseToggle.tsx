@@ -36,9 +36,9 @@ export function MetaverseToggle() {
       data-p5interactive="true"
       title={`Switch to ${theme === 'metaverse' ? 'Reality' : 'Metaverse'} Mode`}
       style={{
-        backgroundColor: theme === 'metaverse' ? '#D92323' : '#F5F5F5',
-        borderColor: theme === 'metaverse' ? '#EBE6E6' : '#0D0D0D',
-        color: theme === 'metaverse' ? '#EBE6E6' : '#0D0D0D',
+        backgroundColor: theme === 'metaverse' ? 'var(--brand-main)' : '#F5F5F5',
+        borderColor: theme === 'metaverse' ? 'var(--brand-accent, #EBE6E6)' : '#0D0D0D',
+        color: theme === 'metaverse' ? 'var(--brand-accent, #EBE6E6)' : '#0D0D0D',
       }}
     >
       <svg

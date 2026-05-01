@@ -83,9 +83,9 @@ export function P5Cursor() {
               isHovering
                 ? {
                     opacity: [1, 0.6, 1],
-                    filter: ["drop-shadow(0 0 0px rgba(217,35,35,0))", "drop-shadow(0 0 8px rgba(217,35,35,1))", "drop-shadow(0 0 0px rgba(217,35,35,0))"],
+                    filter: ["drop-shadow(0 0 0px var(--brand-main))", "drop-shadow(0 0 8px var(--brand-main))", "drop-shadow(0 0 0px var(--brand-main))"],
                   }
-                : { opacity: 1, filter: "drop-shadow(0 0 0px rgba(217,35,35,0))" }
+                : { opacity: 1, filter: "drop-shadow(0 0 0px var(--brand-main))" }
             }
             transition={{ duration: 0.4, repeat: isHovering ? Infinity : 0, ease: "easeInOut" }}
           >

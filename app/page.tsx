@@ -15,7 +15,7 @@ const projects = [
     imageUrl:
       "data:image/svg+xml;charset=UTF-8," +
       encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0d0d0d"/><stop offset=".55" stop-color="#d92323"/><stop offset="1" stop-color="#ebe6e6"/></linearGradient></defs><rect width="1200" height="800" fill="url(#g)"/><circle cx="900" cy="220" r="180" fill="#ebe6e6" fill-opacity=".12"/><path d="M-40 620L360 200l220 120 190-110 470 320v270H-40Z" fill="#0d0d0d" fill-opacity=".8"/><path d="M0 110h1200" stroke="#ebe6e6" stroke-width="18" stroke-dasharray="36 20" stroke-opacity=".35"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0d0d0d"/><stop offset=".55" stop-color="currentColor"/><stop offset="1" stop-color="#ebe6e6"/></linearGradient></defs><rect width="1200" height="800" fill="url(#g)"/><circle cx="900" cy="220" r="180" fill="#ebe6e6" fill-opacity=".12"/><path d="M-40 620L360 200l220 120 190-110 470 320v270H-40Z" fill="#0d0d0d" fill-opacity=".8"/><path d="M0 110h1200" stroke="#ebe6e6" stroke-width="18" stroke-dasharray="36 20" stroke-opacity=".35"/></svg>',
       ),
     techStack: ["Next.js", "Framer Motion", "Tailwind"],
     href: "#projects",
@@ -29,7 +29,7 @@ const projects = [
     imageUrl:
       "data:image/svg+xml;charset=UTF-8," +
       encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#0d0d0d"/><path d="M120 120h960l-140 320 90 180H220L80 340Z" fill="#d92323"/><path d="M290 180h640" stroke="#ebe6e6" stroke-width="16" stroke-opacity=".55"/><path d="M220 610c160-110 310-120 480-20s280 70 420-10" stroke="#ebe6e6" stroke-width="24" stroke-linecap="round" stroke-opacity=".14" fill="none"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#0d0d0d"/><path d="M120 120h960l-140 320 90 180H220L80 340Z" fill="currentColor"/><path d="M290 180h640" stroke="#ebe6e6" stroke-width="16" stroke-opacity=".55"/><path d="M220 610c160-110 310-120 480-20s280 70 420-10" stroke="#ebe6e6" stroke-width="24" stroke-linecap="round" stroke-opacity=".14" fill="none"/></svg>',
       ),
     techStack: ["App Router", "SVG", "Motion"],
     href: "#about",
@@ -43,7 +43,7 @@ const projects = [
     imageUrl:
       "data:image/svg+xml;charset=UTF-8," +
       encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#ebe6e6"/><path d="M0 560 460 250l240 70 160-130 340 190v340H0Z" fill="#0d0d0d"/><path d="M80 160h1040" stroke="#d92323" stroke-width="20" stroke-dasharray="18 18"/><path d="M960 40 1040 760" stroke="#d92323" stroke-width="70" stroke-opacity=".16"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#ebe6e6"/><path d="M0 560 460 250l240 70 160-130 340 190v340H0Z" fill="#0d0d0d"/><path d="M80 160h1040" stroke="currentColor" stroke-width="20" stroke-dasharray="18 18"/><path d="M960 40 1040 760" stroke="currentColor" stroke-width="70" stroke-opacity=".16"/></svg>',
       ),
     techStack: ["Design System", "TypeScript", "Clip Path"],
     href: "#contact",
@@ -57,7 +57,7 @@ const projects = [
     imageUrl:
       "data:image/svg+xml;charset=UTF-8," +
       encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#0d0d0d"/><path d="M140 100h920l-110 210 120 180-160 250H180L70 410Z" fill="#ebe6e6" fill-opacity=".18"/><path d="M240 180h580l110 120-120 200H240Z" fill="#d92323"/><circle cx="910" cy="590" r="120" fill="#ebe6e6" fill-opacity=".08"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#0d0d0d"/><path d="M140 100h920l-110 210 120 180-160 250H180L70 410Z" fill="#ebe6e6" fill-opacity=".18"/><path d="M240 180h580l110 120-120 200H240Z" fill="currentColor"/><circle cx="910" cy="590" r="120" fill="#ebe6e6" fill-opacity=".08"/></svg>',
       ),
     techStack: ["Motion Design", "SVG Filters", "UX Writing"],
     href: "#skills",
@@ -77,7 +77,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen overflow-hidden bg-p5-black text-p5-white">
       <section className="relative mx-auto flex min-h-screen max-w-7xl items-stretch px-4 py-6 sm:px-6 lg:px-10">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(217,35,35,0.95)_0%,rgba(13,13,13,0.96)_42%,rgba(235,230,230,0.1)_42.5%,rgba(13,13,13,0.96)_43%,rgba(13,13,13,1)_100%)]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,var(--brand-main)_0%,rgba(13,13,13,0.96)_42%,rgba(235,230,230,0.1)_42.5%,rgba(13,13,13,0.96)_43%,rgba(13,13,13,1)_100%)]" />
         <div className="absolute left-0 top-0 -z-10 h-48 w-48 -translate-x-1/4 -translate-y-1/4 rounded-full bg-p5-red/30 blur-3xl" />
         <div className="absolute bottom-0 right-0 -z-10 h-64 w-64 translate-x-1/4 translate-y-1/4 rounded-full bg-p5-white/10 blur-3xl" />
 

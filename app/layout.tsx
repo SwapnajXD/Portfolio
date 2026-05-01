@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Bangers, Inter, Permanent_Marker } from "next/font/google";
 import type { ReactNode } from "react";
 import { P5Cursor } from "@/components/P5Cursor";
-import { MetaverseToggle } from "@/components/MetaverseToggle";
+import { SeriesToggle } from "@/components/SeriesToggle";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "./globals.css";
 
@@ -52,7 +52,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <P5Cursor />
-          <MetaverseToggle />
+          <SeriesToggle />
           {children}
         </ThemeProvider>
       </body>

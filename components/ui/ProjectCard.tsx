@@ -44,7 +44,7 @@ export function ProjectCard({
       )}
     >
       <Link href={href} className="block h-full w-full">
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[16/10] overflow-hidden" style={{ color: 'var(--brand-main)' }}>
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -57,7 +57,7 @@ export function ProjectCard({
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
 
-          <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(13,13,13,0.92)_0%,rgba(13,13,13,0.38)_45%,rgba(217,35,35,0.14)_100%)] transition-opacity duration-300 group-hover:opacity-35" />
+          <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(13,13,13,0.92)_0%,rgba(13,13,13,0.38)_45%,var(--brand-main)_100%)] transition-opacity duration-300 group-hover:opacity-35" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(235,230,230,0.16),transparent_32%),repeating-linear-gradient(135deg,rgba(13,13,13,0.12)_0_2px,transparent_2px_5px)] opacity-60 mix-blend-multiply" />
 
           <motion.div

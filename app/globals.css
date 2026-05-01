@@ -8,17 +8,22 @@ html {
 
 :root {
   color-scheme: dark;
-  --p5-red: #D92323;
-  --p5-black: #0D0D0D;
-  --p5-white: #EBE6E6;
+  --brand-main: #D92323;
+  --brand-bg: #0D0D0D;
+  --brand-accent: #EBE6E6;
+  --brand-secondary: #7B0F19;
+  --brand-glow: rgba(217, 35, 35, 0.28);
 }
 
-/* Metaverse Mode (Default - Dark Theme) */
-html.metaverse-mode,
-html[data-theme="metaverse"] {
-  --p5-red: #D92323;
-  --p5-black: #0D0D0D;
-  --p5-white: #EBE6E6;
+/* Persona 5 */
+html.series-p5,
+html[data-series="P5"] {
+  color-scheme: dark;
+  --brand-main: #D92323;
+  --brand-bg: #0D0D0D;
+  --brand-accent: #EBE6E6;
+  --brand-secondary: #7B0F19;
+  --brand-glow: rgba(217, 35, 35, 0.28);
   --bg-primary: #0D0D0D;
   --bg-secondary: #1A1A1A;
   --text-primary: #EBE6E6;
@@ -28,20 +33,22 @@ html[data-theme="metaverse"] {
   --shadow-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Reality Mode (Light Theme) */
-html.reality-mode,
-html[data-theme="reality"] {
+/* Persona 3 */
+html.series-p3,
+html[data-series="P3"] {
   color-scheme: light;
-  --p5-red: #0D0D0D;
-  --p5-black: #F5F5F5;
-  --p5-white: #0D0D0D;
-  --bg-primary: #F5F5F5;
-  --bg-secondary: #EBEBEB;
-  --text-primary: #0D0D0D;
-  --text-secondary: rgba(13, 13, 13, 0.7);
-  --border-color: #0D0D0D;
-  --accent-color: #0D0D0D;
-  --shadow-color: rgba(0, 0, 0, 0.15);
+  --brand-main: #00D1FF;
+  --brand-bg: #071423;
+  --brand-accent: #DDEBFF;
+  --brand-secondary: #6BAED6;
+  --brand-glow: rgba(0, 209, 255, 0.28);
+  --bg-primary: linear-gradient(180deg, #081226 0%, #091A33 55%, #050B16 100%);
+  --bg-secondary: #10213D;
+  --text-primary: #EAF6FF;
+  --text-secondary: rgba(234, 246, 255, 0.72);
+  --border-color: rgba(193, 226, 255, 0.8);
+  --accent-color: #00D1FF;
+  --shadow-color: rgba(0, 0, 0, 0.45);
 }
 
 /* Theme Transition Flash Effect */
@@ -79,6 +86,39 @@ html.theme-transitioning::after {
   pointer-events: none;
 }
 
+html.series-transitioning::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+html.series-p5.series-transitioning::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(217, 35, 35, 0.9) 28%, rgba(13, 13, 13, 0) 72%);
+  clip-path: polygon(0% 12%, 9% 0%, 21% 18%, 34% 2%, 47% 22%, 61% 4%, 77% 18%, 90% 0%, 100% 11%, 100% 89%, 88% 100%, 76% 82%, 61% 98%, 47% 80%, 32% 96%, 18% 82%, 7% 100%, 0% 90%);
+  animation: p5ShatterFlash 0.7s ease-out both;
+}
+
+html.series-p3.series-transitioning::before {
+  background: radial-gradient(circle at center, rgba(0, 209, 255, 0.45) 0%, rgba(234, 246, 255, 0.18) 30%, rgba(7, 20, 35, 0) 72%);
+  backdrop-filter: blur(14px);
+  animation: p3RippleFlash 0.8s ease-out both;
+}
+
+@keyframes p5ShatterFlash {
+  0% { opacity: 0; transform: scale(0.96) rotate(-2deg); }
+  35% { opacity: 1; transform: scale(1.02) rotate(2deg); }
+  100% { opacity: 0; transform: scale(1.04) rotate(0deg); }
+}
+
+@keyframes p3RippleFlash {
+  0% { opacity: 0; transform: scale(0.88); }
+  45% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
 @keyframes scanlineEffect {
   0% { transform: translateY(0); }
   100% { transform: translateY(10px); }
@@ -95,15 +135,18 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html.metaverse-mode body {
+html.series-p5 body {
   background:
     linear-gradient(135deg, rgba(217, 35, 35, 0.12) 0%, rgba(217, 35, 35, 0.12) 22%, transparent 22.2%),
     linear-gradient(315deg, rgba(235, 230, 230, 0.04) 0%, transparent 34%),
     var(--bg-primary);
 }
 
-html.reality-mode body {
-  background: var(--bg-primary);
+html.series-p3 body {
+  background:
+    radial-gradient(circle at 50% 12%, rgba(0, 209, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.08), transparent 18%),
+    linear-gradient(180deg, #081226 0%, #091A33 55%, #050B16 100%);
 }
 
 * {
@@ -113,4 +156,31 @@ html.reality-mode body {
 ::selection {
   background: var(--accent-color);
   color: var(--bg-primary);
+}
+
+html.series-p3 .font-display,
+html.series-p3 .font-hand,
+html.series-p3 [class*="tracking-"] {
+  text-shadow: 0 0 14px var(--brand-glow), 0 0 22px rgba(0, 209, 255, 0.2);
+}
+
+html.series-p3 .clip-jagged,
+html.series-p3 [class*="clip-jagged"] {
+  clip-path: ellipse(50% 42% at 50% 50%);
+}
+
+html.series-p3 .glass-panel {
+  backdrop-filter: blur(20px);
+  background: linear-gradient(180deg, rgba(234, 246, 255, 0.12), rgba(234, 246, 255, 0.04));
+  border: 1px solid rgba(210, 240, 255, 0.32);
+  box-shadow: 0 0 0 1px rgba(0, 209, 255, 0.12), 0 24px 48px rgba(0, 0, 0, 0.28);
+}
+
+html.series-p3 .moonlight-glow {
+  box-shadow: 0 0 32px rgba(0, 209, 255, 0.18), 0 0 72px rgba(0, 209, 255, 0.12);
+}
+
+html.series-p3 .series-surface,
+html.series-p3 .glass-panel {
+  border-radius: 9999px;
 }

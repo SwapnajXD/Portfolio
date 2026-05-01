@@ -54,8 +54,8 @@ function Shard({ index }: { index: number }) {
         className="absolute inset-0 opacity-95 [clip-path:polygon(0%_30%,12%_0%,100%_12%,92%_60%,100%_100%,18%_86%,0%_100%)]"
         style={{
           background: redFlip
-            ? "linear-gradient(135deg, #D92323 0%, #0D0D0D 44%, #D92323 100%)"
-            : "linear-gradient(135deg, #0D0D0D 0%, #D92323 42%, #0D0D0D 100%)",
+            ? "linear-gradient(135deg, var(--brand-main) 0%, #0D0D0D 44%, var(--brand-main) 100%)"
+            : "linear-gradient(135deg, #0D0D0D 0%, var(--brand-main) 42%, #0D0D0D 100%)",
           filter: "contrast(1.15) saturate(1.2)",
         }}
       />
@@ -101,7 +101,7 @@ export function MetaverseTransition({ children }: MetaverseTransitionProps) {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,35,35,0.14),transparent_40%),linear-gradient(135deg,rgba(13,13,13,0.92),rgba(13,13,13,0.78))]"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--brand-main),transparent_40%),linear-gradient(135deg,rgba(13,13,13,0.92),rgba(13,13,13,0.78))]"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0.8, 0.6, 0] }}
             exit={{ opacity: 0 }}

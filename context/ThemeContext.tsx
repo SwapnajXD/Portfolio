@@ -1,55 +1,57 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
-type Theme = 'reality' | 'metaverse';
+export type Series = "P5" | "P3";
 
-interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
-}
+type ThemeContextValue = {
+  currentSeries: Series;
+  setCurrentSeries: (series: Series) => void;
+  toggleSeries: () => void;
+};
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-function applyTheme(newTheme: Theme) {
+function applySeriesToDocument(series: Series) {
   const root = document.documentElement;
-  root.setAttribute('data-theme', newTheme);
-  root.classList.remove('reality-mode', 'metaverse-mode');
-  root.classList.add(newTheme === 'reality' ? 'reality-mode' : 'metaverse-mode');
+  root.setAttribute("data-series", series);
+  root.classList.remove("series-p5", "series-p3");
+  root.classList.add(series === "P5" ? "series-p5" : "series-p3");
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('metaverse');
-  const [isMounted, setIsMounted] = useState(false);
+  const [currentSeries, setCurrentSeriesState] = useState<Series>("P5");
 
   useEffect(() => {
-    // Apply initial theme immediately
-    const stored = (localStorage.getItem('p5-theme') as Theme | null) || 'metaverse';
-    setTheme(stored);
-    applyTheme(stored);
-    setIsMounted(true);
+    const stored = localStorage.getItem("portfolio-series");
+    const initialSeries: Series = stored === "P3" ? "P3" : "P5";
+
+    setCurrentSeriesState(initialSeries);
+    applySeriesToDocument(initialSeries);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === 'metaverse' ? 'reality' : 'metaverse';
-      localStorage.setItem('p5-theme', newTheme);
-      applyTheme(newTheme);
-      return newTheme;
-    });
+  const setCurrentSeries = (series: Series) => {
+    setCurrentSeriesState(series);
+    localStorage.setItem("portfolio-series", series);
+    applySeriesToDocument(series);
   };
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+  const toggleSeries = () => {
+    setCurrentSeries(currentSeries === "P5" ? "P3" : "P5");
+  };
+
+  const value = useMemo(
+    () => ({ currentSeries, setCurrentSeries, toggleSeries }),
+    [currentSeries],
   );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error('useTheme must be used within ThemeProvider');
+    throw new Error("useTheme must be used within ThemeProvider");
   }
   return context;
 }
