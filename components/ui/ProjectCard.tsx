@@ -37,7 +37,7 @@ export function ProjectCard({
       whileTap={{ scale: 0.99 }}
       transition={springTransition}
       className={cn(
-        "group relative overflow-hidden border-2 border-p5-white/90 bg-p5-black text-p5-white shadow-p5",
+        "group relative overflow-hidden border-2 border-brand-accent/90 bg-brand-bg text-brand-accent shadow-p5",
         "[clip-path:polygon(3%_0%,100%_0%,96%_18%,100%_78%,94%_100%,0%_100%,0%_10%)]",
         "sm:[clip-path:polygon(2%_0%,100%_0%,97%_16%,100%_80%,98%_100%,0%_100%,0%_8%)]",
         className,
@@ -61,7 +61,7 @@ export function ProjectCard({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(235,230,230,0.16),transparent_32%),repeating-linear-gradient(135deg,rgba(13,13,13,0.12)_0_2px,transparent_2px_5px)] opacity-60 mix-blend-multiply" />
 
           <motion.div
-            className="absolute left-4 top-4 z-10 inline-flex -skew-x-12 bg-p5-black px-3 py-1 font-hand text-xs uppercase tracking-[0.3em] text-p5-white"
+            className="absolute left-4 top-4 z-10 inline-flex -skew-x-12 bg-brand-bg px-3 py-1 font-hand text-xs uppercase tracking-[0.3em] text-brand-accent"
             initial={{ x: -24, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={springTransition}
@@ -74,15 +74,15 @@ export function ProjectCard({
             initial={false}
           >
             <div className="max-w-[70%]">
-              <p className="font-display text-2xl uppercase tracking-[0.08em] text-p5-white sm:text-3xl">{title}</p>
-              <p className="mt-2 text-xs leading-5 text-p5-white/80 sm:text-sm">{description}</p>
+              <p className="font-display text-2xl uppercase tracking-[0.08em] text-brand-accent sm:text-3xl">{title}</p>
+              <p className="mt-2 text-xs leading-5 text-brand-accent/80 sm:text-sm">{description}</p>
             </div>
 
             <motion.span
               initial={{ x: 24, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ ...springTransition, delay: 0.06 }}
-              className="inline-flex flex-none items-center justify-center bg-p5-red px-3 py-2 font-display text-xs uppercase tracking-[0.22em] text-p5-white"
+              className="inline-flex flex-none items-center justify-center bg-brand-main px-3 py-2 font-display text-xs uppercase tracking-[0.22em] text-brand-accent"
             >
               {label}
             </motion.span>
@@ -95,7 +95,7 @@ export function ProjectCard({
             whileHover={{ x: 0, opacity: 1 }}
             transition={springTransition}
           >
-            <div className="max-w-[10rem] text-right font-display text-2xl uppercase leading-none tracking-[0.16em] text-p5-red sm:text-3xl">
+            <div className="max-w-[10rem] text-right font-display text-2xl uppercase leading-none tracking-[0.16em] text-brand-main sm:text-3xl">
               <span className="block -translate-x-2 translate-y-0 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100">{label}</span>
               <span className="block translate-x-6 translate-y-1 opacity-0 transition-all duration-200 delay-75 group-hover:translate-x-0 group-hover:opacity-100">{label}</span>
               <span className="block translate-x-10 translate-y-2 opacity-0 transition-all duration-200 delay-150 group-hover:translate-x-0 group-hover:opacity-100">{label}</span>

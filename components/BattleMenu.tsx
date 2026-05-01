@@ -98,11 +98,11 @@ export function BattleMenu({ items = defaultItems, className }: BattleMenuProps)
                 onHoverEnd={() => setHoveredIndex(null)}
                 data-p5interactive="true"
                 className={cn(
-                  "group relative block w-full overflow-hidden border-2 border-p5-white/90 px-4 py-3 shadow-p5 transition-colors md:px-5 md:py-4",
+                  "group relative block w-full overflow-hidden border-2 border-brand-accent/90 px-4 py-3 shadow-p5 transition-colors md:px-5 md:py-4",
                   "-skew-x-6 origin-left md:-skew-x-12",
                   "[clip-path:polygon(4%_0%,100%_0%,96%_18%,100%_76%,95%_100%,0_100%,0_7%)]",
                   "md:[clip-path:polygon(2%_0%,100%_0%,97%_16%,100%_72%,98%_100%,0_100%,0_9%)]",
-                  isActive ? "bg-p5-red text-p5-white" : "bg-p5-black text-p5-white",
+                  isActive ? "bg-brand-main text-brand-accent" : "bg-brand-bg text-brand-accent",
                 )}
               >
                 <a

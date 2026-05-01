@@ -22,21 +22,21 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
       text: "I want to collaborate!",
       emoji: '🔥',
       reaction: 'EXCELLENT...',
-      color: 'from-p5-red to-p5-red',
+      color: 'from-brand-main to-brand-main',
     },
     {
       id: 'neutral' as const,
       text: "I'm a fan of your work.",
       emoji: '😏',
       reaction: 'NOT BAD...',
-      color: 'from-p5-white/50 to-p5-white/30',
+      color: 'from-brand-accent/50 to-brand-accent/30',
     },
     {
       id: 'boring' as const,
       text: "Just give me the data.",
       emoji: '😒',
       reaction: 'Tch... FINE.',
-      color: 'from-p5-black to-p5-black',
+      color: 'from-brand-bg to-brand-bg',
     },
   ];
 
@@ -84,7 +84,7 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
             >
               <div className="relative w-24 h-24 flex items-center justify-center">
                 {/* Shadow silhouette */}
-                <svg viewBox="0 0 100 100" className="w-24 h-24 text-p5-red">
+                <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-main">
                   <defs>
                     <filter id="shadow-blur">
                       <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
@@ -104,7 +104,7 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
 
                 {/* Aura pulse */}
                 <motion.div
-                  className="absolute inset-0 border-2 border-p5-red rounded-full"
+                  className="absolute inset-0 border-2 border-brand-main rounded-full"
                   animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 />
@@ -113,7 +113,7 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
 
             {/* Main container with jagged border */}
             <motion.div
-              className="relative bg-p5-black border-4 border-p5-white p-8 -skew-x-6"
+              className="relative bg-brand-bg border-4 border-brand-accent p-8 -skew-x-6"
               style={{
                 clipPath: 'polygon(2% 0%, 100% 0%, 98% 5%, 100% 15%, 98% 20%, 100% 100%, 0% 100%, 0% 20%, 2% 15%, 0% 5%)',
               }}
@@ -128,10 +128,10 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
                     transition={{ delay: 0.2 }}
                     className="space-y-4"
                   >
-                    <h3 className="font-display text-2xl uppercase text-p5-red font-bold tracking-widest">
+                    <h3 className="font-display text-2xl uppercase text-brand-main font-bold tracking-widest">
                       Shadow Negotiation
                     </h3>
-                    <p className="font-hand text-lg leading-relaxed text-p5-white/90">
+                    <p className="font-hand text-lg leading-relaxed text-brand-accent/90">
                       "You wish to contact this one and offer your submission? Speak thy true intentions..."
                     </p>
                   </motion.div>
@@ -141,7 +141,7 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
                     animate={{ opacity: 1 }}
                     className="text-center"
                   >
-                    <p className="font-display text-3xl uppercase text-p5-red font-bold">
+                    <p className="font-display text-3xl uppercase text-brand-main font-bold">
                       {responses.find((r) => r.id === selectedResponse)?.reaction}
                     </p>
                   </motion.div>
@@ -166,8 +166,8 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
                         transition={{ delay: 0.4 + idx * 0.1 }}
                         className={cn(
                           'relative w-full py-3 px-4 border-2 font-hand uppercase text-sm tracking-wider',
-                          'bg-p5-black hover:bg-p5-red transition-all duration-200',
-                          'hover:text-p5-black text-p5-white',
+                          'bg-brand-bg hover:bg-brand-main transition-all duration-200',
+                          'hover:text-brand-bg text-brand-accent',
                           '-skew-x-6 overflow-hidden'
                         )}
                         style={{
@@ -187,12 +187,12 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
 
             {/* Decorative accents */}
             <motion.div
-              className="absolute -top-6 -left-6 w-4 h-4 bg-p5-red"
+              className="absolute -top-6 -left-6 w-4 h-4 bg-brand-main"
               animate={{ rotate: 360 }}
               transition={{ duration: 4, repeat: Infinity }}
             />
             <motion.div
-              className="absolute -bottom-6 -right-6 w-3 h-3 bg-p5-white"
+              className="absolute -bottom-6 -right-6 w-3 h-3 bg-brand-accent"
               animate={{ scale: [1, 1.5, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />

@@ -73,7 +73,7 @@ export function P5Cursor() {
       >
         <motion.svg
           viewBox="0 0 32 32"
-          className="w-4 h-4 text-p5-red drop-shadow-lg"
+          className="w-4 h-4 text-brand-main drop-shadow-lg"
           animate={{ scale: isHovering ? 1.3 : 1 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
         >

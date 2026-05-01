@@ -73,7 +73,7 @@ const statDescriptions: Record<string, Record<number, string>> = {
 export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanelProps) {
   return (
     <div className={cn("space-y-0", className)}>
-      <div className="relative overflow-hidden rounded-sm border-2 border-p5-white/20 bg-p5-black">
+      <div className="relative overflow-hidden rounded-sm border-2 border-brand-accent/20 bg-brand-bg">
         <div
           className="absolute inset-0 -z-10"
           style={{
@@ -91,15 +91,15 @@ export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanel
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        <div className="clip-jagged border-2 border-p5-red bg-p5-red px-4 py-2 -skew-x-12">
-          <p className="font-display text-center text-xs uppercase tracking-[0.35em] text-p5-black font-bold">
+        <div className="clip-jagged border-2 border-brand-main bg-brand-main px-4 py-2 -skew-x-12">
+          <p className="font-display text-center text-xs uppercase tracking-[0.35em] text-brand-bg font-bold">
             PHAN-SITE
           </p>
         </div>
 
         <div className="space-y-4 p-4 sm:p-5">
           <div className="space-y-2">
-            <p className="font-hand text-[0.7rem] uppercase tracking-[0.3em] text-p5-white/60">
+            <p className="font-hand text-[0.7rem] uppercase tracking-[0.3em] text-brand-accent/60">
               Social Stats
             </p>
             <div className="space-y-4">
@@ -117,7 +117,7 @@ export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanel
                   }}
                 >
                   <div
-                    className="flex-none w-4 h-4 text-p5-red mt-0.5"
+                    className="flex-none w-4 h-4 text-brand-main mt-0.5"
                     dangerouslySetInnerHTML={{
                       __html: statIcons[stat.label] || statIcons.Knowledge,
                     }}
@@ -133,15 +133,15 @@ export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanel
             </div>
           </div>
 
-          <div className="border-t border-p5-white/15 pt-3">
-            <p className="font-hand text-[0.65rem] uppercase tracking-[0.3em] text-p5-white/60 mb-2">
+          <div className="border-t border-brand-accent/15 pt-3">
+            <p className="font-hand text-[0.65rem] uppercase tracking-[0.3em] text-brand-accent/60 mb-2">
               Live Poll
             </p>
             <div className="space-y-1 text-[0.6rem] overflow-hidden h-8">
               {pollTickers.map((ticker, idx) => (
                 <motion.div
                   key={idx}
-                  className="whitespace-nowrap font-mono text-p5-white/75"
+                  className="whitespace-nowrap font-mono text-brand-accent/75"
                   animate={{ x: ["100%", "-100%"] }}
                   transition={{
                     duration: 12 + idx * 2,
@@ -155,7 +155,7 @@ export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanel
             </div>
           </div>
 
-          <div className="border-t border-p5-white/15 pt-3 text-[0.65rem] leading-5 uppercase tracking-[0.25em] text-p5-white/50">
+          <div className="border-t border-brand-accent/15 pt-3 text-[0.65rem] leading-5 uppercase tracking-[0.25em] text-brand-accent/50">
             <motion.div
               animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, repeat: Infinity }}
