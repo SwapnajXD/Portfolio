@@ -162,10 +162,6 @@ body.p3-theme [class*="tracking-"] {
   text-shadow: 0 0 14px var(--brand-glow), 0 0 22px rgba(0, 209, 255, 0.2);
 }
 
-body.p3-theme .clip-jagged,
-body.p3-theme [class*="clip-jagged"] {
-  clip-path: ellipse(50% 42% at 50% 50%);
-}
 
 body.p3-theme .glass-panel {
   backdrop-filter: blur(20px);

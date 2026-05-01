@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
-import { useSeriesPhysics } from "@/hooks/useSeriesPhysics";
+import { p5SpringConfig, useSeriesPhysics } from "@/hooks/useSeriesPhysics";
 
 // ─── P3 Glassmorphic Oval Cursor ──────────────────────────────────────────────
 
@@ -13,10 +13,10 @@ export function P3Cursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Liquid spring — slow, weighted, floating
-  const { springConfig, floatY } = useSeriesPhysics("P3");
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
+  // Always track at P5 speed — the float Y animation provides the liquid feel
+  const { floatY } = useSeriesPhysics("P3");
+  const cursorX = useSpring(mouseX, p5SpringConfig);
+  const cursorY = useSpring(mouseY, p5SpringConfig);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -62,8 +62,7 @@ export function P3Cursor() {
       <motion.div
         style={{
           x: cursorX,
-          // Combine spring tracking with continuous sine-wave float
-          y: useSpring(mouseY, springConfig),
+          y: cursorY,
         }}
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
       >
@@ -147,9 +146,10 @@ export function AdaptiveCursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const { springConfig, floatY, isP3 } = useSeriesPhysics(currentSeries);
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
+  // Always track at P5 speed — the float Y provides the P3 liquid feel
+  const { floatY, isP3 } = useSeriesPhysics(currentSeries);
+  const cursorX = useSpring(mouseX, p5SpringConfig);
+  const cursorY = useSpring(mouseY, p5SpringConfig);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
