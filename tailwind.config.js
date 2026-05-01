@@ -42,11 +42,22 @@ export default {
           "50%": { transform: "translateX(2px)" },
           "75%": { transform: "translateX(-1px)" },
         },
+        p5ShardSweep: {
+          "0%": { transform: "translateX(-140%) translateY(-10%) rotate(-14deg) scaleX(0.7)", opacity: "0" },
+          "15%": { opacity: "1" },
+          "100%": { transform: "translateX(140%) translateY(10%) rotate(12deg) scaleX(1.08)", opacity: "0" },
+        },
+        p5Grain: {
+          "0%, 100%": { opacity: "0.16" },
+          "50%": { opacity: "0.3" },
+        },
       },
       animation: {
         burstIn: "burstIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
         "p5-snap": "p5Snap 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
         "p5-jitter": "p5Jitter 0.28s steps(2, end) both",
+        "p5-shard-sweep": "p5ShardSweep 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "p5-grain": "p5Grain 0.8s steps(2, end) infinite",
       },
     },
   },
