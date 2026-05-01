@@ -1,6 +1,5 @@
 'use client';
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/components/cn";
@@ -106,7 +105,15 @@ export function BattleMenu({ items = defaultItems, className }: BattleMenuProps)
                   isActive ? "bg-p5-red text-p5-white" : "bg-p5-black text-p5-white",
                 )}
               >
-                <Link href={item.href} className="block w-full">
+                <a
+                  href={item.href}
+                  className="block w-full"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.hash = item.href.slice(1);
+                    setActiveHref(item.href);
+                  }}
+                >
                   <motion.span
                     animate={hoveredIndex === index ? { x: [0, -2, 2, 0] } : { x: 0 }}
                     transition={springTransition}
@@ -115,7 +122,7 @@ export function BattleMenu({ items = defaultItems, className }: BattleMenuProps)
                     <span className="translate-x-1 skew-x-6 md:skew-x-12">{item.label}</span>
                     <span className="translate-x-1 text-xs tracking-[0.35em] text-current/80">0{index + 1}</span>
                   </motion.span>
-                </Link>
+                </a>
               </motion.div>
             </motion.li>
           );

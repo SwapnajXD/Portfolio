@@ -9,7 +9,7 @@ export function P5Cursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 25, mass: 0.5, stiffness: 150 };
+  const springConfig = { damping: 12, mass: 0.2, stiffness: 400 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
