@@ -1,5 +1,76 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { P5Container } from "@/components/P5Container";
 import { BattleMenu } from "@/components/BattleMenu";
+import { ProjectCard } from "@/components/ui/ProjectCard";
+import { PhanSitePanel } from "@/components/ui/PhanSitePanel";
+
+const projects = [
+  {
+    id: "001",
+    title: "Velvet Signal",
+    description: "A neon-forward analytics dashboard with layered motion, shard transitions, and battle-grade hierarchy.",
+    imageUrl:
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0d0d0d"/><stop offset=".55" stop-color="#d92323"/><stop offset="1" stop-color="#ebe6e6"/></linearGradient></defs><rect width="1200" height="800" fill="url(#g)"/><circle cx="900" cy="220" r="180" fill="#ebe6e6" fill-opacity=".12"/><path d="M-40 620L360 200l220 120 190-110 470 320v270H-40Z" fill="#0d0d0d" fill-opacity=".8"/><path d="M0 110h1200" stroke="#ebe6e6" stroke-width="18" stroke-dasharray="36 20" stroke-opacity=".35"/></svg>',
+      ),
+    techStack: ["Next.js", "Framer Motion", "Tailwind"],
+    href: "#projects",
+    rotation: -3,
+    offset: "translate-y-0",
+  },
+  {
+    id: "002",
+    title: "Calling Card UI",
+    description: "A Persona-inspired editorial landing page with jagged clip paths and punchy navigation states.",
+    imageUrl:
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#0d0d0d"/><path d="M120 120h960l-140 320 90 180H220L80 340Z" fill="#d92323"/><path d="M290 180h640" stroke="#ebe6e6" stroke-width="16" stroke-opacity=".55"/><path d="M220 610c160-110 310-120 480-20s280 70 420-10" stroke="#ebe6e6" stroke-width="24" stroke-linecap="round" stroke-opacity=".14" fill="none"/></svg>',
+      ),
+    techStack: ["App Router", "SVG", "Motion"],
+    href: "#about",
+    rotation: 2,
+    offset: "translate-y-8",
+  },
+  {
+    id: "003",
+    title: "Metaverse Notes",
+    description: "A component system for high-energy portfolio cards that cut across the layout on hover.",
+    imageUrl:
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#ebe6e6"/><path d="M0 560 460 250l240 70 160-130 340 190v340H0Z" fill="#0d0d0d"/><path d="M80 160h1040" stroke="#d92323" stroke-width="20" stroke-dasharray="18 18"/><path d="M960 40 1040 760" stroke="#d92323" stroke-width="70" stroke-opacity=".16"/></svg>',
+      ),
+    techStack: ["Design System", "TypeScript", "Clip Path"],
+    href: "#contact",
+    rotation: -1,
+    offset: "translate-y-4",
+  },
+  {
+    id: "004",
+    title: "Phantom Archive",
+    description: "A tactile case study presentation with noise, paper cuts, and staggered reveal timing.",
+    imageUrl:
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#0d0d0d"/><path d="M140 100h920l-110 210 120 180-160 250H180L70 410Z" fill="#ebe6e6" fill-opacity=".18"/><path d="M240 180h580l110 120-120 200H240Z" fill="#d92323"/><circle cx="910" cy="590" r="120" fill="#ebe6e6" fill-opacity=".08"/></svg>',
+      ),
+    techStack: ["Motion Design", "SVG Filters", "UX Writing"],
+    href: "#skills",
+    rotation: 3,
+    offset: "translate-y-10",
+  },
+];
+
+const socialStats = [
+  { label: "Knowledge", value: 92 },
+  { label: "Guts", value: 74 },
+  { label: "Proficiency", value: 88 },
+  { label: "Charm", value: 81 },
+];
 
 export default function HomePage() {
   return (
@@ -22,11 +93,7 @@ export default function HomePage() {
             </div>
 
             <div className="grid gap-4 sm:max-w-2xl sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                "Developer",
-                "Motion Design",
-                "Creative Frontend",
-              ].map((item) => (
+              {["Developer", "Motion Design", "Creative Frontend"].map((item) => (
                 <div
                   key={item}
                   className="clip-jagged bg-p5-red px-5 py-4 font-hand text-lg uppercase tracking-[0.12em] text-p5-black"
@@ -43,23 +110,51 @@ export default function HomePage() {
         </P5Container>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:px-10">
-        {[
-          { id: "skills", title: "SKILLS", body: "Motion-first frontend systems, interaction design, and expressive UI engineering." },
-          { id: "projects", title: "PROJECTS", body: "A selection of stylized interfaces and high-energy portfolio concepts." },
-          { id: "about", title: "ABOUT", body: "A compact bio block that can hold your positioning statement or personal summary." },
-          { id: "contact", title: "CONTACT", body: "Use this section for your email, social links, or a direct call to action." },
-        ].map((section) => (
-          <article
-            key={section.id}
-            id={section.id}
-            className="clip-jagged border border-p5-white/20 bg-p5-black/80 p-5 shadow-p5 scroll-mt-24 sm:p-6"
-          >
-            <p className="font-hand text-sm uppercase tracking-[0.35em] text-p5-white/70">0{section.id === "skills" ? 1 : section.id === "projects" ? 2 : section.id === "about" ? 3 : 4}</p>
-            <h2 className="mt-3 font-display text-3xl uppercase tracking-[0.04em] text-p5-red">{section.title}</h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-p5-white/75">{section.body}</p>
-          </article>
-        ))}
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_16rem] lg:px-10">
+        <div className="space-y-6">
+          <div className="clip-jagged border border-p5-white/20 bg-p5-black/80 p-5 shadow-p5 sm:p-6">
+            <p className="font-hand text-sm uppercase tracking-[0.35em] text-p5-white/70">Confidant Grid</p>
+            <h2 className="mt-3 font-display text-4xl uppercase tracking-[0.04em] text-p5-red">Selected Work</h2>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-p5-white/75 sm:text-base">
+              A scattered, Persona-style board of project shards. Each card keeps its own angle so the layout feels like a menu screen rather than a clean gallery.
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="grid gap-6 xl:grid-cols-2">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, x: -48, y: 56, rotate: project.rotation - 4 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, rotate: project.rotation }}
+                  viewport={{ once: true, amount: 0.22 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 15,
+                    mass: 0.8,
+                    delay: index * 0.08,
+                  }}
+                  className={project.offset}
+                  style={{ zIndex: 1 + index }}
+                >
+                  <ProjectCard
+                    title={project.title}
+                    description={`${project.description} Tech: ${project.techStack.join(" / ")}`}
+                    href={project.href}
+                    imageSrc={project.imageUrl}
+                    imageAlt={project.title}
+                    className="relative transition-[z-index] duration-200 hover:z-30"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside className="lg:sticky lg:top-6 lg:self-start">
+          <PhanSitePanel stats={socialStats} />
+        </aside>
       </section>
     </main>
   );
