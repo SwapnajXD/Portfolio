@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 type MetaverseTransitionProps = {
   children: ReactNode;
@@ -78,6 +78,15 @@ function Shard({ index }: { index: number }) {
 
 export function MetaverseTransition({ children }: MetaverseTransitionProps) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="relative min-h-screen">{children}</div>;
+  }
 
   return (
     <AnimatePresence mode="wait">

@@ -23,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-p5-black text-p5-white antialiased`}>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-p5-black text-p5-white antialiased`}
+      >
         {children}
       </body>
     </html>
