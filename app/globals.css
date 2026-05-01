@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --p5-red: #D92323;
+  --p5-black: #0D0D0D;
+  --p5-white: #EBE6E6;
+}
+
+html {
+  background: var(--p5-black);
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(217, 35, 35, 0.12) 0%, rgba(217, 35, 35, 0.12) 22%, transparent 22.2%),
+    linear-gradient(315deg, rgba(235, 230, 230, 0.04) 0%, transparent 34%),
+    var(--p5-black);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--p5-red);
+  color: var(--p5-white);
+}
