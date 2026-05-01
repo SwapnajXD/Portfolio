@@ -3,10 +3,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/components/cn";
+import { useP5Sound } from "@/hooks/useP5Sound";
 
 export function CallingCard() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const { playSubmit } = useP5Sound();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -16,6 +18,7 @@ export function CallingCard() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.name && formData.email && formData.message) {
+      playSubmit();
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 4000);
       setFormData({ name: "", email: "", message: "" });
@@ -181,6 +184,7 @@ export function CallingCard() {
                     type="submit"
                     whileHover={{ scale: 1.12, rotate: 4 }}
                     whileTap={{ scale: 0.96 }}
+                    data-p5interactive="true"
                     className={cn(
                       "relative w-20 h-20 flex items-center justify-center font-display text-4xl font-bold uppercase transition-all",
                       "bg-p5-black text-p5-white hover:bg-p5-red hover:text-p5-black",

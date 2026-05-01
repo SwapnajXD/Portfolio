@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/components/cn";
+import { useP5Sound } from "@/hooks/useP5Sound";
 
 type BattleMenuItem = {
   label: string;
@@ -57,6 +58,7 @@ export function BattleMenu({ items = defaultItems, className }: BattleMenuProps)
   const firstItem = useMemo(() => items[0]?.href ?? "#skills", [items]);
   const [activeHref, setActiveHref] = useState(firstItem);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { playHover } = useP5Sound();
 
   useEffect(() => {
     const syncActiveHref = () => {
@@ -90,8 +92,12 @@ export function BattleMenu({ items = defaultItems, className }: BattleMenuProps)
                 whileHover={{ scale: 1.1, x: 10 }}
                 whileTap={{ scale: 0.98 }}
                 transition={springTransition}
-                onHoverStart={() => setHoveredIndex(index)}
+                onHoverStart={() => {
+                  playHover();
+                  setHoveredIndex(index);
+                }}
                 onHoverEnd={() => setHoveredIndex(null)}
+                data-p5interactive="true"
                 className={cn(
                   "group relative block w-full overflow-hidden border-2 border-p5-white/90 px-4 py-3 shadow-p5 transition-colors md:px-5 md:py-4",
                   "-skew-x-6 origin-left md:-skew-x-12",
