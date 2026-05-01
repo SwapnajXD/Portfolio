@@ -5,6 +5,7 @@ import { P5Container } from "@/components/P5Container";
 import { BattleMenu } from "@/components/BattleMenu";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { PhanSitePanel } from "@/components/ui/PhanSitePanel";
+import { CallingCard } from "@/components/ui/CallingCard";
 
 const projects = [
   {
@@ -155,6 +156,40 @@ export default function HomePage() {
         <aside className="lg:sticky lg:top-6 lg:self-start">
           <PhanSitePanel stats={socialStats} />
         </aside>
+      </section>
+
+      <section id="projects" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
+        <div className="clip-jagged border border-p5-white/20 bg-p5-black/80 p-5 shadow-p5 sm:p-6">
+          <p className="font-hand text-sm uppercase tracking-[0.35em] text-p5-white/70">Projects</p>
+          <h2 className="mt-3 font-display text-4xl uppercase tracking-[0.04em] text-p5-red">In-Depth Work</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-p5-white/75">
+            Scroll up to see the featured projects in the Confidant Grid above. Each card showcases motion design and high-energy UI.
+          </p>
+        </div>
+      </section>
+
+      <section id="about" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
+        <div className="clip-jagged border border-p5-white/20 bg-p5-black/80 p-5 shadow-p5 sm:p-6">
+          <p className="font-hand text-sm uppercase tracking-[0.35em] text-p5-white/70">About</p>
+          <h2 className="mt-3 font-display text-4xl uppercase tracking-[0.04em] text-p5-red">Who's Behind This</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-p5-white/75">
+            A frontend engineer obsessed with bold, expressive UX. Inspired by Persona 5's uncompromising aesthetic, I build interfaces that demand attention and deliver precision motion.
+          </p>
+        </div>
+      </section>
+
+      <section id="skills" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
+        <div className="clip-jagged border border-p5-white/20 bg-p5-black/80 p-5 shadow-p5 sm:p-6">
+          <p className="font-hand text-sm uppercase tracking-[0.35em] text-p5-white/70">Skills</p>
+          <h2 className="mt-3 font-display text-4xl uppercase tracking-[0.04em] text-p5-red">Core Competencies</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-p5-white/75">
+            React, Next.js, TypeScript, Framer Motion, Tailwind CSS, App Router, Motion Design, Interactive Components, Accessibility, Performance Optimization.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
+        <CallingCard />
       </section>
     </main>
   );

@@ -96,15 +96,23 @@ export function MetaverseTransition({ children }: MetaverseTransitionProps) {
         <motion.div
           className="pointer-events-none fixed inset-0 z-50 overflow-hidden"
           aria-hidden="true"
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,35,35,0.14),transparent_40%),linear-gradient(135deg,rgba(13,13,13,0.92),rgba(13,13,13,0.78))] opacity-80" />
           <motion.div
-            className="absolute inset-0 bg-[linear-gradient(115deg,rgba(235,230,230,0.08)_0%,transparent_16%,transparent_84%,rgba(235,230,230,0.08)_100%)] mix-blend-screen opacity-30"
-            animate={{ opacity: [0.18, 0.3, 0.2] }}
-            transition={{ duration: 0.7, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,35,35,0.14),transparent_40%),linear-gradient(135deg,rgba(13,13,13,0.92),rgba(13,13,13,0.78))]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.8, 0.6, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, times: [0, 0.15, 0.85, 1] }}
+          />
+          <motion.div
+            className="absolute inset-0 bg-[linear-gradient(115deg,rgba(235,230,230,0.08)_0%,transparent_16%,transparent_84%,rgba(235,230,230,0.08)_100%)] mix-blend-screen"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.08, 0.3, 0.2, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, times: [0, 0.15, 0.85, 1] }}
           />
           {shardVariants.map((_, index) => (
             <Shard key={index} index={index} />
