@@ -31,6 +31,45 @@ const pollTickers = [
   "NO: 13% • OPPOSE • 13% • OPPOSE • 13% • OPPOSE • 13%",
 ];
 
+const statDescriptions: Record<string, Record<number, string>> = {
+  Knowledge: {
+    20: "Rank 1: Novice Coder",
+    40: "Rank 2: Competent Developer",
+    60: "Rank 3: Proficient Engineer",
+    75: "Rank 4: Advanced React Master",
+    85: "Rank 5: TypeScript Expert",
+    95: "Rank 6: Architecture Sage",
+    100: "Rank 7: Full-Stack Legend",
+  },
+  Guts: {
+    20: "Rank 1: Timid",
+    40: "Rank 2: Anxious Starter",
+    60: "Rank 3: Bold Builder",
+    75: "Rank 4: Courageous Maker",
+    85: "Rank 5: Fearless Innovator",
+    95: "Rank 6: Legendary Hero",
+    100: "Rank 7: Phantom Thief",
+  },
+  Proficiency: {
+    20: "Rank 1: Script Kiddie",
+    40: "Rank 2: Self-Taught Dev",
+    60: "Rank 3: Active Contributor",
+    75: "Rank 4: Production Ready",
+    85: "Rank 5: Shipping Master",
+    95: "Rank 6: Technical Leader",
+    100: "Rank 7: Industry Architect",
+  },
+  Charm: {
+    20: "Rank 1: Awkward",
+    40: "Rank 2: Friendly",
+    60: "Rank 3: Engaging Presenter",
+    75: "Rank 4: Charismatic Speaker",
+    85: "Rank 5: Inspiring Mentor",
+    95: "Rank 6: Influential Voice",
+    100: "Rank 7: Legendary Persona",
+  },
+};
+
 export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanelProps) {
   return (
     <div className={cn("space-y-0", className)}>
@@ -87,6 +126,7 @@ export function PhanSitePanel({ stats = defaultStats, className }: PhanSitePanel
                     label={stat.label}
                     value={stat.value}
                     delay={index * 0.12 + 0.08}
+                    rankDescriptions={statDescriptions[stat.label] || statDescriptions.Knowledge}
                   />
                 </motion.div>
               ))}

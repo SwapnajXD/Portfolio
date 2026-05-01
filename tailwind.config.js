@@ -5,13 +5,13 @@ export default {
     extend: {
       colors: {
         p5: {
-          red: "#D92323",
-          black: "#0D0D0D",
-          white: "#EBE6E6",
+          red: "var(--p5-red)",
+          black: "var(--p5-black)",
+          white: "var(--p5-white)",
         },
       },
       boxShadow: {
-        p5: "-8px 8px 0 #0D0D0D",
+        p5: "-8px 8px 0 var(--p5-black)",
       },
       fontFamily: {
         display: ["var(--font-bangers)", "cursive"],

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Bangers, Inter, Permanent_Marker } from "next/font/google";
 import type { ReactNode } from "react";
 import { P5Cursor } from "@/components/P5Cursor";
+import { MetaverseToggle } from "@/components/MetaverseToggle";
+import { ThemeProvider } from "@/context/ThemeContext";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -48,8 +50,11 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-p5-black text-p5-white antialiased`}
       >
-        <P5Cursor />
-        {children}
+        <ThemeProvider>
+          <P5Cursor />
+          <MetaverseToggle />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -4,9 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/components/cn";
 import { useP5Sound } from "@/hooks/useP5Sound";
+import { ShadowNegotiation } from "@/components/ShadowNegotiation";
+
+type ShadowResponse = 'cool' | 'neutral' | 'boring';
 
 export function CallingCard() {
   const [submitted, setSubmitted] = useState(false);
+  const [showNegotiation, setShowNegotiation] = useState(false);
+  const [selectedResponse, setSelectedResponse] = useState<ShadowResponse | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const { playSubmit } = useP5Sound();
 
@@ -18,15 +23,31 @@ export function CallingCard() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.name && formData.email && formData.message) {
-      playSubmit();
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 4000);
-      setFormData({ name: "", email: "", message: "" });
+      setShowNegotiation(true);
     }
+  };
+
+  const handleNegotiationResponse = (response: ShadowResponse) => {
+    setSelectedResponse(response);
+    playSubmit();
+    setShowNegotiation(false);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setSelectedResponse(null);
+      setFormData({ name: "", email: "", message: "" });
+    }, selectedResponse === 'cool' ? 4000 : 2500);
   };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden bg-p5-black">
+      {/* Shadow Negotiation Dialog */}
+      <ShadowNegotiation
+        isOpen={showNegotiation}
+        onClose={() => setShowNegotiation(false)}
+        onRespond={handleNegotiationResponse}
+      />
+
       <AnimatePresence>
         {submitted && (
           <motion.div
@@ -36,74 +57,110 @@ export function CallingCard() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div
-              className="absolute inset-0"
-              animate={{ background: ["rgba(217, 35, 35, 0)", "rgba(217, 35, 35, 0.9)", "rgba(217, 35, 35, 0)"] }}
-              transition={{ duration: 0.6, times: [0, 0.5, 1] }}
-            />
+            {/* Full "All-Out Attack" for cool responses */}
+            {selectedResponse === 'cool' && (
+              <>
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{ background: ["rgba(217, 35, 35, 0)", "rgba(217, 35, 35, 0.9)", "rgba(217, 35, 35, 0)"] }}
+                  transition={{ duration: 0.6, times: [0, 0.5, 1] }}
+                />
 
-            <motion.div
-              className="absolute inset-0"
-              animate={{ background: ["rgba(235, 230, 230, 0)", "rgba(235, 230, 230, 1)", "rgba(235, 230, 230, 0)"] }}
-              transition={{ duration: 0.6, delay: 0.15, times: [0, 0.5, 1] }}
-            />
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{ background: ["rgba(235, 230, 230, 0)", "rgba(235, 230, 230, 1)", "rgba(235, 230, 230, 0)"] }}
+                  transition={{ duration: 0.6, delay: 0.15, times: [0, 0.5, 1] }}
+                />
 
-            <motion.div
-              className="relative z-10 text-center"
-              initial={{ opacity: 0, scale: 0.4, rotate: -12 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: 0.4, type: "spring", stiffness: 200, damping: 10 }}
-            >
-              <svg
-                viewBox="0 0 200 200"
-                className="w-32 h-32 mx-auto mb-6 text-p5-red drop-shadow-2xl"
-                fill="currentColor"
-              >
-                <path d="M100 20C150 20 180 50 180 100C180 150 150 180 100 180C50 180 20 150 20 100C20 50 50 20 100 20Z" />
-                <path d="M70 80L85 95L100 80M100 80L115 95L130 80" stroke="#0d0d0d" strokeWidth="8" fill="none" strokeLinecap="round" />
-                <path d="M80 130Q100 145 120 130" stroke="#0d0d0d" strokeWidth="6" fill="none" strokeLinecap="round" />
-              </svg>
+                <motion.div
+                  className="relative z-10 text-center"
+                  initial={{ opacity: 0, scale: 0.4, rotate: -12 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.4, type: "spring", stiffness: 200, damping: 10 }}
+                >
+                  <svg
+                    viewBox="0 0 200 200"
+                    className="w-32 h-32 mx-auto mb-6 text-p5-red drop-shadow-2xl"
+                    fill="currentColor"
+                  >
+                    <path d="M100 20C150 20 180 50 180 100C180 150 150 180 100 180C50 180 20 150 20 100C20 50 50 20 100 20Z" />
+                    <path d="M70 80L85 95L100 80M100 80L115 95L130 80" stroke="#0d0d0d" strokeWidth="8" fill="none" strokeLinecap="round" />
+                    <path d="M80 130Q100 145 120 130" stroke="#0d0d0d" strokeWidth="6" fill="none" strokeLinecap="round" />
+                  </svg>
 
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, rotate: -8 }}
+                    animate={{ opacity: 1, rotate: 8 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <div className="font-display text-8xl uppercase text-p5-red font-bold drop-shadow-2xl -skew-x-12 tracking-[0.08em]">
+                      SHOW
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0"
+                    initial={{ opacity: 0, y: 32 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <p className="font-hand text-3xl uppercase tracking-[0.16em] text-p5-white drop-shadow-lg">
+                      IS OVER
+                    </p>
+                  </motion.div>
+                </motion.div>
+
+                <motion.div
+                  className="absolute top-20 left-1/2 -translate-x-1/2 z-0"
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                >
+                  <div className="w-96 h-2 bg-p5-red -skew-x-12 drop-shadow-2xl" />
+                </motion.div>
+
+                <motion.div
+                  className="absolute bottom-20 right-1/4 z-0"
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ delay: 1.2, duration: 0.8 }}
+                >
+                  <div className="w-80 h-2 bg-p5-white -skew-x-12 drop-shadow-2xl" />
+                </motion.div>
+              </>
+            )}
+
+            {/* Simpler animation for neutral/boring responses */}
+            {(selectedResponse === 'neutral' || selectedResponse === 'boring') && (
               <motion.div
-                className="absolute inset-0 flex items-center justify-center"
-                initial={{ opacity: 0, rotate: -8 }}
-                animate={{ opacity: 1, rotate: 8 }}
-                transition={{ delay: 0.6 }}
+                className="relative z-10 text-center"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="font-display text-8xl uppercase text-p5-red font-bold drop-shadow-2xl -skew-x-12 tracking-[0.08em]">
-                  SHOW
+                <div className="bg-p5-black border-4 border-p5-white p-8 -skew-x-12">
+                  <div className="skew-x-6 space-y-4">
+                    <p className="font-display text-4xl uppercase text-p5-red font-bold">
+                      {selectedResponse === 'neutral' ? 'UNDERSTOOD' : 'FINE.'}
+                    </p>
+                    <p className="font-hand text-lg text-p5-white uppercase">
+                      {selectedResponse === 'neutral'
+                        ? 'Your contact info has been received.'
+                        : 'Submission accepted. Dismissed.'}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
+            )}
 
-              <motion.div
-                className="absolute bottom-0 left-0 right-0"
-                initial={{ opacity: 0, y: 32 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-              >
-                <p className="font-hand text-3xl uppercase tracking-[0.16em] text-p5-white drop-shadow-lg">
-                  IS OVER
-                </p>
-              </motion.div>
-            </motion.div>
-
+            {/* Background overlay fade */}
             <motion.div
-              className="absolute top-20 left-1/2 -translate-x-1/2 z-0"
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ delay: 1, duration: 0.8 }}
-            >
-              <div className="w-96 h-2 bg-p5-red -skew-x-12 drop-shadow-2xl" />
-            </motion.div>
-
-            <motion.div
-              className="absolute bottom-20 right-1/4 z-0"
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-            >
-              <div className="w-80 h-2 bg-p5-white -skew-x-12 drop-shadow-2xl" />
-            </motion.div>
+              className="absolute inset-0 bg-black/40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
           </motion.div>
         )}
       </AnimatePresence>

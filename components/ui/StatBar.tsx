@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { cn } from "@/components/cn";
 
 type StatBarProps = {
@@ -9,7 +10,28 @@ type StatBarProps = {
   colorClassName?: string;
   className?: string;
   delay?: number;
+  rankDescriptions?: { [key: number]: string };
 };
+
+const defaultRankDescriptions: { [key: number]: string } = {
+  20: "Rank 1: Novice",
+  40: "Rank 2: Intermediate",
+  60: "Rank 3: Proficient",
+  75: "Rank 4: Advanced",
+  85: "Rank 5: Master",
+  95: "Rank 6: Expert",
+  100: "Rank 7: Legendary",
+};
+
+function getRankDescription(value: number, descriptions: { [key: number]: string }): string {
+  const sortedKeys = Object.keys(descriptions).map(Number).sort((a, b) => a - b);
+  for (const key of sortedKeys) {
+    if (value <= key) {
+      return descriptions[key];
+    }
+  }
+  return descriptions[sortedKeys[sortedKeys.length - 1]] || "Unknown Rank";
+}
 
 export function StatBar({
   label,
@@ -17,12 +39,15 @@ export function StatBar({
   colorClassName = "bg-p5-red",
   className,
   delay = 0,
+  rankDescriptions = defaultRankDescriptions,
 }: StatBarProps) {
+  const [isHovering, setIsHovering] = useState(false);
   const clampedValue = Math.max(0, Math.min(100, value));
+  const rankText = getRankDescription(clampedValue, rankDescriptions);
 
   return (
     <motion.div
-      className={cn("space-y-2", className)}
+      className={cn("space-y-2 relative", className)}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -32,9 +57,30 @@ export function StatBar({
         mass: 0.8,
         delay,
       }}
+      onHoverStart={() => setIsHovering(true)}
+      onHoverEnd={() => setIsHovering(false)}
     >
+      {/* Rank Tooltip */}
+      <motion.div
+        className="absolute -top-16 left-1/2 -translate-x-1/2 pointer-events-none z-20"
+        animate={{ opacity: isHovering ? 1 : 0, y: isHovering ? 0 : -8 }}
+        transition={{ duration: 0.2 }}
+      >
+        <div
+          className="bg-p5-black border-2 border-p5-white px-3 py-2 whitespace-nowrap text-xs font-hand uppercase tracking-wider text-p5-red font-bold drop-shadow-lg"
+          style={{
+            clipPath: 'polygon(4% 0%, 100% 0%, 96% 8%, 100% 25%, 98% 100%, 0% 100%, 0% 25%, 2% 8%)',
+          }}
+        >
+          {rankText}
+
+          {/* Tooltip arrow */}
+          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-l-transparent border-r-transparent border-t-p5-black" />
+        </div>
+      </motion.div>
+
       <div className="flex items-center justify-between gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-p5-white/75">
-        <span>{label}</span>
+        <span data-p5interactive="true" className="cursor-help">{label}</span>
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
