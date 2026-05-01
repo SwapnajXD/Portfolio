@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useSeriesSound } from "@/hooks/useSeriesSound";
+import { SeriesTransition } from "@/components/motion/SeriesTransition";
 import { cn } from "@/components/cn";
 
 export function SeriesToggle() {
@@ -46,21 +47,11 @@ export function SeriesToggle() {
 
   return (
     <>
-      <AnimatePresence>
-        {isSwitching && flashSeries && (
-          <motion.div
-            key="series-flash"
-            className={cn(
-              "fixed inset-0 z-[9999] pointer-events-none",
-              flashSeries === "P5" ? "bg-brand-main" : "bg-[radial-gradient(circle_at_center,rgba(0,209,255,0.42),rgba(7,20,35,0.9))]",
-            )}
-            initial={{ opacity: 0, scale: flashSeries === "P5" ? 0.96 : 1 }}
-            animate={{ opacity: [0, 1, 0], scale: [flashSeries === "P5" ? 0.96 : 1, 1, flashSeries === "P5" ? 1.02 : 1] }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, times: [0, 0.45, 1] }}
-          />
-        )}
-      </AnimatePresence>
+      {/* Shatter (→ P5) or Ripple (→ P3) full-screen transition */}
+      <SeriesTransition
+        targetSeries={flashSeries}
+        isActive={isSwitching}
+      />
 
       <motion.button
         type="button"

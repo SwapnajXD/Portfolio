@@ -1,27 +1,23 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { useP5Sound } from '@/hooks/useP5Sound';
 
 export function MetaverseToggle() {
-  const { theme, toggleTheme } = useTheme();
-  const { playHover } = useP5Sound();
+  const { currentSeries, toggleSeries } = useTheme();
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleToggle = () => {
     if (isTransitioning) return;
     
     setIsTransitioning(true);
-    playHover();
     
-    // Trigger flash effect
-    document.documentElement.classList.add('theme-transitioning');
+    document.body.classList.add('theme-transitioning');
     
     setTimeout(() => {
-      toggleTheme();
-      document.documentElement.classList.remove('theme-transitioning');
+      toggleSeries();
+      document.body.classList.remove('theme-transitioning');
       setIsTransitioning(false);
     }, 600);
   };
@@ -34,11 +30,11 @@ export function MetaverseToggle() {
       whileTap={{ scale: 0.95 }}
       className="fixed top-6 right-6 z-[9000] flex items-center justify-center w-14 h-14 rounded-full border-2 border-current shadow-lg transition-all duration-300 data-p5interactive"
       data-p5interactive="true"
-      title={`Switch to ${theme === 'metaverse' ? 'Reality' : 'Metaverse'} Mode`}
+      title={`Switch to ${currentSeries === 'P5' ? 'P3' : 'P5'} Mode`}
       style={{
-        backgroundColor: theme === 'metaverse' ? 'var(--brand-main)' : '#F5F5F5',
-        borderColor: theme === 'metaverse' ? 'var(--brand-accent, #EBE6E6)' : '#0D0D0D',
-        color: theme === 'metaverse' ? 'var(--brand-accent, #EBE6E6)' : '#0D0D0D',
+        backgroundColor: currentSeries === 'P5' ? 'var(--brand-main)' : '#F5F5F5',
+        borderColor: currentSeries === 'P5' ? 'var(--brand-accent, #EBE6E6)' : '#0D0D0D',
+        color: currentSeries === 'P5' ? 'var(--brand-accent, #EBE6E6)' : '#0D0D0D',
       }}
     >
       <svg
@@ -46,7 +42,7 @@ export function MetaverseToggle() {
         className="w-6 h-6 fill-current"
         style={{ opacity: isTransitioning ? 0.5 : 1 }}
       >
-        {theme === 'metaverse' ? (
+        {currentSeries === 'P5' ? (
           // Mask icon (Metaverse)
           <g>
             <path d="M16 4C9.4 4 4 9.4 4 16c0 6.6 5.4 12 12 12s12-5.4 12-12S22.6 4 16 4zm0 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S6 21.5 6 16 10.5 6 16 6z" />

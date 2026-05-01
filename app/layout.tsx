@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Bangers, Inter, Permanent_Marker } from "next/font/google";
 import type { ReactNode } from "react";
-import { P5Cursor } from "@/components/P5Cursor";
+import { AdaptiveCursor } from "@/components/P3Cursor";
 import { SeriesToggle } from "@/components/SeriesToggle";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "./globals.css";
@@ -51,7 +51,7 @@ export default function RootLayout({
         className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-brand-bg text-brand-accent antialiased`}
       >
         <ThemeProvider>
-          <P5Cursor />
+          <AdaptiveCursor />
           <SeriesToggle />
           {children}
         </ThemeProvider>
