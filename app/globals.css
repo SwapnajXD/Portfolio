@@ -16,8 +16,7 @@ html {
 }
 
 /* Persona 5 */
-html.series-p5,
-html[data-series="P5"] {
+body.p5-theme {
   color-scheme: dark;
   --brand-main: #D92323;
   --brand-bg: #0D0D0D;
@@ -34,8 +33,7 @@ html[data-series="P5"] {
 }
 
 /* Persona 3 */
-html.series-p3,
-html[data-series="P3"] {
+body.p3-theme {
   color-scheme: light;
   --brand-main: #00D1FF;
   --brand-bg: #071423;
@@ -52,7 +50,7 @@ html[data-series="P3"] {
 }
 
 /* Theme Transition Flash Effect */
-html.theme-transitioning::before {
+body.theme-transitioning::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -70,7 +68,7 @@ html.theme-transitioning::before {
 }
 
 /* Scanline effect for transition */
-html.theme-transitioning::after {
+body.theme-transitioning::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -86,7 +84,7 @@ html.theme-transitioning::after {
   pointer-events: none;
 }
 
-html.series-transitioning::before {
+body.series-transitioning::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -95,13 +93,13 @@ html.series-transitioning::before {
   mix-blend-mode: screen;
 }
 
-html.series-p5.series-transitioning::before {
+body.p5-theme.series-transitioning::before {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(217, 35, 35, 0.9) 28%, rgba(13, 13, 13, 0) 72%);
   clip-path: polygon(0% 12%, 9% 0%, 21% 18%, 34% 2%, 47% 22%, 61% 4%, 77% 18%, 90% 0%, 100% 11%, 100% 89%, 88% 100%, 76% 82%, 61% 98%, 47% 80%, 32% 96%, 18% 82%, 7% 100%, 0% 90%);
   animation: p5ShatterFlash 0.7s ease-out both;
 }
 
-html.series-p3.series-transitioning::before {
+body.p3-theme.series-transitioning::before {
   background: radial-gradient(circle at center, rgba(0, 209, 255, 0.45) 0%, rgba(234, 246, 255, 0.18) 30%, rgba(7, 20, 35, 0) 72%);
   backdrop-filter: blur(14px);
   animation: p3RippleFlash 0.8s ease-out both;
@@ -135,14 +133,14 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html.series-p5 body {
+body.p5-theme {
   background:
     linear-gradient(135deg, rgba(217, 35, 35, 0.12) 0%, rgba(217, 35, 35, 0.12) 22%, transparent 22.2%),
     linear-gradient(315deg, rgba(235, 230, 230, 0.04) 0%, transparent 34%),
     var(--bg-primary);
 }
 
-html.series-p3 body {
+body.p3-theme {
   background:
     radial-gradient(circle at 50% 12%, rgba(0, 209, 255, 0.18), transparent 24%),
     radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.08), transparent 18%),
@@ -158,29 +156,29 @@ html.series-p3 body {
   color: var(--bg-primary);
 }
 
-html.series-p3 .font-display,
-html.series-p3 .font-hand,
-html.series-p3 [class*="tracking-"] {
+body.p3-theme .font-display,
+body.p3-theme .font-hand,
+body.p3-theme [class*="tracking-"] {
   text-shadow: 0 0 14px var(--brand-glow), 0 0 22px rgba(0, 209, 255, 0.2);
 }
 
-html.series-p3 .clip-jagged,
-html.series-p3 [class*="clip-jagged"] {
+body.p3-theme .clip-jagged,
+body.p3-theme [class*="clip-jagged"] {
   clip-path: ellipse(50% 42% at 50% 50%);
 }
 
-html.series-p3 .glass-panel {
+body.p3-theme .glass-panel {
   backdrop-filter: blur(20px);
   background: linear-gradient(180deg, rgba(234, 246, 255, 0.12), rgba(234, 246, 255, 0.04));
   border: 1px solid rgba(210, 240, 255, 0.32);
   box-shadow: 0 0 0 1px rgba(0, 209, 255, 0.12), 0 24px 48px rgba(0, 0, 0, 0.28);
 }
 
-html.series-p3 .moonlight-glow {
+body.p3-theme .moonlight-glow {
   box-shadow: 0 0 32px rgba(0, 209, 255, 0.18), 0 0 72px rgba(0, 209, 255, 0.12);
 }
 
-html.series-p3 .series-surface,
-html.series-p3 .glass-panel {
+body.p3-theme .series-surface,
+body.p3-theme .glass-panel {
   border-radius: 9999px;
 }

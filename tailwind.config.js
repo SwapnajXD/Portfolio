@@ -9,11 +9,6 @@ export default {
           bg: "var(--brand-bg)",
           accent: "var(--brand-accent)",
         },
-        p5: {
-          red: "var(--brand-main)",
-          black: "var(--brand-bg)",
-          white: "var(--brand-accent)",
-        },
       },
       boxShadow: {
         p5: "-8px 8px 0 var(--brand-bg)",

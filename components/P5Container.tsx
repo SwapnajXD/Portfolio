@@ -9,8 +9,8 @@ export function P5Container({ className, children }: P5ContainerProps) {
   return (
     <section
       className={cn(
-        "relative clip-jagged overflow-hidden border-2 border-p5-white/90 bg-p5-black text-p5-white",
-        "before:absolute before:inset-0 before:-z-10 before:translate-x-2 before:translate-y-2 before:bg-p5-red before:content-['']",
+        "relative clip-jagged overflow-hidden border-2 border-brand-accent/90 bg-brand-bg text-brand-accent",
+        "before:absolute before:inset-0 before:-z-10 before:translate-x-2 before:translate-y-2 before:bg-brand-main before:content-['']",
         className,
       )}
     >

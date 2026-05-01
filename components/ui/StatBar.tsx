@@ -36,7 +36,7 @@ function getRankDescription(value: number, descriptions: { [key: number]: string
 export function StatBar({
   label,
   value,
-  colorClassName = "bg-p5-red",
+  colorClassName = "bg-brand-main",
   className,
   delay = 0,
   rankDescriptions = defaultRankDescriptions,
@@ -67,7 +67,7 @@ export function StatBar({
         transition={{ duration: 0.2 }}
       >
         <div
-          className="bg-p5-black border-2 border-p5-white px-3 py-2 whitespace-nowrap text-xs font-hand uppercase tracking-wider text-p5-red font-bold drop-shadow-lg"
+          className="bg-brand-bg border-2 border-brand-accent px-3 py-2 whitespace-nowrap text-xs font-hand uppercase tracking-wider text-brand-main font-bold drop-shadow-lg"
           style={{
             clipPath: 'polygon(4% 0%, 100% 0%, 96% 8%, 100% 25%, 98% 100%, 0% 100%, 0% 25%, 2% 8%)',
           }}
@@ -75,11 +75,11 @@ export function StatBar({
           {rankText}
 
           {/* Tooltip arrow */}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-l-transparent border-r-transparent border-t-p5-black" />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-l-transparent border-r-transparent border-t-brand-bg" />
         </div>
       </motion.div>
 
-      <div className="flex items-center justify-between gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-p5-white/75">
+      <div className="flex items-center justify-between gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-brand-accent/75">
         <span data-p5interactive="true" className="cursor-help">{label}</span>
         <motion.span
           initial={{ opacity: 0 }}
@@ -90,7 +90,7 @@ export function StatBar({
         </motion.span>
       </div>
 
-      <div className="relative h-3 overflow-hidden border border-p5-white/80 bg-p5-black [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%,0%_18%)] sm:h-4">
+      <div className="relative h-3 overflow-hidden border border-brand-accent/80 bg-brand-bg [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%,0%_18%)] sm:h-4">
         <motion.div
           className={cn(
             "absolute inset-y-0 left-0 [clip-path:polygon(2%_0%,100%_0%,96%_100%,0%_100%,0%_12%)]",

@@ -13,10 +13,11 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 function applySeriesToDocument(series: Series) {
-  const root = document.documentElement;
-  root.setAttribute("data-series", series);
-  root.classList.remove("series-p5", "series-p3");
-  root.classList.add(series === "P5" ? "series-p5" : "series-p3");
+  const body = document.body;
+  if (!body) return; // For SSR safety if needed, though this is a client component
+  body.setAttribute("data-series", series);
+  body.classList.remove("p5-theme", "p3-theme");
+  body.classList.add(series === "P5" ? "p5-theme" : "p3-theme");
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

@@ -35,10 +35,10 @@ export function SeriesToggle() {
     setIsSwitching(true);
     playHover();
 
-    document.documentElement.classList.add("series-transitioning");
+    document.body.classList.add("series-transitioning");
     window.setTimeout(() => {
       toggleSeries();
-      document.documentElement.classList.remove("series-transitioning");
+      document.body.classList.remove("series-transitioning");
     }, 240);
   };
 
@@ -52,7 +52,7 @@ export function SeriesToggle() {
             key="series-flash"
             className={cn(
               "fixed inset-0 z-[9999] pointer-events-none",
-              flashSeries === "P5" ? "bg-p5-red" : "bg-[radial-gradient(circle_at_center,rgba(0,209,255,0.42),rgba(7,20,35,0.9))]",
+              flashSeries === "P5" ? "bg-brand-main" : "bg-[radial-gradient(circle_at_center,rgba(0,209,255,0.42),rgba(7,20,35,0.9))]",
             )}
             initial={{ opacity: 0, scale: flashSeries === "P5" ? 0.96 : 1 }}
             animate={{ opacity: [0, 1, 0], scale: [flashSeries === "P5" ? 0.96 : 1, 1, flashSeries === "P5" ? 1.02 : 1] }}

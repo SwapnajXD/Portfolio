@@ -48,7 +48,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-p5-black text-p5-white antialiased`}
+        className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-brand-bg text-brand-accent antialiased`}
       >
         <ThemeProvider>
           <P5Cursor />
