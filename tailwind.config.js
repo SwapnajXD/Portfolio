@@ -31,9 +31,22 @@ export default {
           "70%": { opacity: "1", transform: "scale(1.08) translateY(-2px) rotate(2deg)" },
           "100%": { opacity: "1", transform: "scale(1) translateY(0) rotate(0deg)" },
         },
+        p5Snap: {
+          "0%": { transform: "translateX(-1.25rem) scale(0.9) rotate(-6deg)", opacity: "0" },
+          "65%": { transform: "translateX(0.4rem) scale(1.06) rotate(1deg)", opacity: "1" },
+          "100%": { transform: "translateX(0) scale(1) rotate(0deg)", opacity: "1" },
+        },
+        p5Jitter: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "25%": { transform: "translateX(-2px)" },
+          "50%": { transform: "translateX(2px)" },
+          "75%": { transform: "translateX(-1px)" },
+        },
       },
       animation: {
         burstIn: "burstIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "p5-snap": "p5Snap 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "p5-jitter": "p5Jitter 0.28s steps(2, end) both",
       },
     },
   },
