@@ -283,7 +283,7 @@ export function CallingCard() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden bg-brand-bg">
+    <div className="relative flex min-h-[36rem] items-center justify-center px-4 py-12 overflow-hidden bg-brand-bg">
       {/* Shadow Negotiation Dialog */}
       <ShadowNegotiation
         isOpen={showNegotiation}
@@ -327,13 +327,13 @@ export function CallingCard() {
           damping: isP3 ? 22 : 25,
           mass: 0.8,
         }}
-        className="w-full max-w-2xl relative"
+        className="relative w-full max-w-2xl"
       >
         <div className="relative">
           {/* Shadow / glow behind card */}
           {isP3 ? (
             <div
-              className="absolute -inset-3 rounded-3xl"
+              className="absolute -inset-3 rounded-xl"
               style={{
                 background: "radial-gradient(circle at 50% 40%, rgba(0,209,255,0.12) 0%, transparent 70%)",
                 boxShadow: "0 0 48px rgba(0,209,255,0.1)",
@@ -350,15 +350,15 @@ export function CallingCard() {
             className={cn(
               "relative p-10 sm:p-12 overflow-hidden border-4",
               isP3
-                ? "rounded-3xl border-[rgba(0,209,255,0.35)]"
+                ? "rounded-xl border-brand-main/35"
                 : "-skew-x-12 border-brand-accent bg-brand-main",
             )}
             style={
               isP3
                 ? {
-                    background: "linear-gradient(180deg, rgba(0,209,255,0.18) 0%, rgba(7,20,35,0.96) 40%)",
+                    background: "linear-gradient(180deg, color-mix(in srgb, var(--brand-main) 22%, transparent) 0%, color-mix(in srgb, var(--brand-bg) 96%, transparent) 44%)",
                     backdropFilter: "blur(16px)",
-                    boxShadow: "0 0 32px rgba(0,209,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
+                    boxShadow: "0 0 32px color-mix(in srgb, var(--brand-main) 26%, transparent), inset 0 1px 0 color-mix(in srgb, var(--brand-accent) 12%, transparent)",
                   }
                 : undefined
             }
@@ -368,14 +368,14 @@ export function CallingCard() {
               className="absolute inset-0 opacity-20"
               style={{
                 backgroundImage: isP3
-                  ? "radial-gradient(circle at 50% 50%, rgba(0,209,255,0.08) 1px, transparent 1px)"
+                  ? "radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--brand-main) 16%, transparent) 1px, transparent 1px)"
                   : "repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)",
                 backgroundSize: isP3 ? "8px 8px" : undefined,
               }}
             />
 
-            <div className="relative z-10 space-y-8">
-              <div className={isP3 ? "" : "skew-x-12"}>
+            <div className={cn("relative z-10 space-y-8", isP3 ? "" : "skew-x-12")}>
+              <div>
                 <h2
                   className={cn(
                     "font-display uppercase leading-tight tracking-[0.04em] font-black",
@@ -408,7 +408,7 @@ export function CallingCard() {
                   const isTextarea = field === "message";
                   const Component = isTextarea ? "textarea" : "input";
                   return (
-                    <div key={field} className={isP3 ? "" : "skew-x-12"}>
+                    <div key={field}>
                       <Component
                         type={field === "email" ? "email" : "text"}
                         name={field}
@@ -419,7 +419,7 @@ export function CallingCard() {
                         className={cn(
                           "w-full px-0 py-3 font-hand text-lg uppercase tracking-[0.12em] focus:outline-none transition-colors",
                           isP3
-                            ? "bg-transparent text-brand-accent placeholder-brand-accent/40 border-b-2 border-[rgba(0,209,255,0.3)] focus:border-brand-main"
+                            ? "bg-transparent text-brand-accent placeholder-brand-accent/40 border-b-2 border-brand-main/35 focus:border-brand-main"
                             : "bg-brand-bg text-brand-accent placeholder-brand-accent/50 border-b-4 border-brand-accent focus:border-brand-main",
                           isTextarea && "resize-none",
                         )}
@@ -438,12 +438,12 @@ export function CallingCard() {
                     className={cn(
                       "relative w-20 h-20 flex items-center justify-center font-display text-4xl font-bold uppercase transition-all shadow-lg",
                       isP3
-                        ? "rounded-full bg-[rgba(0,209,255,0.15)] text-brand-main border-2 border-[rgba(0,209,255,0.5)] hover:bg-[rgba(0,209,255,0.3)] hover:border-brand-main"
-                        : "bg-brand-bg text-brand-accent hover:bg-brand-main hover:text-brand-bg border-4 border-brand-accent hover:border-brand-bg skew-x-12 [clip-path:polygon(10%_0%,90%_0%,100%_50%,90%_100%,10%_100%,0%_50%)]",
+                        ? "bg-brand-bg/45 text-brand-main border-2 border-brand-main/60 hover:bg-brand-main/25 hover:border-brand-main [clip-path:polygon(12%_0%,88%_0%,100%_50%,88%_100%,12%_100%,0%_50%)]"
+                        : "bg-brand-bg text-brand-accent hover:bg-brand-main hover:text-brand-bg border-4 border-brand-accent hover:border-brand-bg [clip-path:polygon(10%_0%,90%_0%,100%_50%,90%_100%,10%_100%,0%_50%)]",
                     )}
                     style={
                       isP3
-                        ? { boxShadow: "0 0 20px rgba(0,209,255,0.2)" }
+                        ? { boxShadow: "0 0 20px color-mix(in srgb, var(--brand-main) 32%, transparent)" }
                         : undefined
                     }
                   >
@@ -455,7 +455,7 @@ export function CallingCard() {
               <div
                 className={cn(
                   "text-center text-sm font-hand uppercase tracking-[0.16em]",
-                  isP3 ? "text-brand-accent/50" : "skew-x-12 text-brand-bg/70",
+                  isP3 ? "text-brand-accent/50" : "text-brand-bg/70",
                 )}
               >
                 <p>{isP3 ? "Memento Mori — the clock is ticking" : "Phantom Thieves await your call"}</p>
@@ -463,31 +463,30 @@ export function CallingCard() {
             </div>
           </div>
         </div>
+        {/* Corner decorations anchored to the card frame */}
+        <div className="pointer-events-none absolute -top-6 left-2">
+          <motion.div
+            animate={isP3 ? { opacity: [0.3, 0.6, 0.3] } : { x: [0, -4, 4, 0], y: [0, -4, 4, 0] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className={cn(
+              "font-display text-xs uppercase tracking-[0.2em] font-bold",
+              isP3 ? "text-brand-main/30" : "text-brand-main/20",
+            )}
+          >
+            {isP3 ? "DARK HOUR" : "CODE: 0101"}
+          </motion.div>
+        </div>
+
+        <div className="pointer-events-none absolute -bottom-6 right-2">
+          <motion.div
+            animate={{ opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="font-hand text-xs uppercase tracking-[0.15em] text-brand-accent/30"
+          >
+            {isP3 ? "memento mori..." : "await response..."}
+          </motion.div>
+        </div>
       </motion.div>
-
-      {/* Corner decorations */}
-      <div className="absolute top-10 left-10 pointer-events-none">
-        <motion.div
-          animate={isP3 ? { opacity: [0.3, 0.6, 0.3] } : { x: [0, -4, 4, 0], y: [0, -4, 4, 0] }}
-          transition={{ duration: isP3 ? 3 : 3, repeat: Infinity }}
-          className={cn(
-            "font-display text-xs uppercase tracking-[0.2em] font-bold",
-            isP3 ? "text-brand-main/30" : "text-brand-main/20",
-          )}
-        >
-          {isP3 ? "DARK HOUR" : "CODE: 0101"}
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-10 right-10 pointer-events-none">
-        <motion.div
-          animate={{ opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-brand-accent/30 font-hand text-xs uppercase tracking-[0.15em]"
-        >
-          {isP3 ? "memento mori..." : "await response..."}
-        </motion.div>
-      </div>
     </div>
   );
 }
