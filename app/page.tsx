@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { AdaptiveContainer } from "@/components/AdaptiveContainer";
+import { BattleMenu } from "@/components/BattleMenu";
 import { P3RMenu } from "@/components/P3RMenu";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { PhanSitePanel } from "@/components/ui/PhanSitePanel";
 import { CallingCard } from "@/components/ui/CallingCard";
+import { useTheme } from "@/context/ThemeContext";
 
 const projects = [
   {
@@ -74,6 +76,8 @@ const socialStats = [
 ];
 
 export default function HomePage() {
+  const { currentSeries } = useTheme();
+
   return (
     <main className="min-h-screen overflow-hidden bg-brand-bg text-brand-accent">
       <section className="relative mx-auto flex min-h-screen max-w-7xl items-stretch px-4 py-6 sm:px-6 lg:px-10">
@@ -106,15 +110,19 @@ export default function HomePage() {
           </div>
 
           <div className="flex w-full justify-end lg:w-auto">
-            <P3RMenu
-              items={[
-                { label: "SKILLS", href: "#skills", description: "core abilities" },
-                { label: "PROJECTS", href: "#projects", description: "selected works" },
-                { label: "ABOUT", href: "#about", description: "who is behind this" },
-                { label: "CONTACT", href: "#contact", description: "send a calling card" },
-              ]}
-              className="max-w-[32rem]"
-            />
+            {currentSeries === "P3" ? (
+              <P3RMenu
+                items={[
+                  { label: "SKILLS", href: "#skills", description: "core abilities" },
+                  { label: "PROJECTS", href: "#projects", description: "selected works" },
+                  { label: "ABOUT", href: "#about", description: "who is behind this" },
+                  { label: "CONTACT", href: "#contact", description: "send a calling card" },
+                ]}
+                className="max-w-[32rem]"
+              />
+            ) : (
+              <BattleMenu />
+            )}
           </div>
         </AdaptiveContainer>
       </section>
