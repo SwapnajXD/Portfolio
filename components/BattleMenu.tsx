@@ -197,9 +197,12 @@ function P5BattleMenu({
   );
 }
 
-// ─── P3 — Cascading Italic Text with Active Stripe ───────────────────────────
-// Deep-blue bg. Vertical right-side menu. White bold italic text floating.
-// Active = RED text + tall diagonal magenta parallelogram stripe to its right.
+// ─── P3 — Cascading Italic Text (matches Persona 3 Reload screenshots) ────────
+//
+// Active item   : RED (#E50914), large, bold italic + white parallelogram accent to the right
+// Inactive items: Cyan (#00CFFF), bold italic, shrink progressively with distance from active
+// Font          : Barlow Condensed 800 Italic (closest to P3R's condensed italic UI font)
+// No background boxes — pure floating text
 
 function P3BattleMenu({
   items,
@@ -212,25 +215,44 @@ function P3BattleMenu({
   onActivate: (href: string) => void;
   playHover: () => void;
 }) {
+  const activeIndex = items.findIndex((item) => item.href === activeHref);
+
+  // Font size cascade: active is largest, shrinks by ~9px per step from active
+  const getFontSize = (index: number) => {
+    const dist = Math.abs(index - activeIndex);
+    if (dist === 0) return 56;
+    return Math.max(24, 46 - dist * 9);
+  };
+
+  // Opacity cascade: items far from active fade out
+  const getOpacity = (index: number) => {
+    const dist = Math.abs(index - activeIndex);
+    if (dist === 0) return 1;
+    return Math.max(0.5, 1 - dist * 0.13);
+  };
+
   return (
     <nav
-      className="relative select-none"
+      className="select-none"
       aria-label="Portfolio navigation"
+      style={{ width: "max-content" }}
     >
-      <ul className="flex flex-col" style={{ gap: 4 }}>
+      <ul className="flex flex-col" style={{ gap: 2 }}>
         {items.map((item, index) => {
-          const isActive = activeHref === item.href;
+          const isActive = index === activeIndex;
+          const fontSize = getFontSize(index);
+          const opacity = getOpacity(index);
 
           return (
             <motion.li
               key={item.href}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: 32 }}
+              animate={{ opacity, x: 0 }}
               transition={{
                 type: "spring",
                 stiffness: 180,
                 damping: 22,
-                delay: index * 0.08,
+                delay: index * 0.06,
               }}
               style={{ listStyle: "none" }}
             >
@@ -242,63 +264,67 @@ function P3BattleMenu({
                   onActivate(item.href);
                 }}
                 onHoverStart={playHover}
-                whileHover={{ x: -8 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ x: -6 }}
+                whileTap={{ scale: 0.97 }}
                 data-p5interactive="true"
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="relative flex items-center justify-end gap-3"
+                transition={{ type: "spring", stiffness: 320, damping: 24 }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
               >
-                {/* ── The menu label text ── */}
+                {/* ── Label text ── */}
                 <span
-                  className="font-display font-black uppercase italic leading-none"
                   style={{
-                    fontSize: "clamp(28px, 4vw, 42px)",
+                    fontFamily: "var(--font-barlow-condensed), var(--font-bangers), sans-serif",
+                    fontStyle: "italic",
+                    fontWeight: 800,
+                    fontSize,
+                    lineHeight: 1.05,
                     letterSpacing: "0.02em",
-                    color: isActive ? "#D92323" : "rgba(234,246,255,0.9)",
+                    color: isActive ? "#E50914" : "#00CFFF",
                     textShadow: isActive
-                      ? "0 0 24px rgba(217,35,35,0.5)"
-                      : "0 2px 12px rgba(0,0,0,0.5)",
-                    transition: "color 0.2s ease",
+                      ? "2px 3px 0 rgba(0,0,0,0.55), 0 0 20px rgba(229,9,20,0.35)"
+                      : "1px 2px 0 rgba(0,0,0,0.4), 0 0 14px rgba(0,207,255,0.25)",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {item.label}
                 </span>
 
-                {/* ── Active: pink/magenta diagonal stripe ── */}
+                {/* ── Active: white parallelogram accent (to the right) ── */}
                 {isActive && (
                   <motion.div
                     initial={{ scaleY: 0, opacity: 0 }}
                     animate={{ scaleY: 1, opacity: 1 }}
-                    exit={{ scaleY: 0, opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    transition={{ type: "spring", stiffness: 480, damping: 22 }}
                     style={{
-                      originY: 0.5,
-                      width: 22,
-                      height: 54,
+                      transformOrigin: "center",
                       flexShrink: 0,
+                      // Height matches approx the active text cap height
+                      height: Math.round(fontSize * 0.88),
+                      width: 18,
                       position: "relative",
+                      alignSelf: "center",
                     }}
                   >
-                    {/* Magenta stripe — skewed parallelogram, like the P3R screenshot */}
+                    {/* Main white shard */}
                     <div
                       style={{
                         position: "absolute",
                         inset: 0,
-                        background: "linear-gradient(180deg, #FF3EA5 0%, #D92323 100%)",
-                        transform: "skewX(-12deg)",
-                        boxShadow: "0 0 14px rgba(255,62,165,0.6)",
+                        background: "#FFFFFF",
+                        transform: "skewX(-10deg)",
+                        boxShadow: "0 0 10px rgba(255,255,255,0.55)",
                       }}
                     />
-                    {/* Lighter inner highlight */}
+                    {/* Left magenta/pink edge — thin accent line */}
                     <div
                       style={{
                         position: "absolute",
                         top: 0,
                         bottom: 0,
-                        left: 3,
-                        width: 5,
-                        background: "rgba(255,180,220,0.7)",
-                        transform: "skewX(-12deg)",
+                        left: 0,
+                        width: 4,
+                        background: "linear-gradient(180deg, #FF3EA5 0%, #E50914 100%)",
+                        transform: "skewX(-10deg)",
                       }}
                     />
                   </motion.div>

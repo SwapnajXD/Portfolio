@@ -176,7 +176,7 @@ body.p3-theme .moonlight-glow {
 
 body.p3-theme .series-surface,
 body.p3-theme .glass-panel {
-  border-radius: 9999px;
+  border-radius: 1.25rem;
 }
 
 /* ─── P5 Series Utilities ──────────────────────────────────────────────────── */
@@ -224,9 +224,9 @@ body.p3-theme .glass-panel {
 }
 
 /* Organic bubble rounding helpers */
-.p3-bubble-sm  { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
-.p3-bubble-md  { border-radius: 65% 35% 60% 40% / 45% 55% 45% 55%; }
-.p3-bubble-lg  { border-radius: 70% 30% 55% 45% / 40% 60% 50% 50%; }
+.p3-bubble-sm  { border-radius: 0.875rem; }
+.p3-bubble-md  { border-radius: 1.25rem; }
+.p3-bubble-lg  { border-radius: 1.75rem; }
 
 /* Pulsing glow — apply to any element */
 .p3-glow-pulse {

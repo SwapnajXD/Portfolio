@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bangers, Inter, Permanent_Marker } from "next/font/google";
+import { Bangers, Barlow_Condensed, Inter, Permanent_Marker } from "next/font/google";
 import type { ReactNode } from "react";
 import { AdaptiveCursor } from "@/components/P3Cursor";
 import { SeriesToggle } from "@/components/SeriesToggle";
@@ -8,6 +8,12 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const bangers = Bangers({ subsets: ["latin"], weight: "400", variable: "--font-bangers" });
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  style: ["italic"],
+  variable: "--font-barlow-condensed",
+});
 const permanentMarker = Permanent_Marker({
   subsets: ["latin"],
   weight: "400",
@@ -48,7 +54,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${bangers.variable} ${permanentMarker.variable} bg-brand-bg text-brand-accent antialiased`}
+        className={`${inter.variable} ${bangers.variable} ${barlowCondensed.variable} ${permanentMarker.variable} bg-brand-bg text-brand-accent antialiased`}
       >
         <ThemeProvider>
           <AdaptiveCursor />
