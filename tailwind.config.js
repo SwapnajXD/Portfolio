@@ -28,6 +28,12 @@ export default {
         10: "10deg",
         12: "12deg",
       },
+      borderRadius: {
+        // Organic / bubble shapes for P3 Liquid Glass
+        "organic-sm": "60% 40% 55% 45% / 50% 60% 40% 50%",
+        "organic-md": "65% 35% 60% 40% / 45% 55% 45% 55%",
+        "organic-lg": "70% 30% 55% 45% / 40% 60% 50% 50%",
+      },
       keyframes: {
         burstIn: {
           "0%": { opacity: "0", transform: "scale(0.6) translateY(16px) rotate(-8deg)" },
@@ -63,6 +69,15 @@ export default {
           "0%, 100%": { opacity: "0.45" },
           "50%": { opacity: "0.9" },
         },
+        p3GlowPulse: {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(0,209,255,0.4), 0 0 40px rgba(0,209,255,0.1)" },
+          "50%": { boxShadow: "0 0 36px rgba(0,209,255,0.65), 0 0 64px rgba(0,209,255,0.2)" },
+        },
+        p3ShimmerBorder: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
       },
       animation: {
         burstIn: "burstIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
@@ -72,6 +87,8 @@ export default {
         "p5-grain": "p5Grain 0.8s steps(2, end) infinite",
         "p3-ripple": "p3Ripple 0.9s ease-in-out infinite",
         "p3-shine": "p3Shine 2.4s ease-in-out infinite",
+        "p3-glow-pulse": "p3GlowPulse 2.8s ease-in-out infinite",
+        "p3-shimmer-border": "p3ShimmerBorder 4s ease infinite",
       },
     },
   },

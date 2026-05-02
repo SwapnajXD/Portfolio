@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useCallback } from 'react';
 import { useTheme, type Series } from '@/context/ThemeContext';
+import { useSeriesStyles } from '@/hooks/useSeriesStyles';
 import { cn } from '@/components/cn';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -147,6 +148,7 @@ function P3Avatar({ reacting }: { reacting: boolean }) {
 
 export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiationProps) {
   const { currentSeries } = useTheme();
+  const s = useSeriesStyles();
   const [selectedResponse, setSelectedResponse] = useState<ShadowResponse | null>(null);
   const [showReaction, setShowReaction] = useState(false);
 
@@ -291,22 +293,7 @@ export function ShadowNegotiation({ isOpen, onClose, onRespond }: ShadowNegotiat
                         initial={{ opacity: 0, x: isP3 ? 0 : -20, y: isP3 ? 10 : 0 }}
                         animate={{ opacity: 1, x: 0, y: 0 }}
                         transition={{ delay: 0.4 + idx * 0.1 }}
-                        className={cn(
-                          'relative w-full py-3 px-4 border-2 font-hand uppercase text-sm tracking-wider overflow-hidden transition-all duration-200',
-                          isP3
-                            ? 'rounded-full border-[rgba(0,209,255,0.4)] hover:border-[rgba(0,209,255,0.9)] hover:bg-[rgba(0,209,255,0.12)] text-brand-accent'
-                            : '-skew-x-6 bg-brand-bg hover:bg-brand-main hover:text-brand-bg text-brand-accent',
-                        )}
-                        style={
-                          !isP3
-                            ? {
-                                borderColor:
-                                  response.id === 'cool'
-                                    ? 'var(--brand-main)'
-                                    : 'var(--brand-accent)',
-                              }
-                            : undefined
-                        }
+                        className={s.button}
                       >
                         <span className="relative z-10 flex items-center gap-2 justify-center">
                           {response.emoji} {response.text}

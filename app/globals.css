@@ -178,3 +178,66 @@ body.p3-theme .series-surface,
 body.p3-theme .glass-panel {
   border-radius: 9999px;
 }
+
+/* ─── P5 Series Utilities ──────────────────────────────────────────────────── */
+
+/* Halftone dot texture for the top red shard */
+.p5-halftone {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.55) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+/* Ransom-note header block: high-contrast black text on white slab */
+.p5-ransom-block {
+  display: inline-block;
+  background: #EBE6E6;
+  color: #0D0D0D;
+  padding: 0.1em 0.28em;
+  transform: skewX(-8deg) rotate(-1deg);
+  line-height: 1;
+  box-shadow: 3px 3px 0 #0D0D0D;
+}
+
+/* ─── P3 Series Utilities ──────────────────────────────────────────────────── */
+
+/* Shimmering silver gradient border via background-clip trick */
+.p3-shimmer-border {
+  position: relative;
+  background-clip: padding-box;
+}
+.p3-shimmer-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    rgba(180, 220, 255, 0.15) 0%,
+    rgba(0, 209, 255, 0.65) 30%,
+    rgba(180, 220, 255, 0.9) 50%,
+    rgba(0, 209, 255, 0.65) 70%,
+    rgba(180, 220, 255, 0.15) 100%
+  );
+  background-size: 250% 250%;
+  animation: p3ShimmerBorder 4s ease infinite;
+  z-index: -1;
+}
+
+/* Organic bubble rounding helpers */
+.p3-bubble-sm  { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+.p3-bubble-md  { border-radius: 65% 35% 60% 40% / 45% 55% 45% 55%; }
+.p3-bubble-lg  { border-radius: 70% 30% 55% 45% / 40% 60% 50% 50%; }
+
+/* Pulsing glow — apply to any element */
+.p3-glow-pulse {
+  animation: p3GlowPulse 2.8s ease-in-out infinite;
+}
+
+/* Liquid glass material */
+.p3-glass {
+  background: rgba(8, 40, 80, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 0 20px rgba(0, 209, 255, 0.4);
+  animation: p3GlowPulse 2.8s ease-in-out infinite;
+}

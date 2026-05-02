@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { P5Container } from "@/components/P5Container";
+import { AdaptiveContainer } from "@/components/AdaptiveContainer";
 import { BattleMenu } from "@/components/BattleMenu";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { PhanSitePanel } from "@/components/ui/PhanSitePanel";
@@ -81,7 +81,7 @@ export default function HomePage() {
         <div className="absolute left-0 top-0 -z-10 h-48 w-48 -translate-x-1/4 -translate-y-1/4 rounded-full bg-brand-main/30 blur-3xl" />
         <div className="absolute bottom-0 right-0 -z-10 h-64 w-64 translate-x-1/4 translate-y-1/4 rounded-full bg-brand-accent/10 blur-3xl" />
 
-        <P5Container className="flex w-full flex-col gap-8 border border-brand-accent/20 bg-brand-bg/90 p-5 shadow-p5 sm:p-8 lg:flex-row lg:items-end lg:justify-between lg:p-10">
+        <AdaptiveContainer className="flex w-full flex-col gap-8 border border-brand-accent/20 bg-brand-bg/90 p-5 shadow-p5 sm:p-8 lg:flex-row lg:items-end lg:justify-between lg:p-10">
           <div className="flex max-w-3xl flex-col gap-6">
             <div className="flex flex-col gap-4">
               <p className="font-hand text-sm uppercase tracking-[0.35em] text-brand-accent/80">Calling Card</p>
@@ -108,7 +108,7 @@ export default function HomePage() {
           <div className="flex w-full justify-end lg:w-auto">
             <BattleMenu />
           </div>
-        </P5Container>
+        </AdaptiveContainer>
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_16rem] lg:px-10">
