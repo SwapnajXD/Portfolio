@@ -1,7 +1,7 @@
 const links = [
-  { label: "Email", value: "you@example.com", href: "mailto:you@example.com" },
+  { label: "Email", value: "you@example.com", href: "mailto:swapnaj0806@gmail.com" },
   { label: "GitHub", value: "github.com/SwapnajXD", href: "https://github.com/SwapnajXD" },
-  { label: "LinkedIn", value: "linkedin.com/in/you", href: "https://linkedin.com" },
+  { label: "LinkedIn", value: "linkedin.com/in/you", href: "https://www.linkedin.com/in/swapnajxd" },
   { label: "Resume", value: "download PDF", href: "/resume.pdf" },
 ];
 
