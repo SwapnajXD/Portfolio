@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { projects } from "@/lib/data";
+import { getProjectsMeta } from "@/lib/projects";
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  return getProjectsMeta().map((p) => ({ slug: p.slug }));
 }
 
 export default async function ProjectPage({
@@ -12,7 +12,7 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = getProjectsMeta().find((p) => p.slug === slug);
   if (!project) notFound();
 
   return (

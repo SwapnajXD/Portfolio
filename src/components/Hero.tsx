@@ -1,6 +1,11 @@
-import { projects, certifications } from "@/lib/data";
+import { getCertifications } from "@/lib/certifications";
+import { getProjectsMeta } from "@/lib/projects";
 
 export default function Hero() {
+  // Fetch dynamic content blocks from markdown files
+  const projects = getProjectsMeta();
+  const certifications = getCertifications();
+
   return (
     <section id="top" className="mx-auto max-w-4xl px-6 pt-16 pb-12">
       <div className="rounded-xl border border-border bg-surface p-8">

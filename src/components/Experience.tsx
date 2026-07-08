@@ -1,6 +1,10 @@
-import { certifications, journeyRepo } from "@/lib/data";
+import { getCertifications } from "@/lib/certifications";
+import { journeyRepo } from "@/lib/data";
 
 export default function Experience() {
+  // Fetch certifications dynamically from markdown files
+  const certifications = getCertifications();
+
   return (
     <section id="experience" className="mx-auto max-w-4xl px-6 py-12">
       <h2 className="mb-6 font-mono text-xs uppercase tracking-wide text-text-muted">
@@ -39,6 +43,8 @@ export default function Experience() {
         </p>
         <a
           href={journeyRepo.link}
+          target="_blank"
+          rel="noopener noreferrer"
           className="font-mono text-xs text-accent hover:underline"
         >
           view on GitHub →
