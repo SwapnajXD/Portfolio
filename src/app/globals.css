@@ -22,6 +22,16 @@
   --font-sans: var(--font-inter);
 }
 
+.dark {
+  --bg: #15171A;
+  --surface: #1D2025;
+  --border: #2D3138;
+  --text-primary: #F2F2F0;
+  --text-muted: #9A9DA3;
+  --accent: #F6821F;
+  --accent-secondary: #3B82F6;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -38,6 +48,7 @@ body {
   background: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-sans), sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
