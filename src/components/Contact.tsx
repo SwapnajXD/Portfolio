@@ -1,7 +1,7 @@
 const links = [
-  { label: "Email", value: "you@example.com", href: "mailto:swapnaj0806@gmail.com" },
+  { label: "Email", value: "swapnaj0806@gmail.com", href: "mailto:swapnaj0806@gmail.com" },
   { label: "GitHub", value: "github.com/SwapnajXD", href: "https://github.com/SwapnajXD" },
-  { label: "LinkedIn", value: "linkedin.com/in/you", href: "https://www.linkedin.com/in/swapnajxd" },
+  { label: "LinkedIn", value: "linkedin.com/swapnajxd", href: "https://www.linkedin.com/in/swapnajxd" },
   { label: "Resume", value: "download PDF", href: "/resume.pdf" },
 ];
 
@@ -13,16 +13,23 @@ export default function Contact() {
       </h2>
       <div className="rounded-lg border border-border bg-surface p-6">
         <div className="grid gap-4 sm:grid-cols-2">
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="flex items-center justify-between rounded-lg bg-bg px-4 py-3 transition-colors hover:bg-border/40"
-            >
-              <span className="font-mono text-xs text-text-muted">{link.label}</span>
-              <span className="font-mono text-xs text-accent">{link.value}</span>
-            </a>
-          ))}
+          {links.map((link) => {
+            // Check if it's the email link
+            const isEmail = link.label === "Email";
+
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target={isEmail ? undefined : "_blank"}
+                rel={isEmail ? undefined : "noopener noreferrer"}
+                className="flex items-center justify-between rounded-lg bg-bg px-4 py-3 transition-colors hover:bg-border/40"
+              >
+                <span className="font-mono text-xs text-text-muted">{link.label}</span>
+                <span className="font-mono text-xs text-accent">{link.value}</span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

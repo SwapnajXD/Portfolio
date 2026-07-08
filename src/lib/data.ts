@@ -113,5 +113,5 @@ export const journeyRepo = {
   title: "DevOps journey",
   description:
     "A running log of what I'm learning in cloud and DevOps — notes, small experiments, and scripts, updated regularly.",
-  link: "https://github.com/SwapnajXD",
+  link: "https://github.com/SwapnajXD/DevOps.git",
 };

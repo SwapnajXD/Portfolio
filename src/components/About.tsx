@@ -5,7 +5,7 @@ export default function About() {
         // about
       </h2>
       <p className="max-w-2xl text-sm leading-relaxed text-text-primary">
-        I&apos;m a third-year computer engineering student focused on cloud
+        I&apos;m a computer engineering student focused on cloud
         infrastructure and DevOps — currently deep in AWS, Docker, and
         Terraform, with a homelab I use as a sandbox for the things I&apos;m
         learning. I like building projects that actually run somewhere, not
