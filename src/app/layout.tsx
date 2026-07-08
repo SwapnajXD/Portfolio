@@ -16,9 +16,33 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://swapnaj.dev"),
   title: "Swapnaj — Cloud & DevOps",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+  openGraph: {
+    title: "Swapnaj — Cloud & DevOps",
+    description:
+      "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+    url: "https://swapnaj.dev",
+    siteName: "Swapnaj — Cloud & DevOps",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Swapnaj — Cloud & DevOps",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Swapnaj — Cloud & DevOps",
+    description:
+      "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+    images: ["/og-image.png"],
+  },
 };
 
 const themeInitScript = `

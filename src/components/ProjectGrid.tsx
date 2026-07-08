@@ -17,8 +17,14 @@ export default function ProjectGrid() {
             href={`/projects/${project.slug}`}
             className="group rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent"
           >
-            <div className="mb-2 font-mono text-[11px] text-accent-secondary">
-              {project.category}
+            <div className="mb-2 flex items-center justify-between font-mono text-[11px] text-accent-secondary">
+              <span>{project.category}</span>
+              {project.demo && (
+                <span className="flex items-center gap-1 text-accent">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  live
+                </span>
+              )}
             </div>
             <h3 className="mb-1 font-mono text-sm font-medium text-text-primary group-hover:text-accent">
               {project.title}

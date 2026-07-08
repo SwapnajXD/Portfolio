@@ -14,22 +14,52 @@ export default function Experience() {
         {certifications.map((item) => (
           <div
             key={item.title}
-            className="rounded-lg border border-border bg-surface p-4"
+            className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4"
           >
-            <div className="flex flex-wrap items-center gap-2">
-              <h3 className="font-mono text-sm font-medium text-text-primary">
-                {item.title}
-              </h3>
-              {item.status && (
-                <span className="rounded bg-bg px-2 py-0.5 font-mono text-[10px] text-accent-secondary">
-                  in progress
-                </span>
+            {item.badge && (
+              <img
+                src={item.badge}
+                alt={`${item.title} badge`}
+                className="h-12 w-12 shrink-0 rounded object-contain"
+              />
+            )}
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="font-mono text-sm font-medium text-text-primary">
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-accent hover:underline"
+                    >
+                      {item.title}
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </h3>
+                {item.status && (
+                  <span className="rounded bg-bg px-2 py-0.5 font-mono text-[10px] text-accent-secondary">
+                    in progress
+                  </span>
+                )}
+              </div>
+              <div className="mb-1 font-mono text-[11px] text-text-muted">
+                {item.org}
+              </div>
+              <p className="text-xs leading-relaxed text-text-muted">{item.note}</p>
+              {item.link && (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block font-mono text-[11px] text-accent hover:underline"
+                >
+                  view credential →
+                </a>
               )}
             </div>
-            <div className="mb-1 font-mono text-[11px] text-text-muted">
-              {item.org}
-            </div>
-            <p className="text-xs leading-relaxed text-text-muted">{item.note}</p>
           </div>
         ))}
       </div>

@@ -58,12 +58,26 @@ export default async function ProjectPage({
         </ul>
       </div>
 
-      <a
-        href={project.repo}
-        className="font-mono text-sm text-accent hover:underline"
-      >
-        view repository on GitHub →
-      </a>
+      <div className="flex flex-wrap gap-4">
+        <a
+          href={project.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-sm text-accent hover:underline"
+        >
+          view repository on GitHub →
+        </a>
+        {project.demo && (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-sm text-accent-secondary hover:underline"
+          >
+            view live demo →
+          </a>
+        )}
+      </div>
     </article>
   );
 }

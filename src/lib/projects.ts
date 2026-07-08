@@ -11,6 +11,7 @@ export type ProjectMeta = {
   description: string;
   tech: string[];
   repo: string;
+  demo?: string;
   category: "Infrastructure" | "Backend / DevOps" | "Full-stack";
   highlights: string[];
 };
@@ -32,6 +33,7 @@ export function getProjectsMeta(): ProjectMeta[] {
         description: data.description as string,
         tech: (data.tech || []) as string[],
         repo: data.repo as string,
+        demo: data.demo as string | undefined,
         category: data.category as ("Infrastructure" | "Backend / DevOps" | "Full-stack"),
         highlights: (data.highlights || []) as string[],
       };

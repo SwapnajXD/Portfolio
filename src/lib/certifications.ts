@@ -10,6 +10,7 @@ export type Certification = {
   org: string;
   note: string;
   link?: string;
+  badge?: string;
   status?: "in progress";
   order: number;
 };
@@ -30,6 +31,7 @@ export function getCertifications(): Certification[] {
         org: data.org as string,
         note: data.note as string,
         link: data.link as string | undefined,
+        badge: data.badge as string | undefined,
         status: data.status as "in progress" | undefined,
         order: data.order as number,
       };
