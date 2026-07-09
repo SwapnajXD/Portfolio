@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
+import sanitizeHtml from "sanitize-html";
 
 const journalDir = path.join(process.cwd(), "src/content/journal");
 
@@ -37,9 +38,25 @@ export async function getJournalPost(slug: string) {
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
   const processed = await remark().use(remarkHtml).process(content);
+  const cleanHtml = sanitizeHtml(processed.toString(), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "h1", "h2"]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ["src", "alt", "title", "width", "height"],
+      a: ["href", "name", "target", "rel"],
+    },
+    // Force safe rel/target on any links so authored content can't
+    // accidentally (or maliciously) leak referrer info or hijack the tab
+    transformTags: {
+      a: sanitizeHtml.simpleTransform("a", {
+        rel: "noopener noreferrer",
+        target: "_blank",
+      }),
+    },
+  });
   return {
     title: data.title as string,
     date: data.date as string,
-    html: processed.toString(),
+    html: cleanHtml,
   };
 }
