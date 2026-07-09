@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectsMeta } from "@/lib/projects";
-import CloudSentinelArchitecture from "@/components/CloudSentinelArchitecture";
+import ArchitectureDiagram from "@/components/ArchitectureDiagram";
+import { architectures } from "@/lib/architecture";
 
 export function generateStaticParams() {
   return getProjectsMeta().map((p) => ({ slug: p.slug }));
@@ -59,9 +60,9 @@ export default async function ProjectPage({
         </ul>
       </div>
 
-      {project.slug === "cloud-sentinel" && (
+      {architectures[project.slug] && (
         <div className="mb-8">
-          <CloudSentinelArchitecture />
+          <ArchitectureDiagram {...architectures[project.slug]} />
         </div>
       )}
 

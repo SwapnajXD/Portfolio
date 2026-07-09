@@ -14,6 +14,7 @@ export type ProjectMeta = {
   demo?: string;
   category: "Infrastructure" | "Backend / DevOps" | "Full-stack";
   highlights: string[];
+  order: number;
 };
 
 export function getProjectsMeta(): ProjectMeta[] {
@@ -36,6 +37,8 @@ export function getProjectsMeta(): ProjectMeta[] {
         demo: data.demo as string | undefined,
         category: data.category as ("Infrastructure" | "Backend / DevOps" | "Full-stack"),
         highlights: (data.highlights || []) as string[],
+        order: data.order as number,
       };
-    });
+    })
+    .sort((a, b) => a.order - b.order);
 }
