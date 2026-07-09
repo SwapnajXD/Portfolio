@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -74,6 +75,7 @@ export default function RootLayout({
         <ThemeToggle />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
