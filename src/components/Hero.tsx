@@ -1,6 +1,5 @@
 import { getCertifications } from "@/lib/certifications";
 import { getProjectsMeta } from "@/lib/projects";
-import VisitorCount from "@/components/VisitorCount";
 
 export default function Hero() {
   // Fetch dynamic content blocks from markdown files
@@ -39,7 +38,7 @@ export default function Hero() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-3 gap-3">
           <div className="rounded-lg bg-bg px-4 py-3">
             <div className="font-mono text-[11px] text-text-muted">projects</div>
             <div className="font-mono text-lg font-medium text-text-primary">
@@ -58,7 +57,6 @@ export default function Hero() {
               cloud/ops
             </div>
           </div>
-          <VisitorCount />
         </div>
       </div>
     </section>

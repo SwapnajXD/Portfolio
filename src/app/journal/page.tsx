@@ -14,6 +14,8 @@ export default function JournalIndex() {
         </div>
         <a
           href="/journal/rss.xml"
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded border border-border px-2.5 py-1 font-mono text-[11px] text-text-muted hover:border-accent hover:text-accent"
         >
           RSS
