@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectsMeta } from "@/lib/projects";
+import CloudSentinelArchitecture from "@/components/CloudSentinelArchitecture";
 
 export function generateStaticParams() {
   return getProjectsMeta().map((p) => ({ slug: p.slug }));
@@ -57,6 +58,12 @@ export default async function ProjectPage({
           ))}
         </ul>
       </div>
+
+      {project.slug === "cloud-sentinel" && (
+        <div className="mb-8">
+          <CloudSentinelArchitecture />
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-4">
         <a
