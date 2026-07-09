@@ -28,6 +28,7 @@ export default function CommandPalette() {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const router = useRouter();
 
   const filtered = commands.filter((c) =>
@@ -57,6 +58,7 @@ export default function CommandPalette() {
     if (open) {
       setQuery("");
       setActiveIndex(0);
+      itemRefs.current = [];
       setTimeout(() => inputRef.current?.focus(), 10);
     }
   }, [open]);
@@ -64,6 +66,10 @@ export default function CommandPalette() {
   useEffect(() => {
     setActiveIndex(0);
   }, [query]);
+
+  useEffect(() => {
+    itemRefs.current[activeIndex]?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex]);
 
   const select = (cmd: Command) => {
     setOpen(false);
@@ -90,7 +96,7 @@ export default function CommandPalette() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-start justify-center bg-black/40 pt-[15vh] backdrop-blur-sm"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
       onClick={() => setOpen(false)}
     >
       <div
@@ -120,12 +126,13 @@ export default function CommandPalette() {
           {filtered.map((cmd, i) => (
             <button
               key={cmd.href}
+              ref={(el) => {
+                itemRefs.current[i] = el;
+              }}
               onClick={() => select(cmd)}
               onMouseEnter={() => setActiveIndex(i)}
               className={`flex w-full items-center justify-between px-4 py-2 text-left font-mono text-sm transition-colors ${
-                i === activeIndex
-                  ? "bg-bg text-accent"
-                  : "text-text-primary"
+                i === activeIndex ? "bg-bg text-accent" : "text-text-primary"
               }`}
             >
               <span>{cmd.label}</span>
