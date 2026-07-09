@@ -10,6 +10,7 @@ tech:
   - "Redis"
   - "PostgreSQL"
   - "Nginx"
+  - "AWS"
 repo: "https://github.com/SwapnajXD/Cloud-Sentinel"
 category: "Backend / DevOps"
 highlights:
