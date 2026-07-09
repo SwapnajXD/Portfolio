@@ -21,6 +21,14 @@ export const metadata: Metadata = {
   title: "Swapnaj — Cloud & DevOps",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Swapnaj — Cloud & DevOps",
     description:
@@ -65,15 +73,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Swapnaj — Journal RSS"
+          href="/journal/rss.xml"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-surface"
+        >
+          Skip to content
+        </a>
         <Nav />
         <ThemeToggle />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <Analytics />
       </body>

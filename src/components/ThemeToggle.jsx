@@ -353,7 +353,7 @@ const ThemeToggle = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 right-4 z-40 pointer-events-none w-[160px] h-[260px]">
+    <div className="fixed top-0 right-4 z-40 pointer-events-none w-[160px] h-[260px] print:hidden">
       <canvas
         ref={canvasRef}
         className="pointer-events-auto w-full h-full block cursor-grab active:cursor-grabbing touch-none"

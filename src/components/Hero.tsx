@@ -24,6 +24,10 @@ export default function Hero() {
           shipping real projects, not just tutorials.
         </p>
 
+        <p className="mb-6 font-mono text-xs text-accent-secondary">
+          $ currently building: a GitHub Actions pipeline for Cloud Sentinel
+        </p>
+
         <div className="mb-8 flex flex-wrap gap-2 font-mono text-xs">
           {["terraform", "docker", "aws", "prometheus"].map((tag) => (
             <span

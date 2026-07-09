@@ -55,3 +55,26 @@ body {
   background: var(--accent);
   color: var(--surface);
 }
+
+@media print {
+  header,
+  footer,
+  a[href="#main-content"] {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .rounded-lg,
+  .rounded-xl {
+    border-color: #cccccc !important;
+  }
+
+  a {
+    color: #000000 !important;
+    text-decoration: underline;
+  }
+}

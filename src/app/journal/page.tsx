@@ -5,10 +5,20 @@ export default function JournalIndex() {
   const posts = getJournalMeta();
   return (
     <section className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="mb-2 font-mono text-2xl font-medium text-text-primary">Journal</h1>
-      <p className="mb-8 text-sm text-text-muted">
-        Notes from my DevOps and cloud learning, pulled from my running journey log.
-      </p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="mb-2 font-mono text-2xl font-medium text-text-primary">Journal</h1>
+          <p className="text-sm text-text-muted">
+            Notes from my DevOps and cloud learning, pulled from my running journey log.
+          </p>
+        </div>
+        <a
+          href="/journal/rss.xml"
+          className="rounded border border-border px-2.5 py-1 font-mono text-[11px] text-text-muted hover:border-accent hover:text-accent"
+        >
+          RSS
+        </a>
+      </div>
       <div className="space-y-4">
         {posts.map((post) => (
           <Link
