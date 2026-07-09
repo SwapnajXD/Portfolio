@@ -1,7 +1,7 @@
 ---
 title: "SlugStream"
 tagline: "A production-minded URL shortener"
-description: "A fully containerized URL-shortening service with slug conflict protection, blocked-extension safety checks, and a clean React frontend, all orchestrated with Docker Compose."
+description: "A fully containerized URL-shortening service with slug conflict protection, blocked-extension safety checks, and a Vite-powered React frontend, all orchestrated with Docker Compose and exposed publicly for testing through ngrok."
 tech:
   - "React"
   - "Vite"
@@ -10,6 +10,7 @@ tech:
   - "PostgreSQL"
   - "Redis"
   - "Nginx"
+  - "ngrok"
 repo: "https://github.com/SwapnajXD/SlugStream"
 category: "Full-stack"
 highlights:
