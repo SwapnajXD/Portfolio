@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
+import CommandPalette from "@/components/CommandPalette";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
@@ -65,6 +66,29 @@ const themeInitScript = `
 })();
 `;
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Swapnaj",
+  url: "https://swapnaj.dev",
+  jobTitle: "Computer Engineering Student",
+  description:
+    "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+  knowsAbout: [
+    "Cloud Computing",
+    "DevOps",
+    "AWS",
+    "Docker",
+    "Terraform",
+    "Kubernetes",
+    "Linux",
+  ],
+  sameAs: [
+    "https://github.com/SwapnajXD",
+    "https://www.linkedin.com/in/swapnajxd",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -80,6 +104,10 @@ export default function RootLayout({
           href="/journal/rss.xml"
         />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
@@ -93,6 +121,7 @@ export default function RootLayout({
         </a>
         <Nav />
         <ThemeToggle />
+        <CommandPalette />
         <main id="main-content">{children}</main>
         <Footer />
         <Analytics />
