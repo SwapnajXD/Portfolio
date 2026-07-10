@@ -24,8 +24,9 @@ export default async function ProjectPage({
         ← back to projects
       </Link>
 
-      <div className="mt-6 mb-2 font-mono text-[11px] text-accent-secondary">
-        {project.category}
+      <div className="mt-6 mb-2 flex items-center gap-3 font-mono text-[11px] text-accent-secondary">
+        <span>{project.category}</span>
+        {project.featured && <span className="text-accent">★ featured</span>}
       </div>
       <h1 className="mb-3 font-mono text-2xl font-medium text-text-primary">
         {project.title}

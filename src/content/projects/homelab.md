@@ -15,6 +15,7 @@ tech:
 repo: "https://github.com/SwapnajXD/HomeLab"
 category: "Infrastructure"
 order: 1
+featured: true
 highlights:
   - "Three-host topology: Apollo (Proxmox hypervisor), Athena (ops/k3s/observability), Hestia (frontend edge)"
   - "Full observability stack — Prometheus, Grafana, Loki, Grafana Alloy — with alerts routed to Telegram"

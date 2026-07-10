@@ -36,6 +36,7 @@ export type ArchitectureDiagramData = {
   nodes: DiagramNode[];
   edges: DiagramEdge[];
   steps: DiagramStep[];
+  legend?: boolean;
 };
 
 export default function ArchitectureDiagram({
@@ -45,9 +46,14 @@ export default function ArchitectureDiagram({
   nodes,
   edges,
   steps,
+  legend = true,
 }: ArchitectureDiagramData) {
   const [selected, setSelected] = useState<string | null>(null);
   const [traceStep, setTraceStep] = useState<number | null>(null);
+
+  const hasExternal = nodes.some((n) => n.external);
+  const hasDashedEdge = edges.some((e) => e.dashed);
+  const showLegend = legend && (hasExternal || hasDashedEdge);
 
   const activeEdgeIndex = traceStep !== null ? steps[traceStep].edge : null;
   const activeEdge = activeEdgeIndex !== null ? edges[activeEdgeIndex] : null;
@@ -228,6 +234,51 @@ export default function ArchitectureDiagram({
           );
         })}
       </svg>
+
+      {showLegend && (
+        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-3 font-mono text-[10px] text-text-muted">
+          <div className="flex items-center gap-2">
+            <svg width="20" height="8" className="shrink-0">
+              <line x1="0" y1="4" x2="20" y2="4" stroke="var(--color-text-muted)" strokeWidth="1.5" />
+            </svg>
+            direct flow
+          </div>
+          {hasDashedEdge && (
+            <div className="flex items-center gap-2">
+              <svg width="20" height="8" className="shrink-0">
+                <line
+                  x1="0"
+                  y1="4"
+                  x2="20"
+                  y2="4"
+                  stroke="var(--color-text-muted)"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                />
+              </svg>
+              secondary / feedback path
+            </div>
+          )}
+          {hasExternal && (
+            <div className="flex items-center gap-2">
+              <svg width="16" height="12" className="shrink-0">
+                <rect
+                  x="1"
+                  y="1"
+                  width="14"
+                  height="10"
+                  rx="2"
+                  fill="none"
+                  stroke="var(--color-text-muted)"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 2"
+                />
+              </svg>
+              external system
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="mt-4 min-h-[52px] rounded-lg bg-bg px-4 py-3 font-mono text-xs leading-relaxed text-text-muted">
         {traceStep !== null ? (

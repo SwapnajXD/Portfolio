@@ -18,6 +18,7 @@ export type ProjectMeta = {
   category: "Infrastructure" | "Backend / DevOps" | "Full-stack";
   highlights: string[];
   order: number;
+  featured?: boolean;
 };
 
 export function getProjectsMeta(): ProjectMeta[] {
@@ -41,6 +42,7 @@ export function getProjectsMeta(): ProjectMeta[] {
         category: data.category as ("Infrastructure" | "Backend / DevOps" | "Full-stack"),
         highlights: (data.highlights || []) as string[],
         order: data.order as number,
+        featured: data.featured as boolean | undefined,
       };
     })
     .sort((a, b) => a.order - b.order);
