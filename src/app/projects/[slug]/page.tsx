@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProjectsMeta } from "@/lib/projects";
+import { getProjectsMeta, getProjectBody } from "@/lib/projects";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import { architectures } from "@/lib/architecture";
 
@@ -16,6 +16,7 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = getProjectsMeta().find((p) => p.slug === slug);
   if (!project) notFound();
+  const body = await getProjectBody(slug);
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
@@ -64,6 +65,13 @@ export default async function ProjectPage({
         <div className="mb-8">
           <ArchitectureDiagram {...architectures[project.slug]} />
         </div>
+      )}
+
+      {body && (
+        <div
+          className="prose-sm mb-8 max-w-none text-sm leading-relaxed text-text-primary [&_p]:mb-4"
+          dangerouslySetInnerHTML={{ __html: body }}
+        />
       )}
 
       <div className="flex flex-wrap gap-4">

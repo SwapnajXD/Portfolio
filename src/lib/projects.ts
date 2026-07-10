@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { remark } from "remark";
+import remarkHtml from "remark-html";
+import sanitizeHtml from "sanitize-html";
 
 const projectsDir = path.join(process.cwd(), "src/content/projects");
 
@@ -41,4 +44,27 @@ export function getProjectsMeta(): ProjectMeta[] {
       };
     })
     .sort((a, b) => a.order - b.order);
+}
+
+export async function getProjectBody(slug: string): Promise<string | null> {
+  const filePath = path.join(projectsDir, `${slug}.md`);
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, "utf8");
+  const { content } = matter(raw);
+  if (!content.trim()) return null;
+  const processed = await remark().use(remarkHtml).process(content);
+  return sanitizeHtml(processed.toString(), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "h1", "h2"]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ["src", "alt", "title", "width", "height"],
+      a: ["href", "name", "target", "rel"],
+    },
+    transformTags: {
+      a: sanitizeHtml.simpleTransform("a", {
+        rel: "noopener noreferrer",
+        target: "_blank",
+      }),
+    },
+  });
 }
