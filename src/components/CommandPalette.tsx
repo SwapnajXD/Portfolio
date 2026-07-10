@@ -36,6 +36,25 @@ export default function CommandPalette() {
     c.label.toLowerCase().includes(query.toLowerCase())
   );
 
+  const normalizedQuery = query.trim().toLowerCase();
+  const isSudo = normalizedQuery === "sudo" || normalizedQuery.startsWith("sudo ");
+  const isMatrix = normalizedQuery === "matrix";
+  const isCoffee = normalizedQuery === "coffee";
+
+  const runMatrix = () => {
+    setOpen(false);
+    window.dispatchEvent(new Event("trigger-matrix-rain"));
+  };
+
+  const runCoffee = () => {
+    setOpen(false);
+    console.log(
+      "%c☕ brewing...\n%cthanks for checking, back to work",
+      "color:#F6821F;font-family:monospace;font-size:13px;font-weight:bold;",
+      "color:#9A9DA3;font-family:monospace;font-size:11px;"
+    );
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -88,8 +107,14 @@ export default function CommandPalette() {
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === "Enter" && filtered[activeIndex]) {
-      select(filtered[activeIndex]);
+    } else if (e.key === "Enter") {
+      if (isMatrix) {
+        runMatrix();
+      } else if (isCoffee) {
+        runCoffee();
+      } else if (filtered[activeIndex]) {
+        select(filtered[activeIndex]);
+      }
     }
   };
 
@@ -119,7 +144,32 @@ export default function CommandPalette() {
           </span>
         </div>
         <div className="max-h-72 overflow-y-auto py-2">
-          {filtered.length === 0 && (
+          {filtered.length === 0 && isSudo && (
+            <div className="px-4 py-6 text-center font-mono text-xs text-text-muted">
+              <span className="text-accent">Permission denied</span>
+              <br />
+              nice try 😏
+            </div>
+          )}
+          {filtered.length === 0 && isMatrix && (
+            <button
+              onClick={runMatrix}
+              className="flex w-full items-center justify-between bg-bg px-4 py-2 text-left font-mono text-sm text-accent"
+            >
+              <span>🟢 wake up, swapnaj...</span>
+              <span className="text-[11px] text-text-muted">enter</span>
+            </button>
+          )}
+          {filtered.length === 0 && isCoffee && (
+            <button
+              onClick={runCoffee}
+              className="flex w-full items-center justify-between bg-bg px-4 py-2 text-left font-mono text-sm text-accent"
+            >
+              <span>☕ brewing...</span>
+              <span className="text-[11px] text-text-muted">enter</span>
+            </button>
+          )}
+          {filtered.length === 0 && !isSudo && !isMatrix && !isCoffee && (
             <div className="px-4 py-6 text-center font-mono text-xs text-text-muted">
               no matches
             </div>

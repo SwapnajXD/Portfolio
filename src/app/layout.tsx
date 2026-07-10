@@ -5,6 +5,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import CommandPalette from "@/components/CommandPalette";
+import EasterEggs from "@/components/EasterEggs";
+import MatrixRain from "@/components/MatrixRain";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
@@ -122,6 +124,8 @@ export default function RootLayout({
         <Nav />
         <ThemeToggle />
         <CommandPalette />
+        <EasterEggs />
+        <MatrixRain />
         <main id="main-content">{children}</main>
         <Footer />
         <Analytics />
