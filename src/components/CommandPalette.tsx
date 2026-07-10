@@ -20,7 +20,7 @@ const commands: Command[] = [
   { label: "HomeLab", hint: "project", href: "/projects/homelab" },
   { label: "Cloud Sentinel", hint: "project", href: "/projects/cloud-sentinel" },
   { label: "SlugStream", hint: "project", href: "/projects/slugstream" },
-  { label: "Cashew Converter", hint: "project", href: "/projects/receipt" },
+  { label: "Receipt", hint: "project", href: "/projects/receipt" },
   { label: "GitHub", hint: "external", href: "https://github.com/SwapnajXD", external: true },
 ];
 

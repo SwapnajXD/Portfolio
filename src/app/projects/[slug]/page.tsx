@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProjectsMeta } from "@/lib/projects";
-import CloudSentinelArchitecture from "@/components/CloudSentinelArchitecture";
+import { getProjectsMeta, getProjectBody } from "@/lib/projects";
+import ArchitectureDiagram from "@/components/ArchitectureDiagram";
+import { architectures } from "@/lib/architecture";
 
 export function generateStaticParams() {
   return getProjectsMeta().map((p) => ({ slug: p.slug }));
@@ -15,6 +16,7 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = getProjectsMeta().find((p) => p.slug === slug);
   if (!project) notFound();
+  const body = await getProjectBody(slug);
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
@@ -22,8 +24,9 @@ export default async function ProjectPage({
         ← back to projects
       </Link>
 
-      <div className="mt-6 mb-2 font-mono text-[11px] text-accent-secondary">
-        {project.category}
+      <div className="mt-6 mb-2 flex items-center gap-3 font-mono text-[11px] text-accent-secondary">
+        <span>{project.category}</span>
+        {project.featured && <span className="text-accent">★ featured</span>}
       </div>
       <h1 className="mb-3 font-mono text-2xl font-medium text-text-primary">
         {project.title}
@@ -59,10 +62,17 @@ export default async function ProjectPage({
         </ul>
       </div>
 
-      {project.slug === "cloud-sentinel" && (
+      {architectures[project.slug] && (
         <div className="mb-8">
-          <CloudSentinelArchitecture />
+          <ArchitectureDiagram {...architectures[project.slug]} />
         </div>
+      )}
+
+      {body && (
+        <div
+          className="prose-sm mb-8 max-w-none text-sm leading-relaxed text-text-primary [&_p]:mb-4"
+          dangerouslySetInnerHTML={{ __html: body }}
+        />
       )}
 
       <div className="flex flex-wrap gap-4">

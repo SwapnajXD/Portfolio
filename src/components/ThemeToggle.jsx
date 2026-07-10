@@ -18,6 +18,12 @@ const ThemeToggle = () => {
     };
     checkInitialTheme();
 
+    // The rope is a drag interaction — not meaningful on touch/small screens,
+    // and its hitbox would otherwise sit on top of real content there.
+    if (typeof window !== "undefined" && !window.matchMedia("(min-width: 640px)").matches) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const viewWidth = 160;
@@ -353,7 +359,7 @@ const ThemeToggle = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 right-4 z-40 pointer-events-none w-[160px] h-[260px] print:hidden">
+    <div className="fixed top-0 right-4 z-40 hidden w-[160px] h-[260px] pointer-events-none print:hidden sm:block">
       <canvas
         ref={canvasRef}
         className="pointer-events-auto w-full h-full block cursor-grab active:cursor-grabbing touch-none"
