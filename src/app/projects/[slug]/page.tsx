@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectsMeta, getProjectBody } from "@/lib/projects";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
-import { architectures } from "@/lib/architecture";
+import { architectures } from "@/lib/architectures";
 
 export function generateStaticParams() {
   return getProjectsMeta().map((p) => ({ slug: p.slug }));

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type Command = {
@@ -9,7 +9,12 @@ type Command = {
   external?: boolean;
 };
 
-const commands: Command[] = [
+type ProjectSummary = {
+  slug: string;
+  title: string;
+};
+
+const staticCommands: Command[] = [
   { label: "Home", hint: "top", href: "/#top" },
   { label: "About", href: "/#about" },
   { label: "Skills", href: "/#skills" },
@@ -17,14 +22,27 @@ const commands: Command[] = [
   { label: "Experience & Certifications", href: "/#experience" },
   { label: "Contact", href: "/#contact" },
   { label: "Journal", hint: "notes", href: "/journal" },
-  { label: "HomeLab", hint: "project", href: "/projects/homelab" },
-  { label: "Cloud Sentinel", hint: "project", href: "/projects/cloud-sentinel" },
-  { label: "SlugStream", hint: "project", href: "/projects/slugstream" },
-  { label: "Receipt", hint: "project", href: "/projects/receipt" },
   { label: "GitHub", hint: "external", href: "https://github.com/SwapnajXD", external: true },
 ];
 
-export default function CommandPalette() {
+export default function CommandPalette({
+  projects = [],
+}: {
+  projects?: ProjectSummary[];
+}) {
+  const commands: Command[] = useMemo(
+    () => [
+      ...staticCommands.slice(0, 7),
+      ...projects.map((p) => ({
+        label: p.title,
+        hint: "project",
+        href: `/projects/${p.slug}`,
+      })),
+      ...staticCommands.slice(7),
+    ],
+    [projects]
+  );
+
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);

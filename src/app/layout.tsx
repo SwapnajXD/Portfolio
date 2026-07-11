@@ -8,6 +8,7 @@ import CommandPalette from "@/components/CommandPalette";
 import EasterEggs from "@/components/EasterEggs";
 import MatrixRain from "@/components/MatrixRain";
 import { Analytics } from "@vercel/analytics/react";
+import { getProjectsMeta } from "@/lib/projects";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -91,11 +92,12 @@ const personJsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const projects = getProjectsMeta();
   return (
     <html lang="en">
       <head>
@@ -123,7 +125,7 @@ export default function RootLayout({
         </a>
         <Nav />
         <ThemeToggle />
-        <CommandPalette />
+        <CommandPalette projects={projects} />
         <EasterEggs />
         <MatrixRain />
         <main id="main-content">{children}</main>
