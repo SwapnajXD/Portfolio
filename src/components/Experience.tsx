@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getCertifications } from "@/lib/certifications";
 import { journeyRepo } from "@/lib/data";
 
@@ -17,9 +18,11 @@ export default function Experience() {
             className="flex items-center gap-4 rounded-lg border border-border bg-surface p-4"
           >
             {item.badge && (
-              <img
+              <Image
                 src={item.badge}
                 alt={`${item.title} badge`}
+                width={48}
+                height={48}
                 className="h-12 w-12 shrink-0 rounded object-contain"
               />
             )}
