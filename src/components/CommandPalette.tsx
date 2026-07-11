@@ -43,16 +43,18 @@ export default function CommandPalette() {
 
   const runMatrix = () => {
     setOpen(false);
-    window.dispatchEvent(new Event("trigger-matrix-rain"));
+    setTimeout(() => window.dispatchEvent(new Event("trigger-matrix-rain")), 50);
   };
 
   const runCoffee = () => {
     setOpen(false);
-    console.log(
-      "%c☕ brewing...\n%cthanks for checking, back to work",
-      "color:#F6821F;font-family:monospace;font-size:13px;font-weight:bold;",
-      "color:#9A9DA3;font-family:monospace;font-size:11px;"
-    );
+    setTimeout(() => {
+      console.log(
+        "%c☕ brewing...\n%cthanks for checking, back to work",
+        "color:#F6821F;font-family:monospace;font-size:13px;font-weight:bold;",
+        "color:#9A9DA3;font-family:monospace;font-size:11px;"
+      );
+    }, 50);
   };
 
   useEffect(() => {
