@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 export default function FadeIn({
   children,
@@ -10,10 +10,14 @@ export default function FadeIn({
   delay?: number;
   mode?: "scroll" | "load";
 }) {
-  const shared = {
-    initial: { opacity: 0, y: 16 },
-    transition: { duration: 0.5, delay, ease: "easeOut" as const },
-  };
+  const shouldReduceMotion = useReducedMotion();
+
+  const shared = shouldReduceMotion
+    ? { initial: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+    : {
+        initial: { opacity: 0, y: 16 },
+        transition: { duration: 0.5, delay, ease: "easeOut" as const },
+      };
 
   if (mode === "load") {
     return (

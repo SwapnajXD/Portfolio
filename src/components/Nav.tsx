@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTheme } from "@/components/ThemeContext";
 
 const links = [
   { href: "/#about", label: "About" },
@@ -10,18 +11,26 @@ const links = [
 ];
 
 export default function Nav() {
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
+  // The rope toggle in ThemeToggle.jsx only renders on desktop with motion
+  // allowed. Everywhere else (mobile, or reduced-motion desktop), this
+  // simple button is the only way to change theme, so show it there.
+  const [showFallbackToggle, setShowFallbackToggle] = useState(false);
 
   useEffect(() => {
-    setIsDark(document.documentElement.classList.contains("dark"));
+    const mobileQuery = window.matchMedia("(max-width: 639px)");
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      setShowFallbackToggle(mobileQuery.matches || motionQuery.matches);
+    };
+    update();
+    mobileQuery.addEventListener("change", update);
+    motionQuery.addEventListener("change", update);
+    return () => {
+      mobileQuery.removeEventListener("change", update);
+      motionQuery.removeEventListener("change", update);
+    };
   }, []);
-
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-sm">
@@ -43,17 +52,20 @@ export default function Nav() {
             onClick={() =>
               window.dispatchEvent(new Event("open-command-palette"))
             }
+            aria-label="Open command palette"
             className="hidden items-center gap-1 rounded border border-border px-2 py-1 font-mono text-[11px] text-text-muted transition-colors hover:border-accent hover:text-accent sm:flex"
           >
-            <span>⌘K</span>
+            <span aria-hidden="true">⌘K</span>
           </button>
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="flex items-center justify-center rounded border border-border p-1.5 text-text-muted transition-colors hover:border-accent hover:text-accent sm:hidden"
-          >
-            {isDark ? "☀" : "☾"}
-          </button>
+          {showFallbackToggle && (
+            <button
+              onClick={toggleTheme}
+              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+              className="flex items-center justify-center rounded border border-border p-1.5 text-text-muted transition-colors hover:border-accent hover:text-accent"
+            >
+              <span aria-hidden="true">{isDark ? "☀" : "☾"}</span>
+            </button>
+          )}
         </div>
       </nav>
     </header>

@@ -140,32 +140,57 @@ export default function CommandPalette({
 
   if (!open) return null;
 
+  const activeId =
+    filtered[activeIndex] !== undefined ? `cmdk-option-${activeIndex}` : undefined;
+
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
       onClick={() => setOpen(false)}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
         className="w-full max-w-lg overflow-hidden rounded-xl border border-border bg-surface shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-          <span className="font-mono text-sm text-accent">$</span>
+          <span className="font-mono text-sm text-accent" aria-hidden="true">
+            $
+          </span>
           <input
             ref={inputRef}
+            role="combobox"
+            aria-label="Search commands and pages"
+            aria-expanded="true"
+            aria-controls="cmdk-listbox"
+            aria-autocomplete="list"
+            aria-activedescendant={activeId}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleInputKeyDown}
             placeholder="Jump to..."
             className="w-full bg-transparent font-mono text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
           />
-          <span className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-text-muted">
+          <span
+            aria-hidden="true"
+            className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-text-muted"
+          >
             esc
           </span>
         </div>
-        <div className="max-h-72 overflow-y-auto py-2">
+        <div
+          id="cmdk-listbox"
+          role="listbox"
+          aria-label="Results"
+          className="max-h-72 overflow-y-auto py-2"
+        >
           {filtered.length === 0 && isSudo && (
-            <div className="px-4 py-6 text-center font-mono text-xs text-text-muted">
+            <div
+              role="status"
+              className="px-4 py-6 text-center font-mono text-xs text-text-muted"
+            >
               <span className="text-accent">Permission denied</span>
               <br />
               nice try 😏
@@ -190,13 +215,19 @@ export default function CommandPalette({
             </button>
           )}
           {filtered.length === 0 && !isSudo && !isMatrix && !isCoffee && (
-            <div className="px-4 py-6 text-center font-mono text-xs text-text-muted">
+            <div
+              role="status"
+              className="px-4 py-6 text-center font-mono text-xs text-text-muted"
+            >
               no matches
             </div>
           )}
           {filtered.map((cmd, i) => (
             <button
               key={cmd.href}
+              id={`cmdk-option-${i}`}
+              role="option"
+              aria-selected={i === activeIndex}
               ref={(el) => {
                 itemRefs.current[i] = el;
               }}

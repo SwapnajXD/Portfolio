@@ -184,15 +184,26 @@ export default function ArchitectureDiagram({
 
         {nodes.map((node) => {
           const active = isNodeActive(node.id);
+          const activateNode = () =>
+            traceStep === null &&
+            setSelected((s) => (s === node.id ? null : node.id));
           return (
             <g
               key={node.id}
+              tabIndex={traceStep === null ? 0 : -1}
+              role="button"
+              aria-label={`${node.label}${node.sublabel ? `, ${node.sublabel}` : ""}: ${node.info}`}
+              aria-pressed={selected === node.id}
               onMouseEnter={() => traceStep === null && setSelected(node.id)}
-              onClick={() =>
-                traceStep === null &&
-                setSelected((s) => (s === node.id ? null : node.id))
-              }
-              className="cursor-pointer"
+              onFocus={() => traceStep === null && setSelected(node.id)}
+              onClick={activateNode}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  activateNode();
+                }
+              }}
+              className="cursor-pointer outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 focus-visible:rounded-lg"
             >
               <rect
                 x={node.x}
@@ -210,6 +221,7 @@ export default function ArchitectureDiagram({
                 x={node.x + node.w / 2}
                 y={node.y + node.h / 2 - (node.sublabel ? 4 : -4)}
                 textAnchor="middle"
+                aria-hidden="true"
                 className="pointer-events-none font-mono"
                 style={{
                   fontSize: 13,
@@ -224,6 +236,7 @@ export default function ArchitectureDiagram({
                   x={node.x + node.w / 2}
                   y={node.y + node.h / 2 + 14}
                   textAnchor="middle"
+                  aria-hidden="true"
                   className="pointer-events-none font-mono"
                   style={{ fontSize: 10, fill: "var(--color-text-muted)" }}
                 >
@@ -280,7 +293,10 @@ export default function ArchitectureDiagram({
         </div>
       )}
 
-      <div className="mt-4 min-h-[52px] rounded-lg bg-bg px-4 py-3 font-mono text-xs leading-relaxed text-text-muted">
+      <div
+        aria-live="polite"
+        className="mt-4 min-h-[52px] rounded-lg bg-bg px-4 py-3 font-mono text-xs leading-relaxed text-text-muted"
+      >
         {traceStep !== null ? (
           <>
             <span className="text-accent">step {traceStep + 1}:</span>{" "}

@@ -15,6 +15,26 @@ export default function MatrixRain() {
   useEffect(() => {
     if (!active) return;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const dismiss = () => setActive(false);
+    const timeout = setTimeout(dismiss, 4000);
+    window.addEventListener("keydown", dismiss);
+    window.addEventListener("click", dismiss);
+
+    // Full flashing rain isn't appropriate with reduced motion requested —
+    // show a calm, static equivalent instead of skipping the easter egg
+    // entirely.
+    if (prefersReducedMotion) {
+      return () => {
+        clearTimeout(timeout);
+        window.removeEventListener("keydown", dismiss);
+        window.removeEventListener("click", dismiss);
+      };
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -54,11 +74,6 @@ export default function MatrixRain() {
     };
     frame = requestAnimationFrame(draw);
 
-    const dismiss = () => setActive(false);
-    const timeout = setTimeout(dismiss, 4000);
-    window.addEventListener("keydown", dismiss);
-    window.addEventListener("click", dismiss);
-
     return () => {
       cancelAnimationFrame(frame);
       clearTimeout(timeout);
@@ -69,6 +84,22 @@ export default function MatrixRain() {
   }, [active]);
 
   if (!active) return null;
+
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    return (
+      <div
+        role="status"
+        className="fixed inset-0 z-[300] flex cursor-pointer flex-col items-center justify-center gap-3 bg-black font-mono text-[#3CE07A]"
+      >
+        <div className="text-lg">🟢 wake up, swapnaj...</div>
+        <div className="text-xs text-[#3CE07A]/60">click or press any key to exit</div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[300] cursor-pointer bg-black">

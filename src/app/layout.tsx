@@ -9,6 +9,7 @@ import EasterEggs from "@/components/EasterEggs";
 import MatrixRain from "@/components/MatrixRain";
 import { Analytics } from "@vercel/analytics/react";
 import { getProjectsMeta } from "@/lib/projects";
+import { ThemeProvider } from "@/components/ThemeContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -123,13 +124,15 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        <Nav />
-        <ThemeToggle />
-        <CommandPalette projects={projects} />
-        <EasterEggs />
-        <MatrixRain />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Nav />
+          <ThemeToggle />
+          <CommandPalette projects={projects} />
+          <EasterEggs />
+          <MatrixRain />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
