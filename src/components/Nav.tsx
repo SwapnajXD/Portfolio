@@ -34,7 +34,7 @@ export default function Nav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link href="/#top" className="font-mono text-sm text-text-primary">
           swapnaj<span className="text-accent">.dev</span>
         </Link>

@@ -16,9 +16,8 @@ export default function WhoAmIReveal() {
           background:
             "repeating-linear-gradient(45deg, #1a0033, #1a0033 10px, #2b0055 10px, #2b0055 20px)",
           color: "#00ff00",
-          minHeight: "70vh",
-          padding: "24px 16px",
         }}
+        className="fixed inset-0 z-[400] overflow-y-auto p-4 sm:p-6"
       >
         <div
           style={{

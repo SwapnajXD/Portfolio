@@ -7,7 +7,7 @@ export default function Experience() {
   const certifications = getCertifications();
 
   return (
-    <section id="experience" className="mx-auto max-w-4xl px-6 py-12">
+    <section id="experience" className="mx-auto max-w-5xl px-6 py-12">
       <h2 className="mb-6 font-mono text-xs uppercase tracking-wide text-text-muted">
         // experience &amp; certifications
       </h2>

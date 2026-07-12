@@ -7,7 +7,7 @@ export default function Hero() {
   const certifications = getCertifications();
 
   return (
-    <section id="top" className="mx-auto max-w-4xl px-6 pt-16 pb-12">
+    <section id="top" className="mx-auto max-w-5xl px-6 pt-16 pb-12">
       <div className="rounded-xl border border-border bg-surface p-8">
         <div className="mb-6 flex items-center justify-between font-mono text-xs">
           <span className="text-accent-secondary">status: online</span>
