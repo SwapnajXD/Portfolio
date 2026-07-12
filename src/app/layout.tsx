@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Swapnaj",
+    title: "Swapnaj — Cloud & DevOps",
     description:
       "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
     url: SITE_URL,
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Swapnaj",
+    title: "Swapnaj — Cloud & DevOps",
     description:
       "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
     images: ["/og-image.png"],

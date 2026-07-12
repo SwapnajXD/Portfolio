@@ -4,7 +4,7 @@ import { getJournalMeta } from "@/lib/journal";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Journal — Swapnaj",
+  title: "Swapnaj",
   description: "Notes from my DevOps and cloud learning, pulled from my running journey log.",
   alternates: { canonical: `${SITE_URL}/journal` },
 };

@@ -17,7 +17,8 @@ export async function generateMetadata({
   const meta = getJournalMeta().find((p) => p.slug === slug);
   if (!meta) return {};
 
-  const title = `${meta.title} — Swapnaj's Journal`;
+  const title = "Swapnaj";
+  const ogTitle = `${meta.title} — Swapnaj's Journal`;
   const url = `${SITE_URL}/journal/${meta.slug}`;
 
   return {
@@ -25,7 +26,7 @@ export async function generateMetadata({
     description: meta.summary,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      title: ogTitle,
       description: meta.summary,
       url,
       type: "article",
@@ -33,7 +34,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: ogTitle,
       description: meta.summary,
     },
   };

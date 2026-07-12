@@ -19,7 +19,8 @@ export async function generateMetadata({
   const project = getProjectsMeta().find((p) => p.slug === slug);
   if (!project) return {};
 
-  const title = `${project.title} — Swapnaj`;
+  const title = "Swapnaj";
+  const ogTitle = `${project.title} — Swapnaj`;
   const url = `${SITE_URL}/projects/${project.slug}`;
 
   return {
@@ -27,14 +28,14 @@ export async function generateMetadata({
     description: project.description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      title: ogTitle,
       description: project.description,
       url,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: ogTitle,
       description: project.description,
     },
   };

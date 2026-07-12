@@ -8,6 +8,7 @@ const webring = ["cyberdungeon", "pixelforge", "modemzone", "byteattic"];
 
 export default function WhoAmIReveal() {
   const [revealed, setRevealed] = useState(false);
+  const [midiPlaying, setMidiPlaying] = useState(true);
 
   if (revealed) {
     return (
@@ -67,6 +68,70 @@ export default function WhoAmIReveal() {
 
           <div
             style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 10,
+              flexWrap: "wrap",
+              margin: "16px 0",
+            }}
+          >
+            {[
+              { icon: "🏆", label: ["Cool Site", "of the Day"] },
+              { icon: "🌟", label: ["Netscape Now!", "Certified"] },
+              { icon: "🎖️", label: ["Community", "Choice 1999"] },
+            ].map((award) => (
+              <div
+                key={award.icon}
+                style={{
+                  border: "2px outset #ffff00",
+                  background: "#000",
+                  padding: "6px 10px",
+                  textAlign: "center",
+                  fontSize: 9,
+                  color: "#ffff00",
+                  width: 74,
+                }}
+              >
+                <div style={{ fontSize: 20 }}>{award.icon}</div>
+                {award.label.map((line) => (
+                  <div key={line}>{line}</div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div
+            style={{
+              border: "2px inset #c0c0c0",
+              background: "#000",
+              padding: 8,
+              textAlign: "center",
+              margin: "16px 0",
+            }}
+          >
+            <button
+              onClick={() => setMidiPlaying((p) => !p)}
+              style={{
+                background: "none",
+                border: "1px solid #00ff00",
+                color: "#00ff00",
+                fontFamily: "monospace",
+                fontSize: 11,
+                padding: "4px 8px",
+                cursor: "pointer",
+              }}
+            >
+              {midiPlaying
+                ? "🎵 now playing: tubular_bells.mid [pause]"
+                : "🔇 midi paused, your ears thank you [resume]"}
+            </button>
+            <div style={{ fontSize: 9, color: "#888", marginTop: 4 }}>
+              (relax, there&apos;s no real audio. i&apos;m not a monster)
+            </div>
+          </div>
+
+          <div
+            style={{
               background: "#000000",
               border: "2px inset #c0c0c0",
               padding: 8,
@@ -114,6 +179,50 @@ export default function WhoAmIReveal() {
             </p>
           </div>
 
+          <div
+            style={{
+              border: "2px groove #c0c0c0",
+              padding: 12,
+              background: "#000040",
+              marginBottom: 16,
+            }}
+          >
+            <p
+              style={{ color: "#ffff00", margin: "0 0 6px", fontWeight: "bold" }}
+            >
+              🔗 my top 5 links
+            </p>
+            <ol style={{ color: "#00ffff", fontSize: 13, margin: 0, paddingLeft: 20 }}>
+              <li>AltaVista (best search engine, fight me)</li>
+              <li>Ask Jeeves</li>
+              <li>Encarta 98 — all the world&apos;s knowledge, on 4 CDs</li>
+              <li>Neopets</li>
+              <li>my geocities neighbor&apos;s site (also under construction)</li>
+            </ol>
+          </div>
+
+          <div style={{ marginBottom: 16 }}>
+            <p
+              style={{ color: "#ffff00", margin: "0 0 6px", fontWeight: "bold" }}
+            >
+              ✨ fun facts about me
+            </p>
+            <ul style={{ color: "#00ffff", fontSize: 13, margin: 0, paddingLeft: 20 }}>
+              <li>
+                <span className="retro-blink">★</span> i once fixed a prod
+                outage at 3am and lived to tell the tale
+              </li>
+              <li>
+                <span className="retro-blink">★</span> my homelab has better
+                uptime than most startups
+              </li>
+              <li>
+                <span className="retro-blink">★</span> this page took longer
+                to build than some of my real projects
+              </li>
+            </ul>
+          </div>
+
           <div style={{ textAlign: "center", marginBottom: 16 }}>
             <span style={{ color: "#00ff00" }}>⟵ prev</span>
             {" | "}
@@ -141,8 +250,16 @@ export default function WhoAmIReveal() {
               marginBottom: 16,
             }}
           >
-            {["800x600", "NETSCAPE READY", "56K OR BUST", "HTML 3.2"].map(
-              (badge) => (
+            {[
+              "800x600",
+              "NETSCAPE READY",
+              "56K OR BUST",
+              "HTML 3.2",
+              "MADE WITH NOTEPAD",
+              "NO FRAMES USED",
+              "RSS 2.0 READY",
+              "Y2K COMPLIANT",
+            ].map((badge) => (
                 <span
                   key={badge}
                   style={{
@@ -160,6 +277,11 @@ export default function WhoAmIReveal() {
           </div>
 
           <hr style={{ border: "1px dashed #00ff00" }} />
+
+          <p style={{ textAlign: "center", fontSize: 10, color: "#666" }}>
+            this page has been visited by aliens 👽 (unconfirmed, pending peer
+            review)
+          </p>
 
           <p style={{ textAlign: "center", fontSize: 11, color: "#888" }}>
             © 1999-2026 swapnaj&apos;s homepage. last updated: whenever i felt
