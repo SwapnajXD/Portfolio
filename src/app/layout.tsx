@@ -10,6 +10,7 @@ import MatrixRain from "@/components/MatrixRain";
 import { Analytics } from "@vercel/analytics/react";
 import { getProjectsMeta } from "@/lib/projects";
 import { ThemeProvider } from "@/components/ThemeContext";
+import { SITE_URL, GITHUB_URL, LINKEDIN_URL } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,10 +23,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://swapnaj.dev"),
+  metadataBase: new URL(SITE_URL),
   title: "Swapnaj — Cloud & DevOps",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+  alternates: { canonical: SITE_URL },
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -38,7 +40,7 @@ export const metadata: Metadata = {
     title: "Swapnaj — Cloud & DevOps",
     description:
       "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
-    url: "https://swapnaj.dev",
+    url: SITE_URL,
     siteName: "Swapnaj — Cloud & DevOps",
     images: [
       {
@@ -73,7 +75,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Swapnaj",
-  url: "https://swapnaj.dev",
+  url: SITE_URL,
   jobTitle: "Computer Engineering Student",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
@@ -86,10 +88,7 @@ const personJsonLd = {
     "Kubernetes",
     "Linux",
   ],
-  sameAs: [
-    "https://github.com/SwapnajXD",
-    "https://www.linkedin.com/in/swapnajxd",
-  ],
+  sameAs: [GITHUB_URL, LINKEDIN_URL],
 };
 
 export default async function RootLayout({

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { EMAIL, EMAIL_HREF } from "@/lib/constants";
 
 const webring = ["cyberdungeon", "pixelforge", "modemzone", "byteattic"];
 
@@ -164,10 +165,10 @@ export default function WhoAmIReveal() {
             © 1999-2026 swapnaj&apos;s homepage. last updated: whenever i felt
             like it. webmaster:{" "}
             <a
-              href="mailto:swapnaj0806@gmail.com"
+              href={EMAIL_HREF}
               style={{ color: "#00ffff" }}
             >
-              swapnaj0806@gmail.com
+              {EMAIL}
             </a>
           </p>
 

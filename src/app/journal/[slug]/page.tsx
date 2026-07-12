@@ -1,9 +1,42 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getJournalMeta, getJournalPost } from "@/lib/journal";
+import { SITE_URL } from "@/lib/constants";
 
 export function generateStaticParams() {
   return getJournalMeta().map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const meta = getJournalMeta().find((p) => p.slug === slug);
+  if (!meta) return {};
+
+  const title = `${meta.title} — Swapnaj's Journal`;
+  const url = `${SITE_URL}/journal/${meta.slug}`;
+
+  return {
+    title,
+    description: meta.summary,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description: meta.summary,
+      url,
+      type: "article",
+      publishedTime: meta.date,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: meta.summary,
+    },
+  };
 }
 
 export default async function JournalPostPage({
@@ -14,9 +47,29 @@ export default async function JournalPostPage({
   const { slug } = await params;
   const post = await getJournalPost(slug);
   if (!post) notFound();
+  const meta = getJournalMeta().find((p) => p.slug === slug);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    datePublished: post.date,
+    dateModified: post.date,
+    description: meta?.summary,
+    url: `${SITE_URL}/journal/${slug}`,
+    author: {
+      "@type": "Person",
+      name: "Swapnaj",
+      url: SITE_URL,
+    },
+  };
 
   return (
     <article className="mx-auto max-w-2xl px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Link href="/journal" className="font-mono text-xs text-text-muted hover:text-accent">
         ← back to journal
       </Link>

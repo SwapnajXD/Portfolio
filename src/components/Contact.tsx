@@ -1,7 +1,16 @@
+import {
+  EMAIL,
+  EMAIL_HREF,
+  GITHUB_URL,
+  GITHUB_LABEL,
+  LINKEDIN_URL,
+  LINKEDIN_LABEL,
+} from "@/lib/constants";
+
 const links = [
-  { label: "Email", value: "swapnaj0806@gmail.com", href: "mailto:swapnaj0806@gmail.com" },
-  { label: "GitHub", value: "github.com/SwapnajXD", href: "https://github.com/SwapnajXD" },
-  { label: "LinkedIn", value: "linkedin.com/swapnajxd", href: "https://www.linkedin.com/in/swapnajxd" },
+  { label: "Email", value: EMAIL, href: EMAIL_HREF },
+  { label: "GitHub", value: GITHUB_LABEL, href: GITHUB_URL },
+  { label: "LinkedIn", value: LINKEDIN_LABEL, href: LINKEDIN_URL },
   { label: "Resume", value: "download PDF", href: "/resume.pdf" },
 ];
 

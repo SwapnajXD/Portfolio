@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_DOMAIN } from "@/lib/constants";
 
 export default function NotFound() {
   return (
@@ -8,7 +9,7 @@ export default function NotFound() {
           status: 404
         </div>
         <div className="font-mono text-sm text-text-muted">
-          $ curl swapnaj.dev{"{this-page}"}
+          $ curl {SITE_DOMAIN}{"{this-page}"}
         </div>
         <div className="font-mono text-sm text-text-muted">
           connection refused — route does not exist

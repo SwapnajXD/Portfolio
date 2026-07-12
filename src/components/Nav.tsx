@@ -39,7 +39,7 @@ export default function Nav() {
           swapnaj<span className="text-accent">.dev</span>
         </Link>
         <div className="flex items-center gap-6">
-          <ul className="flex gap-6 font-mono text-xs text-text-muted">
+          <ul className="hidden gap-6 font-mono text-xs text-text-muted sm:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="transition-colors hover:text-accent">
@@ -52,10 +52,15 @@ export default function Nav() {
             onClick={() =>
               window.dispatchEvent(new Event("open-command-palette"))
             }
-            aria-label="Open command palette"
-            className="hidden items-center gap-1 rounded border border-border px-2 py-1 font-mono text-[11px] text-text-muted transition-colors hover:border-accent hover:text-accent sm:flex"
+            aria-label="Open navigation and search"
+            className="flex items-center gap-1 rounded border border-border px-2 py-1 font-mono text-[11px] text-text-muted transition-colors hover:border-accent hover:text-accent"
           >
-            <span aria-hidden="true">⌘K</span>
+            <span aria-hidden="true" className="sm:hidden">
+              ☰
+            </span>
+            <span aria-hidden="true" className="hidden sm:inline">
+              ⌘K
+            </span>
           </button>
           {showFallbackToggle && (
             <button

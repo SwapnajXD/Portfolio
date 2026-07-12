@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { GITHUB_URL } from "@/lib/constants";
 
 type Command = {
   label: string;
@@ -22,7 +23,7 @@ const staticCommands: Command[] = [
   { label: "Experience & Certifications", href: "/#experience" },
   { label: "Contact", href: "/#contact" },
   { label: "Journal", hint: "notes", href: "/journal" },
-  { label: "GitHub", hint: "external", href: "https://github.com/SwapnajXD", external: true },
+  { label: "GitHub", hint: "external", href: GITHUB_URL, external: true },
 ];
 
 export default function CommandPalette({

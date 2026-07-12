@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { GITHUB_REPO_URL, EMAIL } from "@/lib/constants";
 
 const KONAMI = [
   "ArrowUp",
@@ -22,12 +23,12 @@ export default function EasterEggs() {
       "color:#F6821F;font-size:16px;font-weight:bold;font-family:monospace;"
     );
     console.log(
-      "%csource's right here → %chttps://github.com/SwapnajXD/Portfolio",
+      "%csource's right here → %c" + GITHUB_REPO_URL,
       "color:#9A9DA3;font-family:monospace;font-size:12px;",
       "color:#3B82F6;font-family:monospace;font-size:12px;"
     );
     console.log(
-      "%cor just say hi → %cswapnaj0806@gmail.com",
+      "%cor just say hi → %c" + EMAIL,
       "color:#9A9DA3;font-family:monospace;font-size:12px;",
       "color:#3B82F6;font-family:monospace;font-size:12px;"
     );

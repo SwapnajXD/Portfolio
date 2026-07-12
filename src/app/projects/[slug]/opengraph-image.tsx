@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getProjectsMeta } from "@/lib/projects";
+import { SITE_DOMAIN } from "@/lib/constants";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -60,7 +61,7 @@ export default async function Image({
             }}
           >
             <span>status: online</span>
-            <span style={{ color: TEXT_MUTED }}>swapnaj.dev</span>
+            <span style={{ color: TEXT_MUTED }}>{SITE_DOMAIN}</span>
           </div>
 
           <div style={{ display: "flex", fontSize: 18, color: ACCENT, marginBottom: 12 }}>

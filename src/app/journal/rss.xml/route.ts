@@ -1,6 +1,7 @@
 import { getJournalMeta } from "@/lib/journal";
+import { SITE_URL } from "@/lib/constants";
 
-const baseUrl = "https://swapnaj.dev";
+const baseUrl = SITE_URL;
 
 export async function GET() {
   const posts = getJournalMeta();
