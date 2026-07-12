@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Swapnaj — Cloud & DevOps",
+  title: "Swapnaj",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
   alternates: { canonical: SITE_URL },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Swapnaj — Cloud & DevOps",
+    title: "Swapnaj",
     description:
       "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
     url: SITE_URL,
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Swapnaj — Cloud & DevOps",
+    title: "Swapnaj",
     description:
       "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
     images: ["/og-image.png"],
