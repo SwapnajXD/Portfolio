@@ -46,11 +46,11 @@ export type CertificationFrontmatter = z.infer<typeof certificationFrontmatterSc
  * error on failure instead of letting bad data silently become `undefined`
  * somewhere deep in a component.
  */
-export function parseFrontmatter<T>(
-  schema: z.ZodType<T>,
+export function parseFrontmatter<S extends z.ZodTypeAny>(
+  schema: S,
   data: unknown,
   fileLabel: string
-): T {
+): z.infer<S> {
   const result = schema.safeParse(data);
   if (!result.success) {
     const issues = result.error.issues
