@@ -7,7 +7,7 @@ import { EMAIL, EMAIL_HREF } from "@/lib/constants";
 const webring = ["cyberdungeon", "pixelforge", "modemzone", "byteattic"];
 
 export default function WhoAmIReveal() {
-  const [revealed, setRevealed] = useState(false);
+  const [revealed, setRevealed] = useState(true);
   const [midiPlaying, setMidiPlaying] = useState(true);
 
   if (revealed) {
