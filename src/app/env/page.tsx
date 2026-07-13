@@ -17,7 +17,7 @@ const fakeEnv = [
 
 export default function EnvPage() {
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col justify-center px-6 py-16 font-mono text-sm">
+    <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-6 py-16 font-mono text-sm">
       <p className="text-text-muted"># .env</p>
       <p className="mt-1 text-text-muted">
         # if you&apos;re scanning for this on a real target, Cloud Sentinel

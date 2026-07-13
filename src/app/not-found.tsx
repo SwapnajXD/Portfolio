@@ -3,7 +3,7 @@ import { SITE_DOMAIN } from "@/lib/constants";
 
 export default function NotFound() {
   return (
-    <section className="mx-auto max-w-2xl px-6 py-24 text-center">
+    <section className="mx-auto max-w-3xl px-6 py-24 text-center">
       <div className="mx-auto mb-6 inline-block rounded-lg border border-border bg-surface px-6 py-5">
         <div className="mb-2 font-mono text-xs text-accent">
           status: 404

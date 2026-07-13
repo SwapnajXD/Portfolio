@@ -115,42 +115,15 @@ body {
     opacity: 0;
   }
 }
-@keyframes retro-rainbow {
-  0% {
-    color: #ff0000;
-  }
-  16% {
-    color: #ff8800;
-  }
-  33% {
-    color: #ffee00;
-  }
-  50% {
-    color: #00ff44;
-  }
-  66% {
-    color: #00c8ff;
-  }
-  83% {
-    color: #aa00ff;
-  }
-  100% {
-    color: #ff0000;
-  }
-}
 .retro-marquee {
   animation: retro-marquee 12s linear infinite;
 }
 .retro-blink {
   animation: retro-blink 1s step-start infinite;
 }
-.retro-rainbow {
-  animation: retro-rainbow 3s linear infinite;
-}
 @media (prefers-reduced-motion: reduce) {
   .retro-marquee,
-  .retro-blink,
-  .retro-rainbow {
+  .retro-blink {
     animation: none;
   }
 }

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function JournalIndex() {
   const posts = getJournalMeta();
   return (
-    <section className="mx-auto max-w-3xl px-6 py-16">
+    <section className="mx-auto max-w-4xl px-6 py-16">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="mb-2 font-mono text-2xl font-medium text-text-primary">Journal</h1>
