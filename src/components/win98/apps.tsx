@@ -73,38 +73,6 @@ export function ProjectsApp({
   );
 }
 
-export function TerminalApp() {
-  return (
-    <div
-      style={{
-        fontFamily: "monospace",
-        fontSize: 12,
-        color: "#00FF00",
-        background: "#000000",
-        padding: 12,
-        height: "100%",
-        lineHeight: 1.7,
-      }}
-    >
-      <p style={{ margin: 0 }}>Microsoft(R) MS-DOS(R) — not really</p>
-      <p style={{ margin: "8px 0 0" }}>C:\\SWAPNAJ&gt; whoami</p>
-      <p style={{ margin: 0 }}>
-        swapnaj — cloud &amp; devops, currently pretending this terminal is
-        real. again.
-      </p>
-      <p style={{ margin: "8px 0 0" }}>C:\\SWAPNAJ&gt; dir</p>
-      <p style={{ margin: 0 }}>
-        PROJECTS &lt;DIR&gt;
-        <br />
-        JOURNAL &lt;DIR&gt;
-        <br />
-        EASTEREGG EXE 1,337 bytes
-      </p>
-      <p style={{ margin: "8px 0 0" }}>C:\\SWAPNAJ&gt; _</p>
-    </div>
-  );
-}
-
 export function NotepadApp() {
   return (
     <textarea

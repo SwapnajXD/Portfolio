@@ -5,11 +5,11 @@ import Window, { type WinState } from "./Window";
 import {
   AboutApp,
   ProjectsApp,
-  TerminalApp,
   NotepadApp,
   CalculatorApp,
   RecycleBinApp,
 } from "./apps";
+import TerminalApp from "./TerminalApp";
 import IEApp from "./IEApp";
 
 type ProjectSummary = { slug: string; title: string; tagline: string };
@@ -32,14 +32,18 @@ const APPS: AppDef[] = [
   { id: "recycle", title: "Recycle Bin", icon: "🗑️", w: 340, h: 260 },
 ];
 
-function renderAppContent(id: string, projects: ProjectSummary[]) {
+function renderAppContent(
+  id: string,
+  projects: ProjectSummary[],
+  onCloseTerminal: () => void
+) {
   switch (id) {
     case "about":
       return <AboutApp />;
     case "projects":
       return <ProjectsApp projects={projects} />;
     case "terminal":
-      return <TerminalApp />;
+      return <TerminalApp projects={projects} onClose={onCloseTerminal} />;
     case "ie":
       return <IEApp />;
     case "notepad":
@@ -191,7 +195,7 @@ export default function Win98Desktop({
           onMaximize={maximizeWindow}
           onMove={moveWindow}
         >
-          {renderAppContent(w.id, projects)}
+          {renderAppContent(w.id, projects, () => closeWindow(w.id))}
         </Window>
       ))}
 
