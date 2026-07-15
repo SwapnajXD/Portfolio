@@ -1,7 +1,7 @@
 ---
 title: "Receipt"
 tagline: "Bank statements to Cashew imports — and it gets smarter every time you correct it"
-description: "A tool that converts bank statement exports (XLSX or CSV) into a Cashew-compatible import CSV, available as both a CLI and a small web UI. XLSX parsing is hand-rolled in pure Python (no pandas or openpyxl), and categorization runs through a two-stage classifier: regex rules first, then a learned-rules layer that persists corrections made in the web UI, so it gets more accurate the more you use it."
+description: "A tool that converts bank statement exports (XLSX or CSV) into a Cashew-compatible import CSV, available as both a CLI and a small web UI. XLSX parsing is hand-rolled in pure Python (no pandas or openpyxl), and categorization runs through a two-stage classifier: learned corrections from the web UI are checked first, falling back to ordered regex rules, so it gets more accurate the more you use it."
 tech:
   - "Python"
 repo: "https://github.com/SwapnajXD/Receipt"
@@ -10,7 +10,7 @@ order: 4
 highlights:
   - "Pure-Python XLSX parser built from scratch on zipfile + xml.etree — no external parsing library"
   - "Style-aware date parsing handles both text dates and native Excel date-serial cells, so transactions no longer silently disappear from real-world spreadsheets"
-  - "Two-stage classifier: regex rules, then a learned-rules layer that persists your corrections, guarded against noisy short-key false positives"
+  - "Two-stage classifier: your learned corrections are checked first, falling back to ordered regex rules, guarded against noisy short-key false positives"
   - "Web UI lets you preview and correct rows inline, with live income/expense/net totals, search/filter, category color coding, and bulk edit before the categorizer learns from them"
   - "Regression-tested: self-contained unit tests cover the XLSX edge cases without needing a real bank statement fixture"
   - "Runs as a CLI for batch conversion (with a category/income summary) or a lightweight web UI for interactive review"
@@ -40,7 +40,7 @@ Statement (.xlsx/.csv) → Entry (CLI or web) → Parser → Classifier (rules +
 ```
 
 - **Parser** (`xlsx.py`, `statement.py`) turns the raw file into a list of dict rows, regardless of whether it came in as XLSX or CSV, and regardless of which bank-specific column headers it used.
-- **Classifier** (`rules.py`) is two stages: a first pass of ordered regex rules against the transaction description (merchant patterns, UPI reference formats, recurring bill names), then a second pass against `learned_rules.json` — substring matches against corrections made through the web UI.
+- **Classifier** (`rules.py`) is two stages, checked in this order: an exact-or-substring match against `learned_rules.json` (corrections made through the web UI) first, then a fallback pass of ordered regex rules against the transaction description (merchant patterns, UPI reference formats, recurring bill names) if nothing learned matches.
 - **Output** (`models.py`) maps the result into `CashewRow`, which knows how to serialize itself into Cashew's exact CSV schema, including the icon/color pair Cashew expects per category.
 - **Entry points** (`cli.py`, `web.py`) are thin — they just wire the above together for batch use or interactive use.
 
@@ -86,7 +86,7 @@ Both are now covered by self-contained regression tests that hand-build a minima
 
 The regex rules in `rules.py` are ordered and hand-written — good for recurring, structured patterns like UPI transaction IDs or recognizable merchant substrings. But real statements have plenty of one-off or ambiguous descriptions no regex will anticipate. Rather than making me maintain that rules file by hand, the web UI lets me fix a row's category inline, and on request (`/learn`) it persists a normalized version of that row's description mapped to the category I chose, into `learned_rules.json`.
 
-On the next conversion, the classifier checks learned rules *after* the regex rules but *before* falling back to an "Uncategorized" default — a substring match against the transaction's normalized description. One subtlety: a learned key that's too short becomes a footgun. If I ever correct a transaction and the normalized key collapses to something like `"pay"`, that would then match almost any UPI payment description going forward, silently overriding otherwise-correct regex rules. The matching loop enforces a minimum key length before allowing a substring match, so short/generic corrections don't quietly hijack unrelated transactions.
+On the next conversion, the classifier checks learned rules *before* the regex rules, falling back to them (and then to an "Uncategorized" default) only if nothing learned matches — an exact match against the transaction's normalized note first, then a substring match against its full normalized description. One subtlety: a learned key that's too short becomes a footgun. If I ever correct a transaction and the normalized key collapses to something like `"pay"`, that would then match almost any UPI payment description going forward, silently overriding otherwise-correct regex rules. The matching loop enforces a minimum key length before allowing a substring match, so short/generic corrections don't quietly hijack unrelated transactions.
 
 ## The web UI
 
