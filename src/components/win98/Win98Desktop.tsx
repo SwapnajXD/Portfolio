@@ -8,6 +8,7 @@ import {
   NotepadApp,
   CalculatorApp,
   RecycleBinApp,
+  DocumentsApp,
 } from "./apps";
 import TerminalApp from "./TerminalApp";
 import IEApp from "./IEApp";
@@ -26,6 +27,7 @@ type AppDef = {
 const APPS: AppDef[] = [
   { id: "about", title: "About Me", icon: "🧑‍💻", w: 380, h: 300 },
   { id: "projects", title: "My Projects", icon: "📁", w: 420, h: 340 },
+  { id: "documents", title: "My Documents", icon: "🗂️", w: 360, h: 260 },
   { id: "terminal", title: "Terminal", icon: "💻", w: 420, h: 300 },
   { id: "ie", title: "Internet Explorer", icon: "🌐", w: 480, h: 460 },
   { id: "notepad", title: "Notepad", icon: "📝", w: 380, h: 320 },
@@ -44,6 +46,8 @@ function renderAppContent(
       return <AboutApp />;
     case "projects":
       return <ProjectsApp projects={projects} />;
+    case "documents":
+      return <DocumentsApp />;
     case "terminal":
       return (
         <TerminalApp
@@ -78,8 +82,45 @@ export default function Win98Desktop({
   const [startOpen, setStartOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [clock, setClock] = useState("");
+  const [bsod, setBsod] = useState(false);
   const zRef = useRef(1);
   const offsetRef = useRef(0);
+
+  const focusedId =
+    windows
+      .filter((w) => !w.minimized)
+      .sort((a, b) => b.z - a.z)[0]?.id ?? null;
+
+  useEffect(() => {
+    const trigger = () => setBsod(true);
+    window.addEventListener("trigger-bsod", trigger);
+    return () => window.removeEventListener("trigger-bsod", trigger);
+  }, []);
+
+  useEffect(() => {
+    if (!bsod) return;
+    const dismiss = () => setBsod(false);
+    const timeout = setTimeout(dismiss, 3500);
+    window.addEventListener("keydown", dismiss);
+    window.addEventListener("click", dismiss);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("keydown", dismiss);
+      window.removeEventListener("click", dismiss);
+    };
+  }, [bsod]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.key === "F4" && focusedId) {
+        e.preventDefault();
+        setWindows((ws) => ws.filter((w) => w.id !== focusedId));
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedId]);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -142,6 +183,10 @@ export default function Win98Desktop({
     setWindows((ws) => ws.map((w) => (w.id === id ? { ...w, maximized: !w.maximized } : w)));
   const moveWindow = (id: string, x: number, y: number) =>
     setWindows((ws) => ws.map((w) => (w.id === id ? { ...w, x, y } : w)));
+  const resizeWindow = (id: string, w: number, h: number) =>
+    setWindows((ws) => ws.map((win) => (win.id === id ? { ...win, w, h } : win)));
+  const minimizeAll = () =>
+    setWindows((ws) => ws.map((w) => ({ ...w, minimized: true })));
 
   return (
     <div
@@ -204,6 +249,7 @@ export default function Win98Desktop({
           onMinimize={minimizeWindow}
           onMaximize={maximizeWindow}
           onMove={moveWindow}
+          onResize={resizeWindow}
         >
           {renderAppContent(w.id, projects, journal, () => closeWindow(w.id))}
         </Window>
@@ -316,6 +362,20 @@ export default function Win98Desktop({
           🪟 Start
         </button>
 
+        <button
+          onClick={minimizeAll}
+          title="Show Desktop"
+          style={{
+            fontSize: 14,
+            padding: "4px 8px",
+            border: "2px outset #FFFFFF",
+            background: "#C0C0C0",
+            cursor: "pointer",
+          }}
+        >
+          🖥️
+        </button>
+
         <div style={{ flex: 1, display: "flex", gap: 4, overflowX: "auto" }}>
           {windows.map((w) => (
             <button
@@ -356,16 +416,58 @@ export default function Win98Desktop({
         <div
           style={{
             border: "2px inset #808080",
-            padding: "4px 10px",
-            fontSize: 11,
-            fontFamily: "monospace",
-            minWidth: 52,
-            textAlign: "center",
+            padding: "4px 8px",
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
           }}
         >
-          {clock}
+          <span title="Volume" style={{ fontSize: 12 }}>
+            🔊
+          </span>
+          <span title="Network" style={{ fontSize: 12 }}>
+            🖧
+          </span>
+          <span style={{ fontFamily: "monospace", fontSize: 11, minWidth: 44, textAlign: "center" }}>
+            {clock}
+          </span>
         </div>
       </div>
+
+      {bsod && (
+        <div
+          className="fixed inset-0 flex items-center justify-center p-8"
+          style={{
+            background: "#0000AA",
+            color: "#FFFFFF",
+            fontFamily: "monospace",
+            fontSize: 14,
+            zIndex: 99999,
+            cursor: "pointer",
+          }}
+        >
+          <div style={{ maxWidth: 640 }}>
+            <p style={{ marginTop: 0 }}>Windows</p>
+            <p>
+              A fatal exception 0E has occurred at 0028:C0011E36 in VXD
+              VMM(01) + 00010E36. The current application will be
+              terminated.
+            </p>
+            <p>
+              * Press any key to terminate the current application.
+              <br />
+              * Press CTRL+ALT+DEL again to restart your computer. You will
+              lose any unsaved information in all applications.
+            </p>
+            <p>
+              Press any key to continue{" "}
+              <span className="retro-blink" aria-hidden="true">
+                _
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

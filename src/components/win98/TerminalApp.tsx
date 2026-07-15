@@ -77,7 +77,7 @@ export default function TerminalApp({
     switch (cmd) {
       case "help":
         print(
-          "commands: help, whoami, dir, cd <dir>, cat <file>, projects, journal, open <slug>, date, time, echo, matrix, sudo, cls, exit"
+          "commands: help, whoami, dir, cd <dir>, cat <file>, projects, journal, open <slug>, date, time, echo, matrix, bsod, sudo, cls, exit"
         );
         break;
 
@@ -193,6 +193,12 @@ export default function TerminalApp({
       case "matrix":
         print("waking up...");
         window.dispatchEvent(new Event("trigger-matrix-rain"));
+        break;
+
+      case "bsod":
+      case "crash":
+        print("Segmentation fault (core dumped)");
+        window.dispatchEvent(new Event("trigger-bsod"));
         break;
 
       case "sudo":

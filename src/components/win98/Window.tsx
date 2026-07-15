@@ -28,6 +28,7 @@ export default function Window({
   onMinimize,
   onMaximize,
   onMove,
+  onResize,
   children,
 }: {
   win: WinState;
@@ -37,13 +38,17 @@ export default function Window({
   onMinimize: (id: string) => void;
   onMaximize: (id: string) => void;
   onMove: (id: string, x: number, y: number) => void;
+  onResize: (id: string, w: number, h: number) => void;
   children: ReactNode;
 }) {
   const dragState = useRef<{ startX: number; startY: number; winX: number; winY: number } | null>(null);
+  const resizeState = useRef<{ startX: number; startY: number; startW: number; startH: number } | null>(null);
 
   if (win.minimized) return null;
 
   const fullscreen = isMobile || win.maximized;
+  const MIN_W = 220;
+  const MIN_H = 160;
 
   const onTitleBarPointerDown = (e: ReactPointerEvent) => {
     onFocus(win.id);
@@ -66,6 +71,34 @@ export default function Window({
     };
     const onUp = () => {
       dragState.current = null;
+      window.removeEventListener("pointermove", onMove_);
+      window.removeEventListener("pointerup", onUp);
+    };
+    window.addEventListener("pointermove", onMove_);
+    window.addEventListener("pointerup", onUp);
+  };
+
+  const onResizeHandlePointerDown = (e: ReactPointerEvent) => {
+    e.stopPropagation();
+    onFocus(win.id);
+    resizeState.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startW: win.w,
+      startH: win.h,
+    };
+    const onMove_ = (ev: PointerEvent) => {
+      if (!resizeState.current) return;
+      const dx = ev.clientX - resizeState.current.startX;
+      const dy = ev.clientY - resizeState.current.startY;
+      onResize(
+        win.id,
+        Math.max(MIN_W, resizeState.current.startW + dx),
+        Math.max(MIN_H, resizeState.current.startH + dy)
+      );
+    };
+    const onUp = () => {
+      resizeState.current = null;
       window.removeEventListener("pointermove", onMove_);
       window.removeEventListener("pointerup", onUp);
     };
@@ -159,6 +192,23 @@ export default function Window({
       >
         {children}
       </div>
+      {!fullscreen && (
+        <div
+          onPointerDown={onResizeHandlePointerDown}
+          title="Resize"
+          style={{
+            position: "absolute",
+            right: 0,
+            bottom: 0,
+            width: 16,
+            height: 16,
+            cursor: "nwse-resize",
+            touchAction: "none",
+            backgroundImage:
+              "repeating-linear-gradient(135deg, #808080 0, #808080 1px, transparent 1px, transparent 3px)",
+          }}
+        />
+      )}
     </div>
   );
 }

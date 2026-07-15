@@ -11,6 +11,34 @@ const appTextStyle: CSSProperties = {
   lineHeight: 1.6,
 };
 
+export function DocumentsApp() {
+  return (
+    <div style={appTextStyle}>
+      <h3 style={{ marginTop: 0 }}>🗂️ My Documents</h3>
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <tbody>
+          <tr>
+            <td style={{ padding: "8px 4px", verticalAlign: "top" }}>📄</td>
+            <td style={{ padding: "8px 4px" }}>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#0000EE", fontWeight: "bold" }}
+              >
+                Resume.pdf
+              </a>
+              <div style={{ color: "#444444", fontSize: 11 }}>
+                the real one. opens in a new tab.
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function AboutApp() {
   return (
     <div style={appTextStyle}>
