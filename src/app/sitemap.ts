@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getProjectsMeta } from "@/lib/projects";
 import { getJournalMeta } from "@/lib/journal";
+import { SITE_URL } from "@/lib/constants";
 
-const baseUrl = "https://swapnaj.dev";
+const baseUrl = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projects = getProjectsMeta().map((p) => ({

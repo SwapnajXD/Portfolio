@@ -1,11 +1,44 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getProjectsMeta, getProjectBody } from "@/lib/projects";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
-import { architectures } from "@/lib/architecture";
+import { architectures } from "@/lib/architectures";
+import { SITE_URL, GITHUB_URL } from "@/lib/constants";
 
 export function generateStaticParams() {
   return getProjectsMeta().map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectsMeta().find((p) => p.slug === slug);
+  if (!project) return {};
+
+  const title = "Swapnaj";
+  const ogTitle = `${project.title} — Swapnaj`;
+  const url = `${SITE_URL}/projects/${project.slug}`;
+
+  return {
+    title,
+    description: project.description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: ogTitle,
+      description: project.description,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: project.description,
+    },
+  };
 }
 
 export default async function ProjectPage({
@@ -18,8 +51,28 @@ export default async function ProjectPage({
   if (!project) notFound();
   const body = await getProjectBody(slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name: project.title,
+    description: project.description,
+    codeRepository: project.repo,
+    programmingLanguage: project.tech,
+    author: {
+      "@type": "Person",
+      name: "Swapnaj",
+      url: SITE_URL,
+      sameAs: [GITHUB_URL],
+    },
+    url: `${SITE_URL}/projects/${project.slug}`,
+  };
+
   return (
-    <article className="mx-auto max-w-3xl px-6 py-16">
+    <article className="mx-auto max-w-4xl px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Link href="/#projects" className="font-mono text-xs text-text-muted hover:text-accent">
         ← back to projects
       </Link>

@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-4xl px-6 py-8 font-mono text-[11px] text-text-muted">
+      <div className="mx-auto max-w-5xl px-6 py-8 font-mono text-[11px] text-text-muted">
         <p>
           Built with Next.js + Tailwind, deployed on Vercel, shipped via
           GitHub Actions CI/CD.

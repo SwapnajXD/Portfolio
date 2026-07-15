@@ -5,7 +5,12 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import CommandPalette from "@/components/CommandPalette";
+import EasterEggs from "@/components/EasterEggs";
+import MatrixRain from "@/components/MatrixRain";
 import { Analytics } from "@vercel/analytics/react";
+import { getProjectsMeta } from "@/lib/projects";
+import { ThemeProvider } from "@/components/ThemeContext";
+import { SITE_URL, GITHUB_URL, LINKEDIN_URL } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,10 +23,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://swapnaj.dev"),
-  title: "Swapnaj — Cloud & DevOps",
+  metadataBase: new URL(SITE_URL),
+  title: "Swapnaj",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
+  alternates: { canonical: SITE_URL },
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -34,7 +40,7 @@ export const metadata: Metadata = {
     title: "Swapnaj — Cloud & DevOps",
     description:
       "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
-    url: "https://swapnaj.dev",
+    url: SITE_URL,
     siteName: "Swapnaj — Cloud & DevOps",
     images: [
       {
@@ -59,8 +65,7 @@ const themeInitScript = `
 (function () {
   try {
     var stored = localStorage.getItem("theme");
-    var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var isDark = stored ? stored === "dark" : systemDark;
+    var isDark = stored === "dark";
     if (isDark) document.documentElement.classList.add("dark");
   } catch (e) {}
 })();
@@ -70,7 +75,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Swapnaj",
-  url: "https://swapnaj.dev",
+  url: SITE_URL,
   jobTitle: "Computer Engineering Student",
   description:
     "Computer engineering student building cloud and DevOps projects — infrastructure, pipelines, and monitoring.",
@@ -83,17 +88,15 @@ const personJsonLd = {
     "Kubernetes",
     "Linux",
   ],
-  sameAs: [
-    "https://github.com/SwapnajXD",
-    "https://www.linkedin.com/in/swapnajxd",
-  ],
+  sameAs: [GITHUB_URL, LINKEDIN_URL],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const projects = getProjectsMeta();
   return (
     <html lang="en">
       <head>
@@ -119,11 +122,15 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Nav />
-        <ThemeToggle />
-        <CommandPalette />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Nav />
+          <ThemeToggle />
+          <CommandPalette projects={projects} />
+          <EasterEggs />
+          <MatrixRain />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

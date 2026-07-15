@@ -1,28 +1,32 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useTheme } from "@/components/ThemeContext";
 
 const ThemeToggle = () => {
   const canvasRef = useRef(null);
-  const [isDark, setIsDark] = useState(false);
-  const isDarkRef = useRef(false);
+  const { isDark, toggleTheme } = useTheme();
+  const isDarkRef = useRef(isDark);
   const points = useRef([]);
   const sticks = useRef([]);
   const mouse = useRef({ x: 0, y: 0, down: false, target: null });
   const hasToggled = useRef(false);
 
+  // Keep the ref in sync so the animation loop (which reads via ref to
+  // avoid stale closures) always sees the current theme.
   useEffect(() => {
-    const checkInitialTheme = () => {
-      const isHtmlDark = document.documentElement.classList.contains("dark");
-      setIsDark(isHtmlDark);
-      isDarkRef.current = isHtmlDark;
-    };
-    checkInitialTheme();
+    isDarkRef.current = isDark;
+  }, [isDark]);
 
-    // The rope is a drag interaction — not meaningful on touch/small screens,
-    // and its hitbox would otherwise sit on top of real content there.
-    if (typeof window !== "undefined" && !window.matchMedia("(min-width: 640px)").matches) {
-      return;
-    }
+  useEffect(() => {
+    // The rope is a drag interaction — not meaningful on touch/small screens
+    // (its hitbox would sit on top of real content there), and not
+    // appropriate when the user has asked for reduced motion. Nav.tsx
+    // renders a simple button toggle in both of those cases instead.
+    const skipPhysics =
+      typeof window === "undefined" ||
+      !window.matchMedia("(min-width: 640px)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (skipPhysics) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -101,6 +105,7 @@ const ThemeToggle = () => {
     };
 
     const onPointerDown = (e) => {
+      wake();
       if (e.cancelable) e.preventDefault();
 
       if (e.pointerId !== undefined) {
@@ -187,6 +192,19 @@ const ThemeToggle = () => {
     window.addEventListener("pointercancel", handleUp, { passive: false });
     window.addEventListener("touchcancel", handleUp, { passive: false });
 
+    let frameId = null;
+    let sleeping = false;
+    let settledFrames = 0;
+    const SETTLE_FRAMES_NEEDED = 30; // ~0.5s of near-zero motion before sleeping
+
+    const wake = () => {
+      if (sleeping) {
+        sleeping = false;
+        settledFrames = 0;
+        frameId = requestAnimationFrame(render);
+      }
+    };
+
     const render = () => {
       const lastPoint = points.current[points.current.length - 1];
 
@@ -202,16 +220,8 @@ const ThemeToggle = () => {
             const triggerY = worldHeight * 0.52;
             if (p.y > triggerY) {
               if (!hasToggled.current) {
-                setIsDark((prev) => {
-                  const next = !prev;
-                  isDarkRef.current = next;
-                  document.documentElement.classList.toggle("dark", next);
-                  try {
-                    localStorage.setItem("theme", next ? "dark" : "light");
-                  } catch (e) {}
-                  hasToggled.current = true;
-                  return next;
-                });
+                toggleTheme();
+                hasToggled.current = true;
               }
             } else {
               hasToggled.current = false;
@@ -258,6 +268,11 @@ const ThemeToggle = () => {
           }
         });
       }
+
+      let totalMotion = 0;
+      points.current.forEach((p) => {
+        totalMotion += Math.abs(p.x - p.oldX) + Math.abs(p.y - p.oldY);
+      });
 
       ctx.clearRect(0, 0, worldWidth, worldHeight);
 
@@ -337,11 +352,24 @@ const ThemeToggle = () => {
 
       ctx.restore();
 
-      requestAnimationFrame(render);
+      const colorSettled = Math.abs(colorT - (isDarkRef.current ? 1 : 0)) < 0.002;
+      if (!mouse.current.down && totalMotion < 0.05 && colorSettled) {
+        settledFrames++;
+      } else {
+        settledFrames = 0;
+      }
+
+      if (settledFrames >= SETTLE_FRAMES_NEEDED) {
+        sleeping = true;
+        frameId = null;
+      } else {
+        frameId = requestAnimationFrame(render);
+      }
     };
 
-    render();
+    frameId = requestAnimationFrame(render);
     return () => {
+      if (frameId !== null) cancelAnimationFrame(frameId);
       canvas.removeEventListener("pointerdown", handleDown);
       canvas.removeEventListener("mousedown", handleDown);
       canvas.removeEventListener("touchstart", handleDown);

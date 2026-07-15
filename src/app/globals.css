@@ -60,7 +60,9 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
   color: var(--text-primary);
   font-family: var(--font-sans), sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -91,5 +93,37 @@ body {
   a {
     color: #000000 !important;
     text-decoration: underline;
+  }
+}
+
+/* Used only by the hidden /neocities easter egg page */
+@keyframes retro-marquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes retro-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+.retro-marquee {
+  animation: retro-marquee 12s linear infinite;
+}
+.retro-blink {
+  animation: retro-blink 1s step-start infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .retro-marquee,
+  .retro-blink {
+    animation: none;
   }
 }

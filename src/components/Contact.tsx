@@ -1,13 +1,22 @@
+import {
+  EMAIL,
+  EMAIL_HREF,
+  GITHUB_URL,
+  GITHUB_LABEL,
+  LINKEDIN_URL,
+  LINKEDIN_LABEL,
+} from "@/lib/constants";
+
 const links = [
-  { label: "Email", value: "swapnaj0806@gmail.com", href: "mailto:swapnaj0806@gmail.com" },
-  { label: "GitHub", value: "github.com/SwapnajXD", href: "https://github.com/SwapnajXD" },
-  { label: "LinkedIn", value: "linkedin.com/swapnajxd", href: "https://www.linkedin.com/in/swapnajxd" },
+  { label: "Email", value: EMAIL, href: EMAIL_HREF },
+  { label: "GitHub", value: GITHUB_LABEL, href: GITHUB_URL },
+  { label: "LinkedIn", value: LINKEDIN_LABEL, href: LINKEDIN_URL },
   { label: "Resume", value: "download PDF", href: "/resume.pdf" },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="mx-auto max-w-4xl px-6 py-16">
+    <section id="contact" className="mx-auto max-w-5xl px-6 py-16">
       <h2 className="mb-6 font-mono text-xs uppercase tracking-wide text-text-muted">
         // contact
       </h2>

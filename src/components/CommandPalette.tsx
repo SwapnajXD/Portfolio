@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { GITHUB_URL } from "@/lib/constants";
 
 type Command = {
   label: string;
@@ -9,7 +10,12 @@ type Command = {
   external?: boolean;
 };
 
-const commands: Command[] = [
+type ProjectSummary = {
+  slug: string;
+  title: string;
+};
+
+const staticCommands: Command[] = [
   { label: "Home", hint: "top", href: "/#top" },
   { label: "About", href: "/#about" },
   { label: "Skills", href: "/#skills" },
@@ -17,14 +23,27 @@ const commands: Command[] = [
   { label: "Experience & Certifications", href: "/#experience" },
   { label: "Contact", href: "/#contact" },
   { label: "Journal", hint: "notes", href: "/journal" },
-  { label: "HomeLab", hint: "project", href: "/projects/homelab" },
-  { label: "Cloud Sentinel", hint: "project", href: "/projects/cloud-sentinel" },
-  { label: "SlugStream", hint: "project", href: "/projects/slugstream" },
-  { label: "Receipt", hint: "project", href: "/projects/receipt" },
-  { label: "GitHub", hint: "external", href: "https://github.com/SwapnajXD", external: true },
+  { label: "GitHub", hint: "external", href: GITHUB_URL, external: true },
 ];
 
-export default function CommandPalette() {
+export default function CommandPalette({
+  projects = [],
+}: {
+  projects?: ProjectSummary[];
+}) {
+  const commands: Command[] = useMemo(
+    () => [
+      ...staticCommands.slice(0, 7),
+      ...projects.map((p) => ({
+        label: p.title,
+        hint: "project",
+        href: `/projects/${p.slug}`,
+      })),
+      ...staticCommands.slice(7),
+    ],
+    [projects]
+  );
+
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,6 +54,27 @@ export default function CommandPalette() {
   const filtered = commands.filter((c) =>
     c.label.toLowerCase().includes(query.toLowerCase())
   );
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const isSudo = normalizedQuery === "sudo" || normalizedQuery.startsWith("sudo ");
+  const isMatrix = normalizedQuery === "matrix";
+  const isCoffee = normalizedQuery === "coffee";
+
+  const runMatrix = () => {
+    setOpen(false);
+    setTimeout(() => window.dispatchEvent(new Event("trigger-matrix-rain")), 50);
+  };
+
+  const runCoffee = () => {
+    setOpen(false);
+    setTimeout(() => {
+      console.log(
+        "%c☕ brewing...\n%cthanks for checking, back to work",
+        "color:#F6821F;font-family:monospace;font-size:13px;font-weight:bold;",
+        "color:#9A9DA3;font-family:monospace;font-size:11px;"
+      );
+    }, 50);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -88,12 +128,21 @@ export default function CommandPalette() {
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === "Enter" && filtered[activeIndex]) {
-      select(filtered[activeIndex]);
+    } else if (e.key === "Enter") {
+      if (isMatrix) {
+        runMatrix();
+      } else if (isCoffee) {
+        runCoffee();
+      } else if (filtered[activeIndex]) {
+        select(filtered[activeIndex]);
+      }
     }
   };
 
   if (!open) return null;
+
+  const activeId =
+    filtered[activeIndex] !== undefined ? `cmdk-option-${activeIndex}` : undefined;
 
   return (
     <div
@@ -101,32 +150,85 @@ export default function CommandPalette() {
       onClick={() => setOpen(false)}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
         className="w-full max-w-lg overflow-hidden rounded-xl border border-border bg-surface shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-          <span className="font-mono text-sm text-accent">$</span>
+          <span className="font-mono text-sm text-accent" aria-hidden="true">
+            $
+          </span>
           <input
             ref={inputRef}
+            role="combobox"
+            aria-label="Search commands and pages"
+            aria-expanded="true"
+            aria-controls="cmdk-listbox"
+            aria-autocomplete="list"
+            aria-activedescendant={activeId}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleInputKeyDown}
             placeholder="Jump to..."
             className="w-full bg-transparent font-mono text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
           />
-          <span className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-text-muted">
+          <span
+            aria-hidden="true"
+            className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-text-muted"
+          >
             esc
           </span>
         </div>
-        <div className="max-h-72 overflow-y-auto py-2">
-          {filtered.length === 0 && (
-            <div className="px-4 py-6 text-center font-mono text-xs text-text-muted">
+        <div
+          id="cmdk-listbox"
+          role="listbox"
+          aria-label="Results"
+          className="max-h-72 overflow-y-auto py-2"
+        >
+          {filtered.length === 0 && isSudo && (
+            <div
+              role="status"
+              className="px-4 py-6 text-center font-mono text-xs text-text-muted"
+            >
+              <span className="text-accent">Permission denied</span>
+              <br />
+              nice try 😏
+            </div>
+          )}
+          {filtered.length === 0 && isMatrix && (
+            <button
+              onClick={runMatrix}
+              className="flex w-full items-center justify-between bg-bg px-4 py-2 text-left font-mono text-sm text-accent"
+            >
+              <span>🟢 wake up, swapnaj...</span>
+              <span className="text-[11px] text-text-muted">enter</span>
+            </button>
+          )}
+          {filtered.length === 0 && isCoffee && (
+            <button
+              onClick={runCoffee}
+              className="flex w-full items-center justify-between bg-bg px-4 py-2 text-left font-mono text-sm text-accent"
+            >
+              <span>☕ brewing...</span>
+              <span className="text-[11px] text-text-muted">enter</span>
+            </button>
+          )}
+          {filtered.length === 0 && !isSudo && !isMatrix && !isCoffee && (
+            <div
+              role="status"
+              className="px-4 py-6 text-center font-mono text-xs text-text-muted"
+            >
               no matches
             </div>
           )}
           {filtered.map((cmd, i) => (
             <button
               key={cmd.href}
+              id={`cmdk-option-${i}`}
+              role="option"
+              aria-selected={i === activeIndex}
               ref={(el) => {
                 itemRefs.current[i] = el;
               }}

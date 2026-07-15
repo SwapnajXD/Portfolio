@@ -1,18 +1,16 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
-import remarkHtml from "remark-html";
-import sanitizeHtml from "sanitize-html";
+import { renderMarkdown } from "@/lib/markdown";
+import {
+  journalFrontmatterSchema,
+  parseFrontmatter,
+  type JournalFrontmatter,
+} from "@/lib/schemas";
 
 const journalDir = path.join(process.cwd(), "src/content/journal");
 
-export type JournalMeta = {
-  slug: string;
-  title: string;
-  date: string;
-  summary: string;
-};
+export type JournalMeta = JournalFrontmatter & { slug: string };
 
 export function getJournalMeta(): JournalMeta[] {
   if (!fs.existsSync(journalDir)) return [];
@@ -22,11 +20,10 @@ export function getJournalMeta(): JournalMeta[] {
     .map((file) => {
       const raw = fs.readFileSync(path.join(journalDir, file), "utf8");
       const { data } = matter(raw);
+      const fm = parseFrontmatter(journalFrontmatterSchema, data, `journal/${file}`);
       return {
         slug: file.replace(/\.md$/, ""),
-        title: data.title as string,
-        date: data.date as string,
-        summary: data.summary as string,
+        ...fm,
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -37,26 +34,11 @@ export async function getJournalPost(slug: string) {
   if (!fs.existsSync(filePath)) return null;
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
-  const processed = await remark().use(remarkHtml).process(content);
-  const cleanHtml = sanitizeHtml(processed.toString(), {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "h1", "h2"]),
-    allowedAttributes: {
-      ...sanitizeHtml.defaults.allowedAttributes,
-      img: ["src", "alt", "title", "width", "height"],
-      a: ["href", "name", "target", "rel"],
-    },
-    // Force safe rel/target on any links so authored content can't
-    // accidentally (or maliciously) leak referrer info or hijack the tab
-    transformTags: {
-      a: sanitizeHtml.simpleTransform("a", {
-        rel: "noopener noreferrer",
-        target: "_blank",
-      }),
-    },
-  });
+  const fm = parseFrontmatter(journalFrontmatterSchema, data, `journal/${slug}.md`);
+  const html = await renderMarkdown(content);
   return {
-    title: data.title as string,
-    date: data.date as string,
-    html: cleanHtml,
+    title: fm.title,
+    date: fm.date,
+    html,
   };
 }
