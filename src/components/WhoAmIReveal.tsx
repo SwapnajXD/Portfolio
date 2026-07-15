@@ -5,16 +5,25 @@ import Link from "next/link";
 import Win98Desktop from "@/components/win98/Win98Desktop";
 
 type ProjectSummary = { slug: string; title: string; tagline: string };
+type JournalSummary = { slug: string; title: string; summary: string };
 
 export default function WhoAmIReveal({
   projects,
+  journal,
 }: {
   projects: ProjectSummary[];
+  journal: JournalSummary[];
 }) {
   const [revealed, setRevealed] = useState(false);
 
   if (revealed) {
-    return <Win98Desktop projects={projects} onExit={() => setRevealed(false)} />;
+    return (
+      <Win98Desktop
+        projects={projects}
+        journal={journal}
+        onExit={() => setRevealed(false)}
+      />
+    );
   }
 
   return (

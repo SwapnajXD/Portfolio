@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import WhoAmIReveal from "@/components/WhoAmIReveal";
 import { getProjectsMeta } from "@/lib/projects";
+import { getJournalMeta } from "@/lib/journal";
 
 export const metadata: Metadata = {
   title: "whoami",
@@ -13,5 +14,10 @@ export default function WhoAmI() {
     title: p.title,
     tagline: p.tagline,
   }));
-  return <WhoAmIReveal projects={projects} />;
+  const journal = getJournalMeta().map((j) => ({
+    slug: j.slug,
+    title: j.title,
+    summary: j.summary,
+  }));
+  return <WhoAmIReveal projects={projects} journal={journal} />;
 }

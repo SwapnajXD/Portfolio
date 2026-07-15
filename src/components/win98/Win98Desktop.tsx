@@ -13,6 +13,7 @@ import TerminalApp from "./TerminalApp";
 import IEApp from "./IEApp";
 
 type ProjectSummary = { slug: string; title: string; tagline: string };
+type JournalSummary = { slug: string; title: string; summary: string };
 
 type AppDef = {
   id: string;
@@ -35,6 +36,7 @@ const APPS: AppDef[] = [
 function renderAppContent(
   id: string,
   projects: ProjectSummary[],
+  journal: JournalSummary[],
   onCloseTerminal: () => void
 ) {
   switch (id) {
@@ -43,7 +45,13 @@ function renderAppContent(
     case "projects":
       return <ProjectsApp projects={projects} />;
     case "terminal":
-      return <TerminalApp projects={projects} onClose={onCloseTerminal} />;
+      return (
+        <TerminalApp
+          projects={projects}
+          journal={journal}
+          onClose={onCloseTerminal}
+        />
+      );
     case "ie":
       return <IEApp />;
     case "notepad":
@@ -59,9 +67,11 @@ function renderAppContent(
 
 export default function Win98Desktop({
   projects,
+  journal,
   onExit,
 }: {
   projects: ProjectSummary[];
+  journal: JournalSummary[];
   onExit: () => void;
 }) {
   const [windows, setWindows] = useState<WinState[]>([]);
@@ -195,7 +205,7 @@ export default function Win98Desktop({
           onMaximize={maximizeWindow}
           onMove={moveWindow}
         >
-          {renderAppContent(w.id, projects, () => closeWindow(w.id))}
+          {renderAppContent(w.id, projects, journal, () => closeWindow(w.id))}
         </Window>
       ))}
 
