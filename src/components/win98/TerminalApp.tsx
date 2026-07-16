@@ -198,7 +198,7 @@ export default function TerminalApp({
       case "bsod":
       case "crash":
         print("Segmentation fault (core dumped)");
-        window.dispatchEvent(new Event("trigger-bsod"));
+        setTimeout(() => window.dispatchEvent(new Event("trigger-bsod")), 50);
         break;
 
       case "sudo":

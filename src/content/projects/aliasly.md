@@ -11,7 +11,7 @@ tech:
   - "Redis"
   - "Nginx"
   - "Docker Compose"
-repo: "https://github.com/SwapnajXD/SlugStream"
+repo: "https://github.com/SwapnajXD/Aliasly"
 category: "Full-stack"
 order: 3
 highlights:

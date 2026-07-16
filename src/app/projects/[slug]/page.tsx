@@ -123,7 +123,7 @@ export default async function ProjectPage({
 
       {body && (
         <div
-          className="prose-sm mb-8 max-w-none text-sm leading-relaxed text-text-primary [&_p]:mb-4"
+          className="case-study mb-8 text-sm text-text-primary"
           dangerouslySetInnerHTML={{ __html: body }}
         />
       )}

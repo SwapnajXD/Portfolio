@@ -1,22 +1,125 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { EMAIL, EMAIL_HREF } from "@/lib/constants";
 
 const webring = ["cyberdungeon", "pixelforge", "modemzone", "byteattic"];
 
+const ieBtn: CSSProperties = {
+  background: "#ECECEC",
+  border: "1px outset #FFFFFF",
+  fontSize: 11,
+  padding: "3px 8px",
+  cursor: "pointer",
+  fontFamily: "Verdana, Arial, sans-serif",
+};
+
 export default function IEApp() {
   const [midiPlaying, setMidiPlaying] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const refresh = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 600);
+  };
 
   return (
     <div
       style={{
         fontFamily: "Verdana, Arial, sans-serif",
-        background: "#E8EEF7",
-        color: "#000000",
-        minHeight: "100%",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
       }}
     >
+      {/* menu bar */}
+      <div
+        style={{
+          background: "#ECECEC",
+          borderBottom: "1px solid #999999",
+          padding: "3px 8px",
+          display: "flex",
+          gap: 14,
+          fontSize: 11,
+          color: "#000000",
+        }}
+      >
+        <span>File</span>
+        <span>Edit</span>
+        <span>View</span>
+        <span>Favorites</span>
+        <span>Tools</span>
+        <span>Help</span>
+      </div>
+
+      {/* toolbar */}
+      <div
+        style={{
+          background: "#ECECEC",
+          borderBottom: "1px solid #999999",
+          padding: "4px 8px",
+          display: "flex",
+          gap: 4,
+        }}
+      >
+        <button style={{ ...ieBtn, opacity: 0.5 }} disabled>
+          ⬅ Back
+        </button>
+        <button style={{ ...ieBtn, opacity: 0.5 }} disabled>
+          ➡ Forward
+        </button>
+        <button style={ieBtn} onClick={refresh}>
+          ⟲ Refresh
+        </button>
+        <button style={ieBtn} onClick={refresh}>
+          🏠 Home
+        </button>
+      </div>
+
+      {/* address bar */}
+      <div
+        style={{
+          background: "#ECECEC",
+          borderBottom: "1px solid #999999",
+          padding: "4px 8px",
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+        }}
+      >
+        <span style={{ fontSize: 11 }}>Address</span>
+        <div
+          style={{
+            flex: 1,
+            background: "#FFFFFF",
+            border: "1px inset #999999",
+            padding: "3px 6px",
+            fontSize: 11,
+            fontFamily: "monospace",
+            color: "#000000",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          http://www.geocities.com/SiliconValley/Cyber/1337/index.html
+        </div>
+        <button style={ieBtn} onClick={refresh}>
+          Go
+        </button>
+      </div>
+
+      {/* page content */}
+      <div
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          background: "#E8EEF7",
+          color: "#000000",
+          opacity: loading ? 0.4 : 1,
+          transition: "opacity 0.2s",
+        }}
+      >
       <div style={{ background: "#FFFFFF" }}>
         <div
           style={{
@@ -212,6 +315,23 @@ export default function IEApp() {
           </p>
         </div>
       </div>
+
+      {/* status bar */}
+      <div
+        style={{
+          background: "#ECECEC",
+          borderTop: "1px solid #999999",
+          padding: "3px 8px",
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: 10,
+          color: "#000000",
+        }}
+      >
+        <span>{loading ? "Opening page..." : "Done"}</span>
+        <span>🌐 Internet zone</span>
+      </div>
     </div>
+  </div>
   );
 }
