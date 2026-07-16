@@ -225,3 +225,27 @@ body {
   border-radius: 8px;
   border: 1px solid var(--border);
 }
+.case-study table {
+  width: 100%;
+  margin: 0 0 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.case-study th,
+.case-study td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.case-study th {
+  background: var(--bg);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.case-study td {
+  color: var(--text-primary);
+}
+.case-study tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--bg) 50%, transparent);
+}
