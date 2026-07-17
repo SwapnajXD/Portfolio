@@ -1,6 +1,6 @@
 import type { ArchitectureDiagramData } from "@/components/ArchitectureDiagram";
 
-export const slugstream: ArchitectureDiagramData = {
+export const aliasly: ArchitectureDiagramData = {
   command: "architecture --interactive",
   heading: "Shorten a link, resolve a link",
   viewBox: "0 0 980 320",

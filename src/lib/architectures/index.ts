@@ -1,7 +1,7 @@
 import type { ArchitectureDiagramData } from "@/components/ArchitectureDiagram";
 import { cloudSentinel } from "./cloud-sentinel";
 import { homelab } from "./homelab";
-import { slugstream } from "./slugstream";
+import { aliasly } from "./aliasly";
 import { receipt } from "./receipt";
 
 // Add a new project's diagram by creating architectures/<slug>.ts
@@ -9,6 +9,6 @@ import { receipt } from "./receipt";
 export const architectures: Record<string, ArchitectureDiagramData> = {
   "cloud-sentinel": cloudSentinel,
   homelab,
-  slugstream,
+  aliasly,
   receipt,
 };

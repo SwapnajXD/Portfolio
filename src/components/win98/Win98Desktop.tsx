@@ -29,7 +29,7 @@ const APPS: AppDef[] = [
   { id: "projects", title: "My Projects", icon: "📁", w: 420, h: 340 },
   { id: "documents", title: "My Documents", icon: "🗂️", w: 360, h: 260 },
   { id: "terminal", title: "Terminal", icon: "💻", w: 420, h: 300 },
-  { id: "ie", title: "Internet Explorer", icon: "🌐", w: 480, h: 460 },
+  { id: "ie", title: "Internet Explorer", icon: "🌐", w: 500, h: 520 },
   { id: "notepad", title: "Notepad", icon: "📝", w: 380, h: 320 },
   { id: "calculator", title: "Calculator", icon: "🧮", w: 220, h: 320 },
   { id: "recycle", title: "Recycle Bin", icon: "🗑️", w: 340, h: 260 },

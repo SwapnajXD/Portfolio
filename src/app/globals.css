@@ -127,3 +127,125 @@ body {
     animation: none;
   }
 }
+
+/* Case study markdown body (rendered via dangerouslySetInnerHTML on project
+   and journal pages). Hand-styled against the site's own theme tokens
+   instead of Tailwind Typography, which was never actually installed —
+   "prose-sm" was previously a no-op class doing nothing. */
+.case-study h2 {
+  margin: 2rem 0 0.75rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.case-study > h2:first-child {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+.case-study h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.case-study p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+.case-study ul,
+.case-study ol {
+  margin: 0 0 1rem;
+  padding-left: 1.4rem;
+}
+.case-study ul {
+  list-style: disc;
+}
+.case-study ol {
+  list-style: decimal;
+}
+.case-study li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+.case-study li::marker {
+  color: var(--accent);
+}
+.case-study strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.case-study a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.case-study code {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.85em;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}
+.case-study pre {
+  margin: 0 0 1.25rem;
+  padding: 1rem;
+  overflow-x: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.case-study pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+.case-study blockquote {
+  margin: 0 0 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  color: var(--text-muted);
+  font-style: italic;
+}
+.case-study hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+.case-study img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.case-study table {
+  width: 100%;
+  margin: 0 0 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.case-study th,
+.case-study td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.case-study th {
+  background: var(--bg);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.case-study td {
+  color: var(--text-primary);
+}
+.case-study tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--bg) 50%, transparent);
+}
