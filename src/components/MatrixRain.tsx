@@ -93,7 +93,7 @@ export default function MatrixRain() {
     return (
       <div
         role="status"
-        className="fixed inset-0 z-[300] flex cursor-pointer flex-col items-center justify-center gap-3 bg-black font-mono text-[#3CE07A]"
+        className="fixed inset-0 z-[500] flex cursor-pointer flex-col items-center justify-center gap-3 bg-black font-mono text-[#3CE07A]"
       >
         <div className="text-lg">🟢 wake up, swapnaj...</div>
         <div className="text-xs text-[#3CE07A]/60">click or press any key to exit</div>
@@ -102,7 +102,7 @@ export default function MatrixRain() {
   }
 
   return (
-    <div className="fixed inset-0 z-[300] cursor-pointer bg-black">
+    <div className="fixed inset-0 z-[500] cursor-pointer bg-black">
       <canvas ref={canvasRef} className="block h-full w-full" />
       <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs text-[#3CE07A]/70">
         click or press any key to exit
