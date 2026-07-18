@@ -192,7 +192,7 @@ export default function TerminalApp({
 
       case "matrix":
         print("waking up...");
-        window.dispatchEvent(new Event("trigger-matrix-rain"));
+        setTimeout(() => window.dispatchEvent(new Event("trigger-matrix-rain")), 50);
         break;
 
       case "bsod":
