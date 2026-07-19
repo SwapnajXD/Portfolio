@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="border-t border-border">
@@ -7,6 +9,12 @@ export default function Footer() {
           GitHub Actions CI/CD.
         </p>
         <p className="mt-1">© {new Date().getFullYear()} Swapnaj. All rights reserved.</p>
+        <p className="mt-1">
+          $ whoami{" "}
+          <Link href="/whoami" className="hover:text-accent hover:underline">
+            → you tell me
+          </Link>
+        </p>
       </div>
     </footer>
   );

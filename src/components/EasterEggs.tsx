@@ -33,7 +33,7 @@ export default function EasterEggs() {
       "color:#3B82F6;font-family:monospace;font-size:12px;"
     );
     console.log(
-      "%c(psst — try the konami code)",
+      "%c(psst — try the konami code. or visit /whoami)",
       "color:#9A9DA3;font-family:monospace;font-size:11px;font-style:italic;"
     );
   }, []);
